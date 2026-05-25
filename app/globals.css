@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #F9F7F4;
+  --fg: #1C1917;
+  --spain-red: #BF2638;
+  --spain-gold: #D4AC0D;
+  --ai-violet: #6D28D9;
+  --muted: #78716C;
+  --border: #E7E5E4;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--fg);
+}
+
+::selection {
+  background-color: var(--spain-red);
+  color: #fff;
+}
+
+@keyframes pulse-line {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+.animate-pulse-line {
+  animation: pulse-line 2s ease-in-out infinite;
+}
