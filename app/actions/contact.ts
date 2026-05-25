@@ -44,7 +44,8 @@ export async function sendContact(
   if (!res.ok) {
     const body = await res.json().catch(() => ({}))
     console.error('[Espanias contact] Resend error:', res.status, JSON.stringify(body))
-    return { ok: false, error: 'No se pudo enviar el mensaje. Inténtalo de nuevo.' }
+    const msg = (body as { message?: string }).message ?? JSON.stringify(body)
+    return { ok: false, error: `Error ${res.status}: ${msg}` }
   }
 
   return { ok: true }
