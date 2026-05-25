@@ -28,8 +28,8 @@ export async function sendContact(
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      from: 'Espanias <onboarding@resend.dev>',
-      to: 'makicarapp@gmail.com',
+      from: 'Espanias <hola@espanias.com>',
+      to: 'informa@blablaele.com',
       reply_to: email,
       subject: `[Espanias] Mensaje de ${name}`,
       html: `
