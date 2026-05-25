@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <clipPath id="r">
+      <rect width="32" height="32" rx="7"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#r)">
+    <rect width="32" height="32" fill="#1C1917"/>
+    <rect width="32" height="5" fill="#BF2638"/>
+    <text
+      x="16"
+      y="26"
+      text-anchor="middle"
+      font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif"
+      font-size="18"
+      font-weight="800"
+      fill="#F9F7F4"
+    >ñ</text>
+  </g>
+</svg>
