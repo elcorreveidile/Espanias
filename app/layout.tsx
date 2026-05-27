@@ -9,15 +9,52 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'Espanias — España en la era de las IAs',
+  metadataBase: new URL('https://espanias.com'),
+  title: {
+    default: 'Espanias — España en la era de las IAs',
+    template: '%s | Espanias',
+  },
   description:
-    'Una colección de proyectos donde la creatividad humana y la potencia de las inteligencias artificiales se encuentran.',
-  keywords: ['inteligencia artificial', 'España', 'IA', 'proyectos', 'educación', 'tecnología'],
+    'Proyectos, consultoría y formación donde la creatividad humana y la inteligencia artificial se unen. España en la era de las IAs.',
+  keywords: [
+    'inteligencia artificial',
+    'España',
+    'IA',
+    'consultoría IA',
+    'formación inteligencia artificial',
+    'proyectos IA',
+    'educación digital',
+    'transformación digital',
+  ],
+  authors: [{ name: 'Espanias', url: 'https://espanias.com' }],
   openGraph: {
+    type: 'website',
+    locale: 'es_ES',
+    alternateLocale: ['en_US'],
+    url: 'https://espanias.com',
+    siteName: 'Espanias',
     title: 'Espanias — España en la era de las IAs',
     description:
-      'Una colección de proyectos donde la creatividad humana y la potencia de las IAs se encuentran.',
-    type: 'website',
+      'Proyectos, consultoría y formación donde la creatividad humana y la inteligencia artificial se unen.',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Espanias — España en la era de las IAs',
+    description:
+      'Proyectos, consultoría y formación donde la creatividad humana y la inteligencia artificial se unen.',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  alternates: {
+    canonical: 'https://espanias.com',
   },
 }
 
