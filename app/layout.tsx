@@ -9,7 +9,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://espanias.com'),
+  metadataBase: new URL('https://www.espanias.com'),
   title: {
     default: 'Espanias — Proyectos, formación y consultoría con IA',
     template: '%s | Espanias',
@@ -26,22 +26,31 @@ export const metadata: Metadata = {
     'educación digital',
     'transformación digital',
   ],
-  authors: [{ name: 'Espanias', url: 'https://espanias.com' }],
+  authors: [{ name: 'Espanias', url: 'https://www.espanias.com' }],
   openGraph: {
     type: 'website',
     locale: 'es_ES',
     alternateLocale: ['en_US'],
-    url: 'https://espanias.com',
+    url: 'https://www.espanias.com',
     siteName: 'Espanias',
     title: 'Espanias — Proyectos, formación y consultoría con IA',
     description:
       'Descubre proyectos reales donde la creatividad española y la inteligencia artificial se unen. Formación, consultoría y herramientas IA a medida.',
+    images: [
+      {
+        url: 'https://www.espanias.com/opengraph-image',
+        width: 1200,
+        height: 630,
+        alt: 'Espanias — Proyectos, formación y consultoría con IA',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Espanias — Proyectos, formación y consultoría con IA',
     description:
       'Descubre proyectos reales donde la creatividad española y la inteligencia artificial se unen. Formación, consultoría y herramientas IA a medida.',
+    images: ['https://www.espanias.com/opengraph-image'],
   },
   robots: {
     index: true,
@@ -54,7 +63,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: 'https://espanias.com',
+    canonical: 'https://www.espanias.com',
   },
 }
 
