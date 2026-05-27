@@ -11,11 +11,11 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL('https://espanias.com'),
   title: {
-    default: 'Espanias — España en la era de las IAs',
+    default: 'Espanias — Proyectos, formación y consultoría con IA en España',
     template: '%s | Espanias',
   },
   description:
-    'Proyectos, consultoría y formación donde la creatividad humana y la inteligencia artificial se unen. España en la era de las IAs.',
+    'Descubre proyectos reales donde la creatividad española y la inteligencia artificial se unen. Formación, consultoría y herramientas IA a medida para empresas y personas.',
   keywords: [
     'inteligencia artificial',
     'España',
@@ -33,15 +33,15 @@ export const metadata: Metadata = {
     alternateLocale: ['en_US'],
     url: 'https://espanias.com',
     siteName: 'Espanias',
-    title: 'Espanias — España en la era de las IAs',
+    title: 'Espanias — Proyectos, formación y consultoría con IA en España',
     description:
-      'Proyectos, consultoría y formación donde la creatividad humana y la inteligencia artificial se unen.',
+      'Descubre proyectos reales donde la creatividad española y la inteligencia artificial se unen. Formación, consultoría y herramientas IA a medida.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Espanias — España en la era de las IAs',
+    title: 'Espanias — Proyectos, formación y consultoría con IA en España',
     description:
-      'Proyectos, consultoría y formación donde la creatividad humana y la inteligencia artificial se unen.',
+      'Descubre proyectos reales donde la creatividad española y la inteligencia artificial se unen. Formación, consultoría y herramientas IA a medida.',
   },
   robots: {
     index: true,

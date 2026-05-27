@@ -63,8 +63,24 @@ export default function OGImage() {
           </div>
 
           {/* Tagline */}
-          <div style={{ display: 'flex', fontSize: 30, color: '#78716C', fontWeight: 400 }}>
+          <div style={{ display: 'flex', fontSize: 30, color: '#78716C', fontWeight: 400, marginBottom: 44 }}>
             La España en la era de las inteligencias artificiales
+          </div>
+
+          {/* CTA */}
+          <div
+            style={{
+              display: 'flex',
+              background: '#BF2638',
+              color: '#ffffff',
+              fontSize: 22,
+              fontWeight: 700,
+              padding: '14px 36px',
+              borderRadius: 100,
+              alignSelf: 'flex-start',
+            }}
+          >
+            Descúbrelo en espanias.com →
           </div>
         </div>
 
