@@ -37,6 +37,7 @@ export default function Nav() {
           {[
             { href: '#manifiesto', label: t.about },
             { href: '#proyectos', label: t.projects },
+            { href: '#servicios', label: t.services },
             { href: '#contacto', label: t.contact },
           ].map(({ href, label }) => (
             <a
@@ -91,6 +92,9 @@ export default function Nav() {
           </a>
           <a href="#proyectos" onClick={close} className="text-sm text-[#78716C]">
             {t.projects}
+          </a>
+          <a href="#servicios" onClick={close} className="text-sm text-[#78716C]">
+            {t.services}
           </a>
           <a href="#contacto" onClick={close} className="text-sm text-[#78716C]">
             {t.contact}
