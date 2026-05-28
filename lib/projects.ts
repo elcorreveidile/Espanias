@@ -20,7 +20,7 @@ export const projects: Project[] = [
   {
     id: 'costacompanion',
     name: 'Costa Companion',
-    url: 'https://github.com/elcorreveidile/costacompanion',
+    url: 'https://www.costacompanion.com',
     description: {
       es: 'Compañero inteligente para explorar la costa.',
       en: 'Smart companion for exploring the coast.',
