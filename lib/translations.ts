@@ -5,6 +5,7 @@ export const translations = {
     nav: {
       about: 'Manifiesto',
       projects: 'Proyectos',
+      services: 'Servicios',
       contact: 'Contacto',
       langSwitch: 'EN',
     },
@@ -57,11 +58,24 @@ export const translations = {
       madeWith: 'Hecho con IA y curiosidad',
       rights: 'Todos los derechos reservados',
     },
+    servicios: {
+      eyebrow: 'Servicios',
+      title: 'Integra la IA en tu empresa',
+      subtitle: 'No hace falta transformar todo de golpe. Un primer paso práctico ya marca la diferencia.',
+      s1title: 'Formación',
+      s1desc: 'Talleres y sesiones prácticas para que tus equipos usen la IA con confianza desde el primer día.',
+      s2title: 'Consultoría',
+      s2desc: 'Analizamos tu flujo de trabajo e identificamos dónde la IA puede ahorrarte tiempo y dinero real.',
+      s3title: 'Proyectos a medida',
+      s3desc: 'Desarrollamos herramientas y automatizaciones con IA adaptadas exactamente a tu negocio.',
+      cta: 'Hablemos',
+    },
   },
   en: {
     nav: {
       about: 'Manifesto',
       projects: 'Projects',
+      services: 'Services',
       contact: 'Contact',
       langSwitch: 'ES',
     },
@@ -113,6 +127,18 @@ export const translations = {
     footer: {
       madeWith: 'Made with AI and curiosity',
       rights: 'All rights reserved',
+    },
+    servicios: {
+      eyebrow: 'Services',
+      title: 'Integrate AI into your business',
+      subtitle: "You don't need to transform everything at once. One practical first step already makes a difference.",
+      s1title: 'Training',
+      s1desc: 'Practical workshops and sessions so your teams use AI confidently from day one.',
+      s2title: 'Consulting',
+      s2desc: 'We analyze your workflow and identify where AI can save you real time and money.',
+      s3title: 'Custom projects',
+      s3desc: 'We build AI-powered tools and automations tailored exactly to your business.',
+      cta: "Let's talk",
     },
   },
 }

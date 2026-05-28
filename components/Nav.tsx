@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useLanguage } from '@/context/LanguageContext'
 import { translations } from '@/lib/translations'
+import Logo from '@/components/Logo'
 
 export default function Nav() {
   const { lang, toggle } = useLanguage()
@@ -27,11 +28,8 @@ export default function Nav() {
       }`}
     >
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        {/* Wordmark */}
-        <a href="#inicio" className="font-black text-xl tracking-tight select-none">
-          <span className="text-[#1C1917]">Espa</span>
-          <span className="text-[#BF2638]">n</span>
-          <span className="text-[#6D28D9]">ias</span>
+        <a href="#inicio" aria-label="Espanias — inicio">
+          <Logo variant="nav" />
         </a>
 
         {/* Desktop links */}
@@ -39,6 +37,7 @@ export default function Nav() {
           {[
             { href: '#manifiesto', label: t.about },
             { href: '#proyectos', label: t.projects },
+            { href: '#servicios', label: t.services },
             { href: '#contacto', label: t.contact },
           ].map(({ href, label }) => (
             <a
@@ -93,6 +92,9 @@ export default function Nav() {
           </a>
           <a href="#proyectos" onClick={close} className="text-sm text-[#78716C]">
             {t.projects}
+          </a>
+          <a href="#servicios" onClick={close} className="text-sm text-[#78716C]">
+            {t.services}
           </a>
           <a href="#contacto" onClick={close} className="text-sm text-[#78716C]">
             {t.contact}

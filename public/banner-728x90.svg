@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="728" height="90" viewBox="0 0 728 90">
+  <defs>
+    <clipPath id="c"><rect width="728" height="90" rx="8"/></clipPath>
+  </defs>
+  <a href="https://espanias.com" target="_blank">
+    <g clip-path="url(#c)">
+      <!-- Background -->
+      <rect width="728" height="90" fill="#1C1917"/>
+      <!-- Top flag stripe -->
+      <rect width="728" height="4" fill="#BF2638"/>
+      <rect y="4" width="728" height="3" fill="#D4AC0D" opacity="0.5"/>
+
+      <!-- ñ logomark -->
+      <rect x="18" y="14" width="56" height="56" rx="10" fill="#272220"/>
+      <rect x="18" y="14" width="56" height="9" fill="#BF2638"/>
+      <text x="46" y="68" text-anchor="middle"
+        font-family="Georgia,'Times New Roman',serif"
+        font-size="28" font-weight="900" fill="#F9F7F4">ñ</text>
+
+      <!-- Wordmark -->
+      <text x="88" y="56"
+        font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif"
+        font-size="28" font-weight="900" letter-spacing="-0.5">
+        <tspan fill="#F9F7F4">Espa</tspan><tspan fill="#BF2638">n</tspan><tspan fill="#6D28D9">ias</tspan>
+      </text>
+
+      <!-- Vertical divider -->
+      <rect x="228" y="22" width="1" height="46" fill="#3A3530"/>
+
+      <!-- Tagline -->
+      <text x="248" y="46"
+        font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif"
+        font-size="15" fill="#A8A29E">España en la era de las</text>
+      <text x="248" y="66"
+        font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif"
+        font-size="15" fill="#A8A29E">inteligencias artificiales</text>
+
+      <!-- CTA pill -->
+      <rect x="556" y="24" width="154" height="42" rx="21" fill="#BF2638"/>
+      <text x="633" y="50" text-anchor="middle"
+        font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif"
+        font-size="14" font-weight="700" fill="#ffffff">espanias.com  →</text>
+    </g>
+  </a>
+</svg>

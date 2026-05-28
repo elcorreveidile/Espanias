@@ -9,15 +9,61 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'Espanias — España en la era de las IAs',
+  metadataBase: new URL('https://www.espanias.com'),
+  title: {
+    default: 'Espanias — Proyectos, formación y consultoría con IA',
+    template: '%s | Espanias',
+  },
   description:
-    'Una colección de proyectos donde la creatividad humana y la potencia de las inteligencias artificiales se encuentran.',
-  keywords: ['inteligencia artificial', 'España', 'IA', 'proyectos', 'educación', 'tecnología'],
+    'Descubre proyectos reales donde la creatividad española y la inteligencia artificial se unen. Formación, consultoría y herramientas IA a medida para empresas y personas.',
+  keywords: [
+    'inteligencia artificial',
+    'España',
+    'IA',
+    'consultoría IA',
+    'formación inteligencia artificial',
+    'proyectos IA',
+    'educación digital',
+    'transformación digital',
+  ],
+  authors: [{ name: 'Espanias', url: 'https://www.espanias.com' }],
   openGraph: {
-    title: 'Espanias — España en la era de las IAs',
-    description:
-      'Una colección de proyectos donde la creatividad humana y la potencia de las IAs se encuentran.',
     type: 'website',
+    locale: 'es_ES',
+    alternateLocale: ['en_US'],
+    url: 'https://www.espanias.com',
+    siteName: 'Espanias',
+    title: 'Espanias — Proyectos, formación y consultoría con IA',
+    description:
+      'Descubre proyectos reales donde la creatividad española y la inteligencia artificial se unen. Formación, consultoría y herramientas IA a medida.',
+    images: [
+      {
+        url: 'https://www.espanias.com/opengraph-image',
+        width: 1200,
+        height: 630,
+        alt: 'Espanias — Proyectos, formación y consultoría con IA',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Espanias — Proyectos, formación y consultoría con IA',
+    description:
+      'Descubre proyectos reales donde la creatividad española y la inteligencia artificial se unen. Formación, consultoría y herramientas IA a medida.',
+    images: ['https://www.espanias.com/opengraph-image'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  alternates: {
+    canonical: 'https://www.espanias.com',
   },
 }
 
