@@ -17,6 +17,16 @@ export const categoryColors: Record<Category, string> = {
 }
 
 export const projects: Project[] = [
+  {
+    id: 'costacompanion',
+    name: 'Costa Companion',
+    url: 'https://github.com/elcorreveidile/costacompanion',
+    description: {
+      es: 'Compañero inteligente para explorar la costa.',
+      en: 'Smart companion for exploring the coast.',
+    },
+    category: 'ia',
+  },
   // IA & Tech
   {
     id: 'makicar',
