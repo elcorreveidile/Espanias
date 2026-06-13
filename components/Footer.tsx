@@ -17,7 +17,19 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <Logo variant="footer" />
-          <span className="text-[#78716C] text-xs opacity-70">— {t.madeWith}</span>
+          <span className="text-[#78716C] text-xs opacity-70">
+            — {t.madeWith}{' '}
+            <a
+              href="https://www.por2duros.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              title={t.por2durosTagline}
+              className="group font-semibold text-[#BF2638] transition-colors hover:text-[#D4AC0D]"
+            >
+              {t.por2duros}
+              <span className="opacity-0 transition-opacity group-hover:opacity-100"> 🪙</span>
+            </a>
+          </span>
         </div>
         <p className="text-xs text-[#78716C] opacity-60">
           © {year} · {t.rights}
