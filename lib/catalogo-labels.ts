@@ -46,13 +46,13 @@ export const categoryLabels: Record<Lang, Record<Category, string>> = {
 export const statusLabels: Record<Lang, Record<Project['status'], string>> = {
   es: {
     idea: 'Idea',
-    planeado: 'Planeado',
+    planeado: 'Próximamente',
     desarrollo: 'En desarrollo',
     hecho: 'Completado',
   },
   en: {
     idea: 'Idea',
-    planeado: 'Planned',
+    planeado: 'Coming soon',
     desarrollo: 'In progress',
     hecho: 'Done',
   },
