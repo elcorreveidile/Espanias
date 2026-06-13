@@ -11,10 +11,12 @@
   },
   "dependencies": {
     "drizzle-orm": "^0.45.2",
+    "jose": "^6.2.3",
     "next": "^15.0.0",
     "postgres": "^3.4.9",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "resend": "^6.12.4"
   },
   "devDependencies": {
     "@types/node": "^20",

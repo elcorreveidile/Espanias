@@ -1,0 +1,34 @@
+'use server'
+
+import { revalidatePath } from 'next/cache'
+import { redirect } from 'next/navigation'
+import { getSession } from '@/lib/auth/current-user'
+import { updateProject } from '@/lib/db/projects-repo'
+
+const opt = (v: FormDataEntryValue | null): string | null => {
+  const s = String(v ?? '').trim()
+  return s === '' ? null : s
+}
+
+export async function saveProject(slug: string, formData: FormData): Promise<void> {
+  const session = await getSession()
+  if (!session || session.rol !== 'admin') redirect('/auth/signin')
+
+  await updateProject(slug, {
+    nombre: String(formData.get('nombre') ?? '').trim(),
+    category: String(formData.get('category') ?? '').trim(),
+    estado: String(formData.get('estado') ?? '').trim(),
+    sector: opt(formData.get('sector')),
+    url: opt(formData.get('url')),
+    demoUrl: opt(formData.get('demoUrl')),
+    descripcionEs: opt(formData.get('descripcionEs')),
+    descripcionEn: opt(formData.get('descripcionEn')),
+    repositorioUrl: opt(formData.get('repositorioUrl')),
+    notasInternas: opt(formData.get('notasInternas')),
+  })
+
+  // Refresca el catálogo público y vuelve al listado.
+  revalidatePath('/catalogo')
+  revalidatePath(`/catalogo/${slug}`)
+  redirect('/dashboard/proyectos')
+}
