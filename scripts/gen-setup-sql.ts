@@ -145,11 +145,13 @@ const componentes = [
   ['admin-panel', 'Panel de Administración', 'admin', 'Panel CRUD usable desde móvil para gestionar el negocio.', '/dashboard/biblioteca/componentes#admin-panel'],
   ['calculator', 'Calculadora de Presupuestos', 'calcular', 'Presupuestos interactivos en tiempo real.', '/dashboard/biblioteca/componentes#calculator'],
   ['fidelization', 'Fidelización', 'pauta', 'Sistema de bonos y fidelización automática de clientes.', '/dashboard/biblioteca/componentes#fidelization'],
+  ['whatsapp-agent', 'Agente de WhatsApp', 'ia', 'Bot conversacional con Claude (tool use) que da citas por WhatsApp: entiende lenguaje natural, consulta huecos y reserva contra la misma base de datos que la web.', '/dashboard/biblioteca/componentes#whatsapp-agent'],
 ]
 
 const decisiones = [
   ['Anti-solapamiento de reservas', 'database', 'EXCLUDE USING gist constraint en Postgres', 'Garantía a nivel de base de datos, no de aplicación.', 'perruqueria-canina,eje-fisioterapia'],
   ['Magic link sin contraseñas', 'auth', 'Token de un solo uso enviado por email (Resend)', 'Menos fricción para el usuario y sin gestión de contraseñas.', 'espanias-main'],
+  ['Reservas conversacionales por WhatsApp', 'ia', 'Claude (claude-opus-4-8) con tool use; las herramientas ejecutan la lógica de reserva contra Postgres', 'Un solo cerebro conversacional; las reglas de negocio y el anti-solapamiento viven en la base de datos, no en el prompt.', 'barberia'],
 ]
 
 const learningsSeed = [
@@ -202,6 +204,12 @@ WHERE slug = 'perruqueria-canina' AND componentes_incluidos IS NULL;
 UPDATE projects SET componentes_incluidos = 'booking-engine,admin-panel',
   claim = COALESCE(claim, 'Entiende tu dolor')
 WHERE slug = 'eje-fisioterapia' AND componentes_incluidos IS NULL;
+
+-- Barbería: reservas web + agente de WhatsApp
+UPDATE projects SET componentes_incluidos = 'booking-engine,whatsapp-agent',
+  claim = COALESCE(claim, 'Tu cita, por la web o por WhatsApp'),
+  repositorio_url = COALESCE(repositorio_url, 'https://github.com/elcorreveidile/barberia-demo')
+WHERE slug = 'barberia' AND componentes_incluidos IS NULL;
 `
 
 mkdirSync('db', { recursive: true })
