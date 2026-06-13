@@ -18,11 +18,19 @@ export interface ProjectUpdate {
   category?: string
   estado?: string
   sector?: string | null
+  claim?: string | null
   descripcionEs?: string | null
   descripcionEn?: string | null
   url?: string | null
   demoUrl?: string | null
   repositorioUrl?: string | null
+  planMaestroUrl?: string | null
+  componentesIncluidos?: string | null
+  paletaPrincipal?: string | null
+  paletaSecundaria?: string | null
+  paletaAccion?: string | null
+  tipografiaTitulos?: string | null
+  tipografiaCuerpo?: string | null
   notasInternas?: string | null
 }
 

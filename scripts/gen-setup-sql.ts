@@ -136,6 +136,74 @@ const inserts = projects
   })
   .join('\n')
 
+// ============================================================
+// Biblioteca: componentes, patrones (decisiones) y learnings.
+// Da contenido real a /api/agente/context y /export.
+// ============================================================
+const componentes = [
+  ['booking-engine', 'Motor de Reservas', 'reservas', 'Sistema de citas con anti-solapamiento, confirmación por email y gestión de clientes.', '/dashboard/biblioteca/componentes#booking-engine'],
+  ['admin-panel', 'Panel de Administración', 'admin', 'Panel CRUD usable desde móvil para gestionar el negocio.', '/dashboard/biblioteca/componentes#admin-panel'],
+  ['calculator', 'Calculadora de Presupuestos', 'calcular', 'Presupuestos interactivos en tiempo real.', '/dashboard/biblioteca/componentes#calculator'],
+  ['fidelization', 'Fidelización', 'pauta', 'Sistema de bonos y fidelización automática de clientes.', '/dashboard/biblioteca/componentes#fidelization'],
+]
+
+const decisiones = [
+  ['Anti-solapamiento de reservas', 'database', 'EXCLUDE USING gist constraint en Postgres', 'Garantía a nivel de base de datos, no de aplicación.', 'perruqueria-canina,eje-fisioterapia'],
+  ['Magic link sin contraseñas', 'auth', 'Token de un solo uso enviado por email (Resend)', 'Menos fricción para el usuario y sin gestión de contraseñas.', 'espanias-main'],
+]
+
+const learningsSeed = [
+  ['perruqueria-canina', 'Panel admin usable desde móvil', 'El negocio gestiona las citas desde el móvil; el panel debe ser mobile-first.', 'what-worked'],
+  ['eje-fisioterapia', 'Notas de tratamiento', 'Las notas estructuradas por sesión agilizan el seguimiento del paciente.', 'what-worked'],
+]
+
+const bibliotecaSql = `
+
+-- ============================================================
+-- Biblioteca · componentes reutilizables
+-- ============================================================
+${componentes
+  .map(
+    ([slug, nombre, categoria, descripcion, docUrl]) =>
+      `INSERT INTO components (slug, nombre, categoria, descripcion, doc_url) VALUES (${q(slug)}, ${q(nombre)}, ${q(categoria)}, ${q(descripcion)}, ${q(docUrl)})\nON CONFLICT (slug) DO NOTHING;`
+  )
+  .join('\n')}
+
+-- ============================================================
+-- Biblioteca · patrones / decisiones compartidas
+-- ============================================================
+${decisiones
+  .map(
+    ([titulo, categoria, decision, razon, ref]) =>
+      `INSERT INTO shared_decisions (titulo, categoria, decision, razon, referencia_proyectos)\nSELECT ${q(titulo)}, ${q(categoria)}, ${q(decision)}, ${q(razon)}, ${q(ref)}\nWHERE NOT EXISTS (SELECT 1 FROM shared_decisions WHERE titulo = ${q(titulo)});`
+  )
+  .join('\n')}
+
+-- ============================================================
+-- Biblioteca · learnings (vinculados por slug)
+-- ============================================================
+${learningsSeed
+  .map(
+    ([slug, titulo, contenido, tipo]) =>
+      `INSERT INTO learnings (project_id, titulo, contenido, tipo)\nSELECT p.id, ${q(titulo)}, ${q(contenido)}, ${q(tipo)} FROM projects p WHERE p.slug = ${q(slug)}\nAND NOT EXISTS (SELECT 1 FROM learnings l WHERE l.titulo = ${q(titulo)});`
+  )
+  .join('\n')}
+
+-- ============================================================
+-- Ejemplo: identidad visual + componentes en perru y fisio
+-- (solo si están vacíos, para no pisar ediciones del panel)
+-- ============================================================
+UPDATE projects SET componentes_incluidos = 'booking-engine,fidelization',
+  paleta_principal = '#A8D8F0', paleta_secundaria = '#FFF7EA', paleta_accion = '#E8436B',
+  tipografia_titulos = 'Fraunces', tipografia_cuerpo = 'Nunito Sans',
+  claim = COALESCE(claim, 'Peluquería canina en positivo')
+WHERE slug = 'perruqueria-canina' AND componentes_incluidos IS NULL;
+
+UPDATE projects SET componentes_incluidos = 'booking-engine,admin-panel',
+  claim = COALESCE(claim, 'Entiende tu dolor')
+WHERE slug = 'eje-fisioterapia' AND componentes_incluidos IS NULL;
+`
+
 mkdirSync('db', { recursive: true })
-writeFileSync('db/setup.sql', ddl + inserts + '\n')
-console.log(`✅ db/setup.sql generado con ${projects.length} proyectos`)
+writeFileSync('db/setup.sql', ddl + inserts + bibliotecaSql + '\n')
+console.log(`✅ db/setup.sql generado con ${projects.length} proyectos + biblioteca`)
