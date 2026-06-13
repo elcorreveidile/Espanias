@@ -56,7 +56,9 @@ export const translations = {
       errorText: 'Algo salió mal. Inténtalo de nuevo.',
     },
     footer: {
-      madeWith: 'Hecho con IA y curiosidad',
+      madeWith: 'Hecho con IA, curiosidad y',
+      por2duros: 'Por 2 Duros',
+      por2durosTagline: 'sí, sale baratísimo 🪙',
       rights: 'Todos los derechos reservados',
     },
     servicios: {
@@ -127,7 +129,9 @@ export const translations = {
       errorText: 'Something went wrong. Please try again.',
     },
     footer: {
-      madeWith: 'Made with AI and curiosity',
+      madeWith: 'Made with AI, curiosity and',
+      por2duros: 'Por 2 Duros',
+      por2durosTagline: 'yep, dirt cheap 🪙',
       rights: 'All rights reserved',
     },
     servicios: {
