@@ -1,4 +1,4 @@
-export type Category = 'ia' | 'educacion' | 'literatura' | 'personal' | 'salud' | 'derecho' | 'inmobiliaria' | 'hosteleria' | 'comercio' | 'deporte' | 'eventos' | 'saas' | 'otros'
+export type Category = 'ia' | 'educacion' | 'literatura' | 'personal' | 'salud' | 'derecho' | 'inmobiliaria' | 'hosteleria' | 'comercio' | 'deporte' | 'eventos' | 'saas' | 'gestion' | 'mascotas' | 'belleza' | 'otros'
 
 export interface Project {
   id: string
@@ -25,6 +25,9 @@ export const categoryColors: Record<Category, string> = {
   deporte: '#D97706',
   eventos: '#DB2777',
   saas: '#1D4ED8',
+  gestion: '#0F766E',
+  mascotas: '#65A30D',
+  belleza: '#C026D3',
   otros: '#78716C',
 }
 
@@ -40,7 +43,7 @@ export const projects: Project[] = [
     slug: 'perruqueria-canina',
     url: 'https://perruqueria-canina.por2duros.com',
     demo: 'https://perruqueria-canina-demo.vercel.app',
-    category: 'personal',
+    category: 'mascotas',
     status: 'hecho',
     sector: 'servicios-personales',
     description: {
@@ -86,7 +89,7 @@ export const projects: Project[] = [
     slug: 'comite-clm',
     url: 'https://www.comiteclm.com',
     demo: 'https://comite-clm-demo.vercel.app',
-    category: 'educacion',
+    category: 'gestion',
     status: 'hecho',
     sector: 'institucional',
     description: {
@@ -227,21 +230,6 @@ export const projects: Project[] = [
     description: {
       es: 'Sitio web de la asociación cultural con información de eventos, actividades, membresía y calendario de programación cultural.',
       en: 'Website of the cultural association with event information, activities, membership and cultural programming calendar.',
-    },
-  },
-
-  {
-    id: 'letra-clara',
-    name: 'Letra Clara',
-    slug: 'letra-clara',
-    url: 'https://letaclara.es',
-    demo: 'https://letra-clara-demo.vercel.app',
-    category: 'educacion',
-    status: 'hecho',
-    sector: 'publicacion',
-    description: {
-      es: 'Revista universitaria del Centro de Lenguas Modernas. Publicación de artículos académicos, reseñas y trabajos estudiantiles.',
-      en: 'University magazine of the Modern Languages Centre. Publication of academic articles, reviews and student work.',
     },
   },
 
@@ -680,7 +668,7 @@ export const projects: Project[] = [
     slug: 'barberia',
     url: 'https://barberia-demo.vercel.app',
     demo: 'https://barberia-demo.vercel.app',
-    category: 'personal',
+    category: 'belleza',
     status: 'desarrollo',
     sector: 'servicios-personales',
     description: {
