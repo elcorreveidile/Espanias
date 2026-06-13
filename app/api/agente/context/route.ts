@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextRequest } from 'next/server'
 import { getFullContext } from '@/lib/db/agente-repo'
-import { buildContext } from '@/lib/agente-context'
+import { buildContext, jsonUtf8 } from '@/lib/agente-context'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -8,11 +8,11 @@ export const dynamic = 'force-dynamic'
 export async function GET(req: NextRequest) {
   const slug = req.nextUrl.searchParams.get('project')
   if (!slug) {
-    return NextResponse.json({ error: 'Falta el parámetro ?project=' }, { status: 400 })
+    return jsonUtf8({ error: 'Falta el parámetro ?project=' }, 400)
   }
   const ctx = await getFullContext(slug)
   if (!ctx) {
-    return NextResponse.json({ error: 'Proyecto no encontrado' }, { status: 404 })
+    return jsonUtf8({ error: 'Proyecto no encontrado' }, 404)
   }
-  return NextResponse.json(buildContext(ctx))
+  return jsonUtf8(buildContext(ctx))
 }
