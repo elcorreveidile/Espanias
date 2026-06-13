@@ -1,6 +1,6 @@
 import { eq } from 'drizzle-orm'
 import { db } from '@/lib/db/client'
-import { projects } from '@/lib/db/schema'
+import { projects, learnings } from '@/lib/db/schema'
 
 export type ProjectRow = typeof projects.$inferSelect
 
@@ -11,6 +11,15 @@ export async function listProjects(): Promise<ProjectRow[]> {
 export async function getProjectRow(slug: string): Promise<ProjectRow | undefined> {
   const rows = await db.select().from(projects).where(eq(projects.slug, slug)).limit(1)
   return rows[0]
+}
+
+/** Elimina un proyecto y sus learnings dependientes. */
+export async function deleteProject(slug: string): Promise<void> {
+  const rows = await db.select({ id: projects.id }).from(projects).where(eq(projects.slug, slug)).limit(1)
+  const p = rows[0]
+  if (!p) return
+  await db.delete(learnings).where(eq(learnings.projectId, p.id))
+  await db.delete(projects).where(eq(projects.slug, slug))
 }
 
 export interface ProjectUpdate {

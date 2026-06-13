@@ -3,7 +3,7 @@
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { getSession } from '@/lib/auth/current-user'
-import { updateProject } from '@/lib/db/projects-repo'
+import { updateProject, deleteProject } from '@/lib/db/projects-repo'
 
 const opt = (v: FormDataEntryValue | null): string | null => {
   const s = String(v ?? '').trim()
@@ -38,5 +38,15 @@ export async function saveProject(slug: string, formData: FormData): Promise<voi
   // Refresca el catálogo público y vuelve al listado.
   revalidatePath('/catalogo')
   revalidatePath(`/catalogo/${slug}`)
+  redirect('/dashboard/proyectos')
+}
+
+export async function deleteProjectAction(slug: string): Promise<void> {
+  const session = await getSession()
+  if (!session || session.rol !== 'admin') redirect('/auth/signin')
+
+  await deleteProject(slug)
+  revalidatePath('/catalogo')
+  revalidatePath('/dashboard/proyectos')
   redirect('/dashboard/proyectos')
 }
