@@ -54,7 +54,7 @@ export async function sendMagicLink(email: string, url: string): Promise<void> {
   const { Resend } = await import('resend')
   const apiKey = process.env.RESEND_API_KEY
   if (!apiKey) throw new Error('RESEND_API_KEY no está configurado')
-  const from = process.env.EMAIL_FROM || 'Espanias <noreply@blablaele.com>'
+  const from = process.env.EMAIL_FROM || 'Espanias <noreply@espanias.com>'
   const resend = new Resend(apiKey)
 
   await resend.emails.send({
