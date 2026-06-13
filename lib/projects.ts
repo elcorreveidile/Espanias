@@ -295,7 +295,11 @@ export const projects: Project[] = [
   {
     id: 'comite-clm',
     name: 'Comité CLM',
+<<<<<<< HEAD
     url: 'https://www.comiteclm.com',
+=======
+    url: 'https://comite-clm.vercel.app',
+>>>>>>> feat/catalogo-dashboard
     description: {
       es: 'Web del comité de empresa del Centro de Lenguas Modernas de la Universidad de Granada.',
       en: 'Workers\' committee website for the Modern Languages Centre at the University of Granada.',
@@ -305,7 +309,11 @@ export const projects: Project[] = [
   {
     id: 'mm',
     name: 'Mariano Maresca',
+<<<<<<< HEAD
     url: 'https://www.marianomaresca.com',
+=======
+    url: 'https://mm-gold-beta.vercel.app',
+>>>>>>> feat/catalogo-dashboard
     description: {
       es: 'Exposición digital conmemorativa del editor y figura cultural andaluza Mariano Maresca (1945–2023).',
       en: 'Digital commemorative exhibition honouring Andalusian cultural editor Mariano Maresca (1945–2023).',
