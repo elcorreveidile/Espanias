@@ -1,11 +1,12 @@
 'use client'
 
-import { projects, categoryColors, type Category, type Project } from '@/lib/projects'
+import { type Category, type Project } from '@/lib/projects'
 import type { Lang } from '@/lib/translations'
 import { categoryLabels, statusLabels } from '@/lib/catalogo-labels'
 
 interface Props {
   lang: Lang
+  projects: Project[]
   searchTerm: string
   onSearchChange: (term: string) => void
   selectedCategory: Category | 'all'
@@ -38,6 +39,7 @@ const t = {
 
 export default function FilterBar({
   lang,
+  projects,
   searchTerm,
   onSearchChange,
   selectedCategory,

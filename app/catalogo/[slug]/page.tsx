@@ -1,22 +1,22 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { projects, getProjectBySlug, categoryColors } from '@/lib/projects'
+import { categoryColors } from '@/lib/projects'
+import { getCatalogProjects, getCatalogProject } from '@/lib/catalog-data'
 import { categoryLabels, statusLabels } from '@/lib/catalogo-labels'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
+
+// Lee de la BD en cada petición (con fallback estático).
+export const dynamic = 'force-dynamic'
 
 interface Props {
   params: Promise<{ slug: string }>
 }
 
-export function generateStaticParams() {
-  return projects.map((project) => ({ slug: project.slug }))
-}
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
-  const project = getProjectBySlug(slug)
+  const project = await getCatalogProject(slug)
   if (!project) return {}
 
   return {
@@ -36,7 +36,8 @@ const cleanUrl = (url: string) => url.replace(/^https?:\/\/(www\.)?/, '').replac
 
 export default async function ProjectDetailPage({ params }: Props) {
   const { slug } = await params
-  const project = getProjectBySlug(slug)
+  const projects = await getCatalogProjects()
+  const project = projects.find((p) => p.slug === slug)
   if (!project) notFound()
 
   const categoryColor = categoryColors[project.category]
