@@ -675,16 +675,17 @@ export const projects: Project[] = [
   },
 
   {
-    id: 'peluqueria-barberia',
-    name: 'Peluquería / Barbería',
-    slug: 'peluqueria-barberia',
-    url: 'https://peluqueria-barberia.por2duros.com',
-    category: 'deporte',
-    status: 'planeado',
+    id: 'barberia',
+    name: 'Filo Barber Studio',
+    slug: 'barberia',
+    url: 'https://barberia-demo.vercel.app',
+    demo: 'https://barberia-demo.vercel.app',
+    category: 'personal',
+    status: 'desarrollo',
     sector: 'servicios-personales',
     description: {
-      es: 'Plataforma de peluquería y barbería. Reservas online, galería de estilos, membresías de clientes frecuentes y promociones.',
-      en: 'Hair salon and barbershop platform. Online booking, style gallery, frequent customer loyalty and promotions.',
+      es: 'Barbería y estética masculina con reserva de cita por la web y un agente de WhatsApp que conversa y agenda solo. Anti-solapamiento garantizado en base de datos y panel de gestión móvil.',
+      en: 'Barbershop and men’s grooming with online web booking and a WhatsApp AI agent that chats and books appointments on its own. Database-level double-booking prevention and a mobile management panel.',
     },
   },
 

@@ -187,7 +187,7 @@ INSERT INTO projects (slug, nombre, category, estado, sector, descripcion_es, de
 ON CONFLICT (slug) DO NOTHING;
 INSERT INTO projects (slug, nombre, category, estado, sector, descripcion_es, descripcion_en, url, demo_url) VALUES ('entrenador-personal', 'Entrenador Personal', 'deporte', 'planeado', 'deporte', 'Plataforma de entrenador personal. Planes de entrenamiento, videos, seguimiento, nutrición y chat en vivo.', 'Personal trainer platform. Training plans, videos, tracking, nutrition and live chat.', 'https://entrenador-personal.por2duros.com', NULL)
 ON CONFLICT (slug) DO NOTHING;
-INSERT INTO projects (slug, nombre, category, estado, sector, descripcion_es, descripcion_en, url, demo_url) VALUES ('peluqueria-barberia', 'Peluquería / Barbería', 'deporte', 'planeado', 'servicios-personales', 'Plataforma de peluquería y barbería. Reservas online, galería de estilos, membresías de clientes frecuentes y promociones.', 'Hair salon and barbershop platform. Online booking, style gallery, frequent customer loyalty and promotions.', 'https://peluqueria-barberia.por2duros.com', NULL)
+INSERT INTO projects (slug, nombre, category, estado, sector, descripcion_es, descripcion_en, url, demo_url) VALUES ('barberia', 'Filo Barber Studio', 'personal', 'desarrollo', 'servicios-personales', 'Barbería y estética masculina con reserva de cita por la web y un agente de WhatsApp que conversa y agenda solo. Anti-solapamiento garantizado en base de datos y panel de gestión móvil.', 'Barbershop and men’s grooming with online web booking and a WhatsApp AI agent that chats and books appointments on its own. Database-level double-booking prevention and a mobile management panel.', 'https://barberia-demo.vercel.app', 'https://barberia-demo.vercel.app')
 ON CONFLICT (slug) DO NOTHING;
 INSERT INTO projects (slug, nombre, category, estado, sector, descripcion_es, descripcion_en, url, demo_url) VALUES ('venta-entradas', 'Venta de Entradas', 'eventos', 'planeado', 'eventos', 'Plataforma de venta de entradas. Eventos, conciertos, teatro, control de aforo, asientos dinámicos y reportes.', 'Ticket sales platform. Events, concerts, theater, capacity control, dynamic seating and reports.', 'https://venta-entradas.por2duros.com', NULL)
 ON CONFLICT (slug) DO NOTHING;
@@ -213,6 +213,8 @@ INSERT INTO components (slug, nombre, categoria, descripcion, doc_url) VALUES ('
 ON CONFLICT (slug) DO NOTHING;
 INSERT INTO components (slug, nombre, categoria, descripcion, doc_url) VALUES ('fidelization', 'Fidelización', 'pauta', 'Sistema de bonos y fidelización automática de clientes.', '/dashboard/biblioteca/componentes#fidelization')
 ON CONFLICT (slug) DO NOTHING;
+INSERT INTO components (slug, nombre, categoria, descripcion, doc_url) VALUES ('whatsapp-agent', 'Agente de WhatsApp', 'ia', 'Bot conversacional con Claude (tool use) que da citas por WhatsApp: entiende lenguaje natural, consulta huecos y reserva contra la misma base de datos que la web.', '/dashboard/biblioteca/componentes#whatsapp-agent')
+ON CONFLICT (slug) DO NOTHING;
 
 -- ============================================================
 -- Biblioteca · patrones / decisiones compartidas
@@ -223,6 +225,9 @@ WHERE NOT EXISTS (SELECT 1 FROM shared_decisions WHERE titulo = 'Anti-solapamien
 INSERT INTO shared_decisions (titulo, categoria, decision, razon, referencia_proyectos)
 SELECT 'Magic link sin contraseñas', 'auth', 'Token de un solo uso enviado por email (Resend)', 'Menos fricción para el usuario y sin gestión de contraseñas.', 'espanias-main'
 WHERE NOT EXISTS (SELECT 1 FROM shared_decisions WHERE titulo = 'Magic link sin contraseñas');
+INSERT INTO shared_decisions (titulo, categoria, decision, razon, referencia_proyectos)
+SELECT 'Reservas conversacionales por WhatsApp', 'ia', 'Claude (claude-opus-4-8) con tool use; las herramientas ejecutan la lógica de reserva contra Postgres', 'Un solo cerebro conversacional; las reglas de negocio y el anti-solapamiento viven en la base de datos, no en el prompt.', 'barberia'
+WHERE NOT EXISTS (SELECT 1 FROM shared_decisions WHERE titulo = 'Reservas conversacionales por WhatsApp');
 
 -- ============================================================
 -- Biblioteca · learnings (vinculados por slug)
@@ -247,4 +252,10 @@ WHERE slug = 'perruqueria-canina' AND componentes_incluidos IS NULL;
 UPDATE projects SET componentes_incluidos = 'booking-engine,admin-panel',
   claim = COALESCE(claim, 'Entiende tu dolor')
 WHERE slug = 'eje-fisioterapia' AND componentes_incluidos IS NULL;
+
+-- Barbería: reservas web + agente de WhatsApp
+UPDATE projects SET componentes_incluidos = 'booking-engine,whatsapp-agent',
+  claim = COALESCE(claim, 'Tu cita, por la web o por WhatsApp'),
+  repositorio_url = COALESCE(repositorio_url, 'https://github.com/elcorreveidile/barberia-demo')
+WHERE slug = 'barberia' AND componentes_incluidos IS NULL;
 
