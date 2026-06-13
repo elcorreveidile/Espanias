@@ -95,7 +95,7 @@ CREATE TABLE IF NOT EXISTS verification_token (
 -- ============================================================
 -- Usuario admin
 -- ============================================================
-INSERT INTO users (email, nombre, rol) VALUES ('javier@blablaele.com', 'Javier', 'admin')
+INSERT INTO users (email, nombre, rol) VALUES ('informa@blablaele.com', 'Javier', 'admin')
 ON CONFLICT (email) DO UPDATE SET rol = 'admin';
 
 -- ============================================================

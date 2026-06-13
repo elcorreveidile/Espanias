@@ -7,7 +7,7 @@
 import { writeFileSync, mkdirSync } from 'fs'
 import { projects } from '../lib/projects'
 
-const ADMIN_EMAIL = 'javier@blablaele.com'
+const ADMIN_EMAIL = 'informa@blablaele.com'
 const ADMIN_NAME = 'Javier'
 
 const q = (v: string | undefined | null): string =>
