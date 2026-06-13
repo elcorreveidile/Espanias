@@ -5,6 +5,7 @@ export const translations = {
     nav: {
       about: 'Manifiesto',
       projects: 'Proyectos',
+      catalog: 'Catálogo',
       services: 'Servicios',
       contact: 'Contacto',
       langSwitch: 'EN',
@@ -75,6 +76,7 @@ export const translations = {
     nav: {
       about: 'Manifesto',
       projects: 'Projects',
+      catalog: 'Catalogue',
       services: 'Services',
       contact: 'Contact',
       langSwitch: 'ES',
