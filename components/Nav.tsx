@@ -36,24 +36,20 @@ export default function Nav() {
         {/* Desktop links */}
         <div className="hidden md:flex items-center gap-8">
           {[
-            { href: '#manifiesto', label: t.about },
-            { href: '#proyectos', label: t.projects },
+            { href: '/#manifiesto', label: t.about },
+            { href: '/#proyectos', label: t.projects },
             { href: '/catalogo', label: t.catalog },
-            { href: '#servicios', label: t.services },
-            { href: '#contacto', label: t.contact },
-          ].map(({ href, label }) => {
-            const className =
-              'text-sm text-[#78716C] hover:text-[#1C1917] transition-colors'
-            return href.startsWith('#') ? (
-              <a key={href} href={href} className={className}>
-                {label}
-              </a>
-            ) : (
-              <Link key={href} href={href} className={className}>
-                {label}
-              </Link>
-            )
-          })}
+            { href: '/#servicios', label: t.services },
+            { href: '/#contacto', label: t.contact },
+          ].map(({ href, label }) => (
+            <Link
+              key={href}
+              href={href}
+              className="text-sm text-[#78716C] hover:text-[#1C1917] transition-colors"
+            >
+              {label}
+            </Link>
+          ))}
           <button
             onClick={toggle}
             className="text-sm font-semibold px-3 py-1 rounded-full border border-[#E7E5E4] text-[#78716C] hover:border-[#BF2638] hover:text-[#BF2638] transition-all"
@@ -93,21 +89,21 @@ export default function Nav() {
         }`}
       >
         <div className="bg-[#F9F7F4] border-t border-[#E7E5E4] px-6 py-5 flex flex-col gap-4">
-          <a href="#manifiesto" onClick={close} className="text-sm text-[#78716C]">
+          <Link href="/#manifiesto" onClick={close} className="text-sm text-[#78716C]">
             {t.about}
-          </a>
-          <a href="#proyectos" onClick={close} className="text-sm text-[#78716C]">
+          </Link>
+          <Link href="/#proyectos" onClick={close} className="text-sm text-[#78716C]">
             {t.projects}
-          </a>
+          </Link>
           <Link href="/catalogo" onClick={close} className="text-sm text-[#78716C]">
             {t.catalog}
           </Link>
-          <a href="#servicios" onClick={close} className="text-sm text-[#78716C]">
+          <Link href="/#servicios" onClick={close} className="text-sm text-[#78716C]">
             {t.services}
-          </a>
-          <a href="#contacto" onClick={close} className="text-sm text-[#78716C]">
+          </Link>
+          <Link href="/#contacto" onClick={close} className="text-sm text-[#78716C]">
             {t.contact}
-          </a>
+          </Link>
           <button
             onClick={() => { toggle(); close() }}
             className="text-sm font-semibold text-left text-[#BF2638]"
