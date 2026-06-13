@@ -5,6 +5,11 @@ export const projects = pgTable("projects", {
   id: serial("id").primaryKey(),
   slug: varchar("slug", { length: 100 }).unique().notNull(),
   nombre: varchar("nombre", { length: 255 }).notNull(),
+  // Campos para el catálogo público (bilingüe + categoría)
+  category: varchar("category", { length: 50 }),
+  descripcionEs: text("descripcion_es"),
+  descripcionEn: text("descripcion_en"),
+  url: text("url"),
   claim: varchar("claim", { length: 500 }),
   sector: varchar("sector", { length: 100 }),
   descripcion: text("descripcion"),
