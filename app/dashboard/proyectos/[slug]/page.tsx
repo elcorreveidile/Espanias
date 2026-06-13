@@ -2,7 +2,8 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { getProjectRow } from '@/lib/db/projects-repo'
 import { categoryLabels, statusLabels } from '@/lib/catalogo-labels'
-import { saveProject } from '@/app/dashboard/proyectos/actions'
+import { saveProject, deleteProjectAction } from '@/app/dashboard/proyectos/actions'
+import DeleteProjectButton from '@/components/dashboard/DeleteProjectButton'
 
 export const dynamic = 'force-dynamic'
 
@@ -20,6 +21,7 @@ export default async function EditProject({
   if (!p) notFound()
 
   const action = saveProject.bind(null, slug)
+  const del = deleteProjectAction.bind(null, slug)
 
   return (
     <div className="max-w-2xl">
@@ -164,7 +166,7 @@ export default async function EditProject({
           <textarea id="notasInternas" name="notasInternas" rows={3} defaultValue={p.notasInternas ?? ''} className={field} />
         </div>
 
-        <div className="flex gap-3 pt-2">
+        <div className="flex items-center gap-3 pt-2">
           <button type="submit" className="rounded-lg bg-[#1C1917] px-5 py-2.5 font-semibold text-white transition-colors hover:bg-[#44403C]">
             Guardar
           </button>
@@ -173,6 +175,12 @@ export default async function EditProject({
           </Link>
         </div>
       </form>
+
+      {/* Zona de peligro: eliminar (fuera del form de guardado) */}
+      <div className="mt-8 flex items-center gap-3 border-t border-stone-200 pt-6">
+        <p className="text-sm text-[#A8A29E]">Eliminar esta ficha del catálogo de forma permanente.</p>
+        <DeleteProjectButton action={del} nombre={p.nombre} />
+      </div>
     </div>
   )
 }
