@@ -1,3 +1,4 @@
+import { sql } from "drizzle-orm";
 import { serial, varchar, text, timestamp, integer, pgTable } from "drizzle-orm/pg-core";
 
 export const projects = pgTable("projects", {
@@ -63,7 +64,7 @@ export const users = pgTable("users", {
   email: varchar("email", { length: 255 }).unique().notNull(),
   nombre: varchar("nombre", { length: 255 }),
   rol: varchar("rol", { length: 50 }).default("viewer"),
-  creadoPor: integer("creado_por").references(() => users.id),
+  creadoPor: integer("creado_por"),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
