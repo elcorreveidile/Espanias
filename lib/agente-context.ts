@@ -1,4 +1,4 @@
-import type { ProjectRow } from '@/lib/db/projects-repo'
+import type { AgenteContext } from '@/lib/db/agente-repo'
 
 // Stack base compartido por todos los proyectos (heredado de la marca de la casa).
 export const STACK_BASE = {
@@ -12,7 +12,8 @@ export const STACK_BASE = {
   despliegue: 'Vercel',
 }
 
-export function buildContext(p: ProjectRow) {
+export function buildContext(ctx: AgenteContext) {
+  const p = ctx.project
   return {
     project: {
       slug: p.slug,
@@ -26,14 +27,41 @@ export function buildContext(p: ProjectRow) {
       url: p.url,
       demo_url: p.demoUrl,
       repositorio_url: p.repositorioUrl,
+      plan_maestro_url: p.planMaestroUrl,
     },
     stack: STACK_BASE,
+    identidad_visual: {
+      paleta_principal: p.paletaPrincipal,
+      paleta_secundaria: p.paletaSecundaria,
+      paleta_accion: p.paletaAccion,
+      tipografia_titulos: p.tipografiaTitulos,
+      tipografia_cuerpo: p.tipografiaCuerpo,
+    },
+    componentes_reutilizables: ctx.componentes.map((c) => ({
+      slug: c.slug,
+      nombre: c.nombre,
+      categoria: c.categoria,
+      descripcion: c.descripcion,
+      doc_url: c.docUrl,
+    })),
+    patrones_aprendidos: ctx.patrones.map((d) => ({
+      titulo: d.titulo,
+      categoria: d.categoria,
+      decision: d.decision,
+      razon: d.razon,
+    })),
+    learnings: ctx.learnings.map((l) => ({
+      titulo: l.titulo,
+      tipo: l.tipo,
+      contenido: l.contenido,
+    })),
     notas_internas: p.notasInternas,
   }
 }
 
-export function buildMarkdown(p: ProjectRow): string {
-  const lines = [
+export function buildMarkdown(ctx: AgenteContext): string {
+  const p = ctx.project
+  const lines: Array<string | null> = [
     `# ${p.nombre} — Tarjeta de Proyecto`,
     '',
     p.claim ? `**Claim:** ${p.claim}` : null,
@@ -45,14 +73,42 @@ export function buildMarkdown(p: ProjectRow): string {
     '',
     '## Descripción',
     p.descripcionEs ?? p.descripcion ?? '—',
-    '',
-    p.repositorioUrl ? `## Repositorio\n${p.repositorioUrl}` : null,
-    p.demoUrl ? `## Demo\n${p.demoUrl}` : null,
-    p.notasInternas ? `## Notas internas\n${p.notasInternas}` : null,
-    '',
-    '---',
-    '',
-    '*Generado desde espanias.com*',
   ]
+
+  if (p.paletaPrincipal || p.tipografiaTitulos) {
+    lines.push('', '## Identidad visual')
+    if (p.paletaPrincipal) lines.push(`- Paleta principal: ${p.paletaPrincipal}`)
+    if (p.paletaSecundaria) lines.push(`- Paleta secundaria: ${p.paletaSecundaria}`)
+    if (p.paletaAccion) lines.push(`- Paleta de acción: ${p.paletaAccion}`)
+    if (p.tipografiaTitulos) lines.push(`- Tipografía titulares: ${p.tipografiaTitulos}`)
+    if (p.tipografiaCuerpo) lines.push(`- Tipografía cuerpo: ${p.tipografiaCuerpo}`)
+  }
+
+  if (ctx.componentes.length) {
+    lines.push('', '## Componentes reutilizables')
+    for (const c of ctx.componentes) {
+      lines.push(`- **${c.nombre}**${c.descripcion ? ` — ${c.descripcion}` : ''}`)
+    }
+  }
+
+  if (ctx.patrones.length) {
+    lines.push('', '## Patrones aprendidos')
+    for (const d of ctx.patrones) {
+      lines.push(`- **${d.titulo}**: ${d.decision ?? ''}${d.razon ? ` (${d.razon})` : ''}`)
+    }
+  }
+
+  if (ctx.learnings.length) {
+    lines.push('', '## Learnings')
+    for (const l of ctx.learnings) {
+      lines.push(`- **${l.titulo ?? ''}**: ${l.contenido ?? ''}`)
+    }
+  }
+
+  if (p.repositorioUrl) lines.push('', `## Repositorio`, p.repositorioUrl)
+  if (p.demoUrl) lines.push('', `## Demo`, p.demoUrl)
+  if (p.notasInternas) lines.push('', `## Notas internas`, p.notasInternas)
+
+  lines.push('', '---', '', '*Generado desde espanias.com*')
   return lines.filter((l) => l !== null).join('\n')
 }

@@ -9,6 +9,8 @@ export const dynamic = 'force-dynamic'
 const navItems = [
   { href: '/dashboard', label: 'Resumen' },
   { href: '/dashboard/proyectos', label: 'Proyectos' },
+  { href: '/dashboard/biblioteca', label: 'Biblioteca' },
+  { href: '/dashboard/usuarios', label: 'Usuarios' },
 ]
 
 export default async function DashboardLayout({

@@ -201,3 +201,50 @@ INSERT INTO projects (slug, nombre, category, estado, sector, descripcion_es, de
 ON CONFLICT (slug) DO NOTHING;
 INSERT INTO projects (slug, nombre, category, estado, sector, descripcion_es, descripcion_en, url, demo_url) VALUES ('asociacion-donaciones', 'Gestión de Asociación / Donaciones', 'saas', 'planeado', 'saas', 'Plataforma de gestión para asociaciones. Membresía, donaciones recurrentes, eventos, comunicación y reportes.', 'Association management platform. Membership, recurring donations, events, communication and reporting.', 'https://asociacion-donaciones.por2duros.com', NULL)
 ON CONFLICT (slug) DO NOTHING;
+
+-- ============================================================
+-- Biblioteca · componentes reutilizables
+-- ============================================================
+INSERT INTO components (slug, nombre, categoria, descripcion, doc_url) VALUES ('booking-engine', 'Motor de Reservas', 'reservas', 'Sistema de citas con anti-solapamiento, confirmación por email y gestión de clientes.', '/dashboard/biblioteca/componentes#booking-engine')
+ON CONFLICT (slug) DO NOTHING;
+INSERT INTO components (slug, nombre, categoria, descripcion, doc_url) VALUES ('admin-panel', 'Panel de Administración', 'admin', 'Panel CRUD usable desde móvil para gestionar el negocio.', '/dashboard/biblioteca/componentes#admin-panel')
+ON CONFLICT (slug) DO NOTHING;
+INSERT INTO components (slug, nombre, categoria, descripcion, doc_url) VALUES ('calculator', 'Calculadora de Presupuestos', 'calcular', 'Presupuestos interactivos en tiempo real.', '/dashboard/biblioteca/componentes#calculator')
+ON CONFLICT (slug) DO NOTHING;
+INSERT INTO components (slug, nombre, categoria, descripcion, doc_url) VALUES ('fidelization', 'Fidelización', 'pauta', 'Sistema de bonos y fidelización automática de clientes.', '/dashboard/biblioteca/componentes#fidelization')
+ON CONFLICT (slug) DO NOTHING;
+
+-- ============================================================
+-- Biblioteca · patrones / decisiones compartidas
+-- ============================================================
+INSERT INTO shared_decisions (titulo, categoria, decision, razon, referencia_proyectos)
+SELECT 'Anti-solapamiento de reservas', 'database', 'EXCLUDE USING gist constraint en Postgres', 'Garantía a nivel de base de datos, no de aplicación.', 'perruqueria-canina,eje-fisioterapia'
+WHERE NOT EXISTS (SELECT 1 FROM shared_decisions WHERE titulo = 'Anti-solapamiento de reservas');
+INSERT INTO shared_decisions (titulo, categoria, decision, razon, referencia_proyectos)
+SELECT 'Magic link sin contraseñas', 'auth', 'Token de un solo uso enviado por email (Resend)', 'Menos fricción para el usuario y sin gestión de contraseñas.', 'espanias-main'
+WHERE NOT EXISTS (SELECT 1 FROM shared_decisions WHERE titulo = 'Magic link sin contraseñas');
+
+-- ============================================================
+-- Biblioteca · learnings (vinculados por slug)
+-- ============================================================
+INSERT INTO learnings (project_id, titulo, contenido, tipo)
+SELECT p.id, 'Panel admin usable desde móvil', 'El negocio gestiona las citas desde el móvil; el panel debe ser mobile-first.', 'what-worked' FROM projects p WHERE p.slug = 'perruqueria-canina'
+AND NOT EXISTS (SELECT 1 FROM learnings l WHERE l.titulo = 'Panel admin usable desde móvil');
+INSERT INTO learnings (project_id, titulo, contenido, tipo)
+SELECT p.id, 'Notas de tratamiento', 'Las notas estructuradas por sesión agilizan el seguimiento del paciente.', 'what-worked' FROM projects p WHERE p.slug = 'eje-fisioterapia'
+AND NOT EXISTS (SELECT 1 FROM learnings l WHERE l.titulo = 'Notas de tratamiento');
+
+-- ============================================================
+-- Ejemplo: identidad visual + componentes en perru y fisio
+-- (solo si están vacíos, para no pisar ediciones del panel)
+-- ============================================================
+UPDATE projects SET componentes_incluidos = 'booking-engine,fidelization',
+  paleta_principal = '#A8D8F0', paleta_secundaria = '#FFF7EA', paleta_accion = '#E8436B',
+  tipografia_titulos = 'Fraunces', tipografia_cuerpo = 'Nunito Sans',
+  claim = COALESCE(claim, 'Peluquería canina en positivo')
+WHERE slug = 'perruqueria-canina' AND componentes_incluidos IS NULL;
+
+UPDATE projects SET componentes_incluidos = 'booking-engine,admin-panel',
+  claim = COALESCE(claim, 'Entiende tu dolor')
+WHERE slug = 'eje-fisioterapia' AND componentes_incluidos IS NULL;
+
