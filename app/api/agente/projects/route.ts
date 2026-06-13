@@ -1,5 +1,5 @@
-import { NextResponse } from 'next/server'
 import { listProjects } from '@/lib/db/projects-repo'
+import { jsonUtf8 } from '@/lib/agente-context'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -14,7 +14,7 @@ export async function GET() {
     demo_url: p.demoUrl,
     url: p.url,
   }))
-  return NextResponse.json({
+  return jsonUtf8({
     total: proyectos.length,
     hechas: proyectos.filter((p) => p.estado === 'hecho').length,
     proyectos,

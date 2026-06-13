@@ -1,4 +1,13 @@
+import { NextResponse } from 'next/server'
 import type { AgenteContext } from '@/lib/db/agente-repo'
+
+/** Respuesta JSON con charset utf-8 explícito (evita mojibake en el navegador). */
+export function jsonUtf8(data: unknown, status = 200): NextResponse {
+  return new NextResponse(JSON.stringify(data), {
+    status,
+    headers: { 'content-type': 'application/json; charset=utf-8' },
+  })
+}
 
 // Stack base compartido por todos los proyectos (heredado de la marca de la casa).
 export const STACK_BASE = {
