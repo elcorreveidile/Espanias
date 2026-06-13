@@ -40,7 +40,7 @@ export const projects: Project[] = [
     slug: 'perruqueria-canina',
     url: 'https://perruqueria-canina.por2duros.com',
     demo: 'https://perruqueria-canina-demo.vercel.app',
-    category: 'deporte',
+    category: 'personal',
     status: 'hecho',
     sector: 'servicios-personales',
     description: {

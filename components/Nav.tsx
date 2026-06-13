@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 import { useLanguage } from '@/context/LanguageContext'
 import { translations } from '@/lib/translations'
 import Logo from '@/components/Logo'
@@ -28,26 +29,31 @@ export default function Nav() {
       }`}
     >
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <a href="#inicio" aria-label="Espanias — inicio">
+        <Link href="/" aria-label="Espanias — inicio">
           <Logo variant="nav" />
-        </a>
+        </Link>
 
         {/* Desktop links */}
         <div className="hidden md:flex items-center gap-8">
           {[
             { href: '#manifiesto', label: t.about },
             { href: '#proyectos', label: t.projects },
+            { href: '/catalogo', label: t.catalog },
             { href: '#servicios', label: t.services },
             { href: '#contacto', label: t.contact },
-          ].map(({ href, label }) => (
-            <a
-              key={href}
-              href={href}
-              className="text-sm text-[#78716C] hover:text-[#1C1917] transition-colors"
-            >
-              {label}
-            </a>
-          ))}
+          ].map(({ href, label }) => {
+            const className =
+              'text-sm text-[#78716C] hover:text-[#1C1917] transition-colors'
+            return href.startsWith('#') ? (
+              <a key={href} href={href} className={className}>
+                {label}
+              </a>
+            ) : (
+              <Link key={href} href={href} className={className}>
+                {label}
+              </Link>
+            )
+          })}
           <button
             onClick={toggle}
             className="text-sm font-semibold px-3 py-1 rounded-full border border-[#E7E5E4] text-[#78716C] hover:border-[#BF2638] hover:text-[#BF2638] transition-all"
@@ -93,6 +99,9 @@ export default function Nav() {
           <a href="#proyectos" onClick={close} className="text-sm text-[#78716C]">
             {t.projects}
           </a>
+          <Link href="/catalogo" onClick={close} className="text-sm text-[#78716C]">
+            {t.catalog}
+          </Link>
           <a href="#servicios" onClick={close} className="text-sm text-[#78716C]">
             {t.services}
           </a>
