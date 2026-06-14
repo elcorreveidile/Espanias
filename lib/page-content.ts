@@ -74,11 +74,19 @@ export const pageContent: Record<Lang, Record<PageKey, Block[]>> = {
         title: 'Soluciones reales, no promesas',
         cards: [
           { title: 'Auditoría y consultoría', desc: 'Analizamos tus procesos y detectamos dónde la IA te ahorra tiempo y dinero.' },
-          { title: 'Formación a medida', desc: 'Talleres prácticos para tu equipo: prompts, herramientas y buenas prácticas.' },
+          { title: 'Formación a medida', desc: 'Talleres prácticos para tu equipo y formación de formadores: prompts, herramientas y buenas prácticas.' },
           { title: 'Automatizaciones', desc: 'Tareas repetitivas resueltas solas: emails, citas, atención al cliente, informes.' },
           { title: 'Herramientas a medida', desc: 'Chatbots, asistentes y apps construidos para tu negocio concreto.' },
         ],
         cols: 4,
+      },
+      {
+        eyebrow: 'Quién está detrás',
+        title: 'Formación que nace de la experiencia real',
+        paragraphs: [
+          'Contamos con personal con formación específica en la implementación de tecnologías en el sector productivo: no solo sabemos de IA, sabemos cómo encaja en el día a día de una empresa real.',
+          'Y formamos a quienes forman: ofrecemos formación de formadores, para que tu organización multiplique el conocimiento por dentro y no dependa de nadie.',
+        ],
       },
       {
         eyebrow: 'Cómo lo hacemos',
@@ -158,11 +166,19 @@ export const pageContent: Record<Lang, Record<PageKey, Block[]>> = {
         title: 'Real solutions, not promises',
         cards: [
           { title: 'Audit & consulting', desc: 'We analyse your processes and find where AI saves you time and money.' },
-          { title: 'Tailored training', desc: 'Hands-on workshops for your team: prompts, tools and best practices.' },
+          { title: 'Tailored training', desc: 'Hands-on workshops for your team and train-the-trainer programmes: prompts, tools and best practices.' },
           { title: 'Automations', desc: 'Repetitive tasks handled on their own: emails, bookings, support, reports.' },
           { title: 'Custom tools', desc: 'Chatbots, assistants and apps built for your specific business.' },
         ],
         cols: 4,
+      },
+      {
+        eyebrow: 'Who’s behind it',
+        title: 'Training born from real-world experience',
+        paragraphs: [
+          'We have staff specifically trained in implementing technology in the productive sector: we don’t just know AI, we know how it fits into the day-to-day of a real business.',
+          'And we train the trainers: we offer train-the-trainer programmes so your organisation can multiply knowledge internally and depend on no one.',
+        ],
       },
       {
         eyebrow: 'How we do it',
