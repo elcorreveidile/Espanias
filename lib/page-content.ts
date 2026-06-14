@@ -89,6 +89,15 @@ export const pageContent: Record<Lang, Record<PageKey, Block[]>> = {
         ],
       },
       {
+        eyebrow: 'Acreditaciones',
+        title: 'Formación oficial que lo respalda',
+        cards: [
+          { title: 'Digitalización Aplicada al Sector Productivo', desc: 'Ministerio de Educación y FP · UGT · Alianza por la FP. Financiado por la Unión Europea (NextGenerationEU).' },
+          { title: 'Formación de Formadores', desc: 'Diseñar e impartir talleres de formación. Ministerio de Educación · Instituto Cervantes.' },
+        ],
+        cols: 3,
+      },
+      {
         eyebrow: 'Cómo lo hacemos',
         title: 'Un método claro, paso a paso',
         dark: true,
@@ -179,6 +188,15 @@ export const pageContent: Record<Lang, Record<PageKey, Block[]>> = {
           'We have staff specifically trained in implementing technology in the productive sector: we don’t just know AI, we know how it fits into the day-to-day of a real business.',
           'And we train the trainers: we offer train-the-trainer programmes so your organisation can multiply knowledge internally and depend on no one.',
         ],
+      },
+      {
+        eyebrow: 'Credentials',
+        title: 'Backed by official training',
+        cards: [
+          { title: 'Digital Skills for the Productive Sector', desc: 'Spanish Ministry of Education & VET · UGT · Alliance for VET. Funded by the European Union (NextGenerationEU).' },
+          { title: 'Train-the-Trainer Certification', desc: 'Designing and delivering training workshops. Ministry of Education · Instituto Cervantes.' },
+        ],
+        cols: 3,
       },
       {
         eyebrow: 'How we do it',
