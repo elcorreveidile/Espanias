@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useLanguage } from '@/context/LanguageContext'
 import { translations } from '@/lib/translations'
 
@@ -84,8 +85,8 @@ export default function Servicios() {
 
         {/* CTA */}
         <div className="flex justify-center">
-          <a
-            href="#contacto"
+          <Link
+            href="/contacto"
             className="inline-flex items-center gap-2 bg-[#BF2638] text-white px-10 py-4 rounded-full text-sm font-semibold hover:bg-[#A01E30] transition-colors duration-200 group"
           >
             {t.cta}
@@ -95,7 +96,7 @@ export default function Servicios() {
             >
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
             </svg>
-          </a>
+          </Link>
         </div>
       </div>
     </section>

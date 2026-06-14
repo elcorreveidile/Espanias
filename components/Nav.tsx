@@ -36,11 +36,11 @@ export default function Nav() {
         {/* Desktop links */}
         <div className="hidden md:flex items-center gap-8">
           {[
-            { href: '/#manifiesto', label: t.about },
-            { href: '/#proyectos', label: t.projects },
+            { href: '/manifiesto', label: t.about },
             { href: '/catalogo', label: t.catalog },
-            { href: '/#servicios', label: t.services },
-            { href: '/#contacto', label: t.contact },
+            { href: '/servicios', label: t.services },
+            { href: '/ia-empresas', label: t.ia },
+            { href: '/contacto', label: t.contact },
           ].map(({ href, label }) => (
             <Link
               key={href}
@@ -89,19 +89,19 @@ export default function Nav() {
         }`}
       >
         <div className="bg-[#F9F7F4] border-t border-[#E7E5E4] px-6 py-5 flex flex-col gap-4">
-          <Link href="/#manifiesto" onClick={close} className="text-sm text-[#78716C]">
+          <Link href="/manifiesto" onClick={close} className="text-sm text-[#78716C]">
             {t.about}
-          </Link>
-          <Link href="/#proyectos" onClick={close} className="text-sm text-[#78716C]">
-            {t.projects}
           </Link>
           <Link href="/catalogo" onClick={close} className="text-sm text-[#78716C]">
             {t.catalog}
           </Link>
-          <Link href="/#servicios" onClick={close} className="text-sm text-[#78716C]">
+          <Link href="/servicios" onClick={close} className="text-sm text-[#78716C]">
             {t.services}
           </Link>
-          <Link href="/#contacto" onClick={close} className="text-sm text-[#78716C]">
+          <Link href="/ia-empresas" onClick={close} className="text-sm text-[#78716C]">
+            {t.ia}
+          </Link>
+          <Link href="/contacto" onClick={close} className="text-sm text-[#78716C]">
             {t.contact}
           </Link>
           <button
