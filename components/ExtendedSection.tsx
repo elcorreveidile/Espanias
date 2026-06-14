@@ -58,6 +58,22 @@ export default function ExtendedSection({ page }: { page: PageKey }) {
                 </div>
               )}
 
+              {b.links && (
+                <div className="mb-10 flex flex-wrap gap-x-6 gap-y-2">
+                  {b.links.map((l, j) => (
+                    <a
+                      key={j}
+                      href={l.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm font-semibold text-[#BF2638] underline underline-offset-4 transition-colors hover:text-[#A01E30]"
+                    >
+                      {l.label} ↗
+                    </a>
+                  ))}
+                </div>
+              )}
+
               {b.cards && (
                 <div className={`mb-10 grid gap-5 sm:grid-cols-2 ${colClass}`}>
                   {b.cards.map((c, j) => (

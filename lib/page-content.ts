@@ -15,6 +15,7 @@ export interface Block {
   cards?: Card[]
   cols?: 3 | 4
   numbered?: boolean
+  links?: { label: string; href: string }[]
   cta?: string
   ctaHref?: string
   dark?: boolean
@@ -121,6 +122,10 @@ export const pageContent: Record<Lang, Record<PageKey, Block[]>> = {
         title: 'Online en toda España · Presencial en Granada y Estepona',
         intro:
           'Cuéntanos tu proyecto por el formulario y te respondemos en 24-48 horas. La primera conversación siempre es gratis y sin compromiso.',
+        links: [
+          { label: 'Agencia web en Granada', href: 'https://www.por2duros.com/agencia-web-granada' },
+          { label: 'Agencia web en Estepona', href: 'https://www.por2duros.com/agencia-web-estepona' },
+        ],
       },
     ],
   },
@@ -224,6 +229,10 @@ export const pageContent: Record<Lang, Record<PageKey, Block[]>> = {
         title: 'Online across Spain · In person in Granada and Estepona',
         intro:
           'Tell us about your project through the form and we’ll reply within 24-48 hours. The first conversation is always free, no strings attached.',
+        links: [
+          { label: 'Web agency in Granada', href: 'https://www.por2duros.com/agencia-web-granada' },
+          { label: 'Web agency in Estepona', href: 'https://www.por2duros.com/agencia-web-estepona' },
+        ],
       },
     ],
   },
