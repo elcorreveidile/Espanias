@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useLanguage } from '@/context/LanguageContext'
 import { translations } from '@/lib/translations'
 
@@ -65,21 +66,21 @@ export default function Hero() {
         </p>
 
         {/* CTA */}
-        <a
-          href="#proyectos"
+        <Link
+          href="/catalogo"
           className="inline-flex items-center gap-2 bg-[#1C1917] text-[#F9F7F4] px-8 py-3.5 rounded-full text-sm font-semibold hover:bg-[#BF2638] transition-colors duration-300 group"
         >
           {t.cta}
           <svg
-            className="w-4 h-4 transition-transform duration-300 group-hover:translate-y-0.5"
+            className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
             strokeWidth={1.8}
           >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
           </svg>
-        </a>
+        </Link>
       </div>
 
       {/* Scroll indicator */}
