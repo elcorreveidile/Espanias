@@ -1,8 +1,35 @@
 'use client'
 
 import Link from 'next/link'
+import type { ReactNode } from 'react'
 import { useLanguage } from '@/context/LanguageContext'
 import { pageContent, type PageKey } from '@/lib/page-content'
+
+// Convierte enlaces estilo markdown [texto](url) en <a> dentro de un párrafo.
+function renderRich(text: string): ReactNode[] {
+  const parts: ReactNode[] = []
+  const re = /\[([^\]]+)\]\(([^)]+)\)/g
+  let last = 0
+  let m: RegExpExecArray | null
+  let key = 0
+  while ((m = re.exec(text)) !== null) {
+    if (m.index > last) parts.push(text.slice(last, m.index))
+    parts.push(
+      <a
+        key={key++}
+        href={m[2]}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="font-semibold text-[#BF2638] underline underline-offset-2 hover:text-[#A01E30]"
+      >
+        {m[1]}
+      </a>
+    )
+    last = m.index + m[0].length
+  }
+  if (last < text.length) parts.push(text.slice(last))
+  return parts
+}
 
 export default function ExtendedSection({ page }: { page: PageKey }) {
   const { lang } = useLanguage()
@@ -52,7 +79,7 @@ export default function ExtendedSection({ page }: { page: PageKey }) {
                       key={j}
                       className={`leading-relaxed ${b.dark ? 'text-[#A8A29E]' : 'text-[#57534E]'}`}
                     >
-                      {p}
+                      {renderRich(p)}
                     </p>
                   ))}
                 </div>
