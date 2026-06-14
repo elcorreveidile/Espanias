@@ -666,10 +666,10 @@ export const projects: Project[] = [
     id: 'barberia',
     name: 'Filo Barber Studio',
     slug: 'barberia',
-    url: 'https://barberia-demo.vercel.app',
-    demo: 'https://barberia-demo.vercel.app',
+    url: 'https://barberia-demo-ten.vercel.app',
+    demo: 'https://barberia-demo-ten.vercel.app',
     category: 'belleza',
-    status: 'desarrollo',
+    status: 'hecho',
     sector: 'servicios-personales',
     description: {
       es: 'Barbería y estética masculina con reserva de cita por la web y un agente de WhatsApp que conversa y agenda solo. Anti-solapamiento garantizado en base de datos y panel de gestión móvil.',
