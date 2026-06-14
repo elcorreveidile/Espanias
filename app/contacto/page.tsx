@@ -7,7 +7,7 @@ import ExtendedSection from '@/components/ExtendedSection'
 export const metadata: Metadata = {
   title: 'Contacto',
   description:
-    'Cuéntanos tu proyecto y te respondemos en 24-48 horas. Atención online para toda España y presencial en Granada. La primera conversación es gratis.',
+    'Cuéntanos tu proyecto y te respondemos en 24-48 horas. Atención online para toda España y presencial en Granada y Estepona. La primera conversación es gratis.',
   alternates: { canonical: 'https://www.espanias.com/contacto' },
 }
 

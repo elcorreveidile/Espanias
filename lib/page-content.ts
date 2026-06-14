@@ -118,7 +118,7 @@ export const pageContent: Record<Lang, Record<PageKey, Block[]>> = {
     contacto: [
       {
         eyebrow: 'Atención',
-        title: 'Online en toda España · Presencial en Granada',
+        title: 'Online en toda España · Presencial en Granada y Estepona',
         intro:
           'Cuéntanos tu proyecto por el formulario y te respondemos en 24-48 horas. La primera conversación siempre es gratis y sin compromiso.',
       },
@@ -221,7 +221,7 @@ export const pageContent: Record<Lang, Record<PageKey, Block[]>> = {
     contacto: [
       {
         eyebrow: 'Support',
-        title: 'Online across Spain · In person in Granada',
+        title: 'Online across Spain · In person in Granada and Estepona',
         intro:
           'Tell us about your project through the form and we’ll reply within 24-48 hours. The first conversation is always free, no strings attached.',
       },
