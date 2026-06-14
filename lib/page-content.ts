@@ -94,6 +94,7 @@ export const pageContent: Record<Lang, Record<PageKey, Block[]>> = {
         cards: [
           { title: 'Digitalización Aplicada al Sector Productivo', desc: 'Ministerio de Educación y FP · UGT · Alianza por la FP. Financiado por la Unión Europea (NextGenerationEU).' },
           { title: 'Formación de Formadores', desc: 'Diseñar e impartir talleres de formación. Ministerio de Educación · Instituto Cervantes.' },
+          { title: 'Apple Teacher', desc: 'Certificación oficial de Apple en el uso educativo de su tecnología. Centro de Lenguas Modernas, Granada.' },
         ],
         cols: 3,
       },
@@ -195,6 +196,7 @@ export const pageContent: Record<Lang, Record<PageKey, Block[]>> = {
         cards: [
           { title: 'Digital Skills for the Productive Sector', desc: 'Spanish Ministry of Education & VET · UGT · Alliance for VET. Funded by the European Union (NextGenerationEU).' },
           { title: 'Train-the-Trainer Certification', desc: 'Designing and delivering training workshops. Ministry of Education · Instituto Cervantes.' },
+          { title: 'Apple Teacher', desc: 'Official Apple certification in the educational use of its technology. Modern Languages Centre, Granada.' },
         ],
         cols: 3,
       },
