@@ -95,8 +95,9 @@ export const pageContent: Record<Lang, Record<PageKey, Block[]>> = {
           { title: 'Digitalización Aplicada al Sector Productivo', desc: 'Ministerio de Educación y FP · UGT · Alianza por la FP. Financiado por la Unión Europea (NextGenerationEU).' },
           { title: 'Formación de Formadores', desc: 'Diseñar e impartir talleres de formación. Ministerio de Educación · Instituto Cervantes.' },
           { title: 'Apple Teacher', desc: 'Certificación oficial de Apple en el uso educativo de su tecnología. Centro de Lenguas Modernas, Granada.' },
+          { title: 'Mobile Learning · MOOC UGR', desc: 'Aplicación de dispositivos móviles en el aula. Universidad de Granada · 75 h · 3 créditos ECTS.' },
         ],
-        cols: 3,
+        cols: 4,
       },
       {
         eyebrow: 'Cómo lo hacemos',
@@ -197,8 +198,9 @@ export const pageContent: Record<Lang, Record<PageKey, Block[]>> = {
           { title: 'Digital Skills for the Productive Sector', desc: 'Spanish Ministry of Education & VET · UGT · Alliance for VET. Funded by the European Union (NextGenerationEU).' },
           { title: 'Train-the-Trainer Certification', desc: 'Designing and delivering training workshops. Ministry of Education · Instituto Cervantes.' },
           { title: 'Apple Teacher', desc: 'Official Apple certification in the educational use of its technology. Modern Languages Centre, Granada.' },
+          { title: 'Mobile Learning · UGR MOOC', desc: 'Applying mobile devices in the classroom. University of Granada · 75h · 3 ECTS credits.' },
         ],
-        cols: 3,
+        cols: 4,
       },
       {
         eyebrow: 'How we do it',
