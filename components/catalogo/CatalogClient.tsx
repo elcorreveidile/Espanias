@@ -59,7 +59,7 @@ export default function CatalogClient({ projects }: { projects: Project[] }) {
   return (
     <>
       <Nav />
-      <main className="min-h-screen bg-[#FAFAF9] px-6 py-28 md:py-32">
+      <main className="min-h-screen px-6 py-28 md:py-32">
         <div className="mx-auto max-w-6xl">
           {/* Encabezado */}
           <div className="mb-12">
