@@ -53,3 +53,20 @@ export function ensureSchema(): Promise<void> {
   }
   return schemaReady;
 }
+
+// Auto-migración idempotente de columnas nuevas en projects (p. ej. imagen_url),
+// para que añadir campos no rompa las lecturas en una BD ya existente.
+let projectCols: Promise<void> | null = null;
+
+export function ensureProjectColumns(): Promise<void> {
+  if (!projectCols) {
+    projectCols = db
+      .execute(sql`ALTER TABLE projects ADD COLUMN IF NOT EXISTS imagen_url text`)
+      .then(() => undefined)
+      .catch((err) => {
+        projectCols = null;
+        throw err;
+      });
+  }
+  return projectCols;
+}

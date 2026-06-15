@@ -1,14 +1,17 @@
 import { eq } from 'drizzle-orm'
 import { db } from '@/lib/db/client'
+import { ensureProjectColumns } from '@/lib/db/ensure-schema'
 import { projects, learnings } from '@/lib/db/schema'
 
 export type ProjectRow = typeof projects.$inferSelect
 
 export async function listProjects(): Promise<ProjectRow[]> {
+  await ensureProjectColumns()
   return db.select().from(projects)
 }
 
 export async function getProjectRow(slug: string): Promise<ProjectRow | undefined> {
+  await ensureProjectColumns()
   const rows = await db.select().from(projects).where(eq(projects.slug, slug)).limit(1)
   return rows[0]
 }
@@ -35,6 +38,7 @@ export interface ProjectUpdate {
   repositorioUrl?: string | null
   planMaestroUrl?: string | null
   componentesIncluidos?: string | null
+  imagenUrl?: string | null
   paletaPrincipal?: string | null
   paletaSecundaria?: string | null
   paletaAccion?: string | null
@@ -44,6 +48,7 @@ export interface ProjectUpdate {
 }
 
 export async function updateProject(slug: string, data: ProjectUpdate): Promise<void> {
+  await ensureProjectColumns()
   await db
     .update(projects)
     .set({ ...data, updatedAt: new Date() })

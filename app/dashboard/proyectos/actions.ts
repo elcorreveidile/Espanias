@@ -22,6 +22,7 @@ export async function saveProject(slug: string, formData: FormData): Promise<voi
     claim: opt(formData.get('claim')),
     url: opt(formData.get('url')),
     demoUrl: opt(formData.get('demoUrl')),
+    imagenUrl: opt(formData.get('imagenUrl')),
     descripcionEs: opt(formData.get('descripcionEs')),
     descripcionEn: opt(formData.get('descripcionEn')),
     repositorioUrl: opt(formData.get('repositorioUrl')),

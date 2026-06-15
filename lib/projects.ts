@@ -10,6 +10,7 @@ export interface Project {
   status: 'idea' | 'planeado' | 'desarrollo' | 'hecho'
   demo?: string
   sector?: string
+  image?: string
 }
 
 export const categoryColors: Record<Category, string> = {

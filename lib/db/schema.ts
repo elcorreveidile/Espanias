@@ -25,6 +25,7 @@ export const projects = pgTable("projects", {
   planMaestroUrl: text("plan_maestro_url"),
   repositorioUrl: text("repositorio_url"),
   demoUrl: text("demo_url"),
+  imagenUrl: text("imagen_url"),
   notasInternas: text("notas_internas"),
   componentesIncluidos: varchar("componentes_incluidos", { length: 500 }),
   createdAt: timestamp("created_at").defaultNow(),

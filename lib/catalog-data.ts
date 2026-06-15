@@ -35,6 +35,7 @@ function mapRow(row: DbRow): Project {
   const en = str(row.descripcionEn) || es
   const demo = str(row.demoUrl)
   const sector = str(row.sector)
+  const image = str(row.imagenUrl)
 
   return {
     id: str(row.slug),
@@ -46,6 +47,7 @@ function mapRow(row: DbRow): Project {
     category,
     status,
     sector: sector || undefined,
+    image: image || undefined,
   }
 }
 
@@ -54,6 +56,8 @@ async function fetchFromDb(): Promise<Project[] | null> {
   try {
     const { db } = await import('@/lib/db/client')
     const { projects: projectsTable } = await import('@/lib/db/schema')
+    const { ensureProjectColumns } = await import('@/lib/db/ensure-schema')
+    await ensureProjectColumns()
     const rows = await db.select().from(projectsTable)
     if (!rows.length) return null
     return rows.map(mapRow)
