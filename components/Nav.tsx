@@ -40,6 +40,7 @@ export default function Nav() {
             { href: '/catalogo', label: t.catalog },
             { href: '/servicios', label: t.services },
             { href: '/ia-empresas', label: t.ia },
+            { href: '/blog', label: t.blog },
             { href: '/contacto', label: t.contact },
           ].map(({ href, label }) => (
             <Link
@@ -85,7 +86,7 @@ export default function Nav() {
       {/* Mobile menu */}
       <div
         className={`md:hidden overflow-hidden transition-all duration-300 ${
-          menuOpen ? 'max-h-64' : 'max-h-0'
+          menuOpen ? 'max-h-96' : 'max-h-0'
         }`}
       >
         <div className="bg-[#F9F7F4] border-t border-[#E7E5E4] px-6 py-5 flex flex-col gap-4">
@@ -100,6 +101,9 @@ export default function Nav() {
           </Link>
           <Link href="/ia-empresas" onClick={close} className="text-sm text-[#78716C]">
             {t.ia}
+          </Link>
+          <Link href="/blog" onClick={close} className="text-sm text-[#78716C]">
+            {t.blog}
           </Link>
           <Link href="/contacto" onClick={close} className="text-sm text-[#78716C]">
             {t.contact}
