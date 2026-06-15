@@ -58,7 +58,13 @@ export default async function PostEditor({ params }: Props) {
 
         <div>
           <label className={label} htmlFor="contenido">Contenido</label>
-          <textarea id="contenido" name="contenido" rows={14} defaultValue={post?.contenido ?? ''} placeholder="Escribe el artículo. Separa los párrafos con una línea en blanco." className={field} />
+          <textarea id="contenido" name="contenido" rows={16} defaultValue={post?.contenido ?? ''} placeholder={'Escribe el artículo.\n\nSepara los párrafos con una línea en blanco.'} className={`${field} font-mono`} />
+          <div className="mt-2 rounded-lg bg-stone-50 p-3 text-xs leading-relaxed text-[#78716C]">
+            <p className="mb-1 font-semibold text-[#57534E]">Puedes dar formato (Markdown):</p>
+            <code>**negrita**</code> · <code>*cursiva*</code> · <code>## Subtítulo</code> ·{' '}
+            <code>- elemento de lista</code> · <code>[texto](https://enlace)</code> ·{' '}
+            <code>&gt; cita</code>. Deja una línea en blanco entre párrafos.
+          </div>
         </div>
 
         <label className="flex items-center gap-2 text-sm font-medium text-[#1C1917]">
