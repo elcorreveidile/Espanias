@@ -4,14 +4,14 @@ import { useLanguage } from '@/context/LanguageContext'
 import LegalPage from '@/components/LegalPage'
 import { legalInfo as L } from '@/lib/legal'
 
-const h2 = 'text-xl font-bold text-[#1C1917] mb-2'
+const h2 = 'text-xl font-bold text-[#1C1917] mb-2 dark:text-[#F5F5F4]'
 const link = 'text-[#BF2638] hover:underline'
 const th = 'px-4 py-3 font-semibold'
 const td = 'px-4 py-3'
 
 function CookieTable({ headers, row }: { headers: string[]; row: string[] }) {
   return (
-    <div className="overflow-x-auto rounded-xl border border-stone-200">
+    <div className="overflow-x-auto rounded-xl border border-stone-200 dark:border-white/10">
       <table className="w-full min-w-[480px] text-sm">
         <thead>
           <tr className="border-b border-stone-200 text-left text-xs uppercase tracking-wider text-[#A8A29E]">
@@ -22,7 +22,7 @@ function CookieTable({ headers, row }: { headers: string[]; row: string[] }) {
         </thead>
         <tbody>
           <tr className="border-b border-stone-100">
-            <td className={`${td} font-medium text-[#1C1917]`}>{row[0]}</td>
+            <td className={`${td} font-medium text-[#1C1917] dark:text-[#F5F5F4]`}>{row[0]}</td>
             <td className={td}>{row[1]}</td>
             <td className={td}>{row[2]}</td>
             <td className={td}>{row[3]}</td>

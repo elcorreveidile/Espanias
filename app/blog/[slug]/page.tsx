@@ -65,7 +65,7 @@ export default async function PostPage({ params }: Props) {
         <article className="mx-auto max-w-2xl">
           <Link
             href="/blog"
-            className="mb-8 inline-block text-sm font-medium text-[#78716C] transition-colors hover:text-[#6D28D9]"
+            className="mb-8 inline-block text-sm font-medium text-[#78716C] dark:text-[#A8A29E] transition-colors hover:text-[#6D28D9]"
           >
             ← Volver a Novedades
           </Link>
@@ -73,12 +73,12 @@ export default async function PostPage({ params }: Props) {
           <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#A8A29E]">
             {formatDate(post.createdAt)}
           </p>
-          <h1 className="mb-6 text-4xl font-black leading-tight text-[#1C1917] md:text-5xl">
+          <h1 className="mb-6 text-4xl font-black leading-tight text-[#1C1917] md:text-5xl dark:text-[#F5F5F4]">
             {post.titulo}
           </h1>
 
           {post.portadaUrl && (
-            <div className="mb-10 overflow-hidden rounded-2xl border border-stone-200">
+            <div className="mb-10 overflow-hidden rounded-2xl border border-stone-200 dark:border-white/10">
               <Image
                 src={post.portadaUrl}
                 alt={post.titulo}
@@ -91,7 +91,7 @@ export default async function PostPage({ params }: Props) {
             </div>
           )}
 
-          <div className="space-y-5 text-lg leading-relaxed text-[#44403C]">
+          <div className="space-y-5 text-lg leading-relaxed text-[#44403C] dark:text-[#D6D3D1]">
             {paragraphs.map((p, i) => (
               <p key={i}>{p}</p>
             ))}

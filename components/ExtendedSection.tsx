@@ -49,14 +49,14 @@ export default function ExtendedSection({ page }: { page: PageKey }) {
               <div className="mb-8 flex items-center gap-3">
                 <div className="h-px w-8 bg-[#6D28D9]" />
                 <div className="h-px w-3 bg-[#BF2638]" />
-                <span className="text-xs font-medium uppercase tracking-[0.35em] text-[#78716C]">
+                <span className="text-xs font-medium uppercase tracking-[0.35em] text-[#78716C] dark:text-[#A8A29E]">
                   {b.eyebrow}
                 </span>
               </div>
 
               <h2
                 className={`mb-6 max-w-3xl text-3xl font-black leading-tight md:text-5xl ${
-                  b.dark ? 'text-[#F9F7F4]' : 'text-[#1C1917]'
+                  b.dark ? 'text-[#F9F7F4]' : 'text-[#1C1917] dark:text-[#F5F5F4]'
                 }`}
               >
                 {b.title}
@@ -65,7 +65,7 @@ export default function ExtendedSection({ page }: { page: PageKey }) {
               {b.intro && (
                 <p
                   className={`mb-10 max-w-2xl text-lg leading-relaxed ${
-                    b.dark ? 'text-[#A8A29E]' : 'text-[#78716C]'
+                    b.dark ? 'text-[#A8A29E]' : 'text-[#78716C] dark:text-[#A8A29E]'
                   }`}
                 >
                   {b.intro}
@@ -77,7 +77,7 @@ export default function ExtendedSection({ page }: { page: PageKey }) {
                   {b.paragraphs.map((p, j) => (
                     <p
                       key={j}
-                      className={`leading-relaxed ${b.dark ? 'text-[#A8A29E]' : 'text-[#57534E]'}`}
+                      className={`leading-relaxed ${b.dark ? 'text-[#A8A29E]' : 'text-[#57534E] dark:text-[#A8A29E]'}`}
                     >
                       {renderRich(p)}
                     </p>
@@ -109,7 +109,7 @@ export default function ExtendedSection({ page }: { page: PageKey }) {
                       className={`rounded-2xl border p-6 ${
                         b.dark
                           ? 'border-white/10 bg-white/[0.04]'
-                          : 'border-stone-200 bg-white'
+                          : 'border-stone-200 bg-white dark:border-white/10 dark:bg-white/[0.04]'
                       }`}
                     >
                       {b.numbered && (
@@ -119,14 +119,14 @@ export default function ExtendedSection({ page }: { page: PageKey }) {
                       )}
                       <h3
                         className={`mb-2 text-lg font-bold ${
-                          b.dark ? 'text-[#F9F7F4]' : 'text-[#1C1917]'
+                          b.dark ? 'text-[#F9F7F4]' : 'text-[#1C1917] dark:text-[#F5F5F4]'
                         }`}
                       >
                         {c.title}
                       </h3>
                       <p
                         className={`text-sm leading-relaxed ${
-                          b.dark ? 'text-[#A8A29E]' : 'text-[#78716C]'
+                          b.dark ? 'text-[#A8A29E]' : 'text-[#78716C] dark:text-[#A8A29E]'
                         }`}
                       >
                         {c.desc}

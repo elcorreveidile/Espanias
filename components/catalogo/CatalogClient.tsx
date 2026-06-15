@@ -80,13 +80,13 @@ export default function CatalogClient({ projects }: { projects: Project[] }) {
             <div className="mb-8 flex items-center gap-3">
               <div className="h-px w-8 bg-[#6D28D9]" />
               <div className="h-px w-3 bg-[#BF2638]" />
-              <span className="text-xs font-medium uppercase tracking-[0.35em] text-[#78716C]">
+              <span className="text-xs font-medium uppercase tracking-[0.35em] text-[#78716C] dark:text-[#A8A29E]">
                 {c.eyebrow}
               </span>
             </div>
-            <h1 className="mb-4 text-4xl font-black text-[#1C1917] md:text-5xl">{c.title}</h1>
-            <p className="mb-6 max-w-xl leading-relaxed text-[#78716C]">{c.subtitle}</p>
-            <p className="text-sm font-semibold text-[#78716C]">
+            <h1 className="mb-4 text-4xl font-black text-[#1C1917] md:text-5xl dark:text-[#F5F5F4]">{c.title}</h1>
+            <p className="mb-6 max-w-xl leading-relaxed text-[#78716C] dark:text-[#A8A29E]">{c.subtitle}</p>
+            <p className="text-sm font-semibold text-[#78716C] dark:text-[#A8A29E]">
               {c.counter(filteredProjects.length, projects.length)}
             </p>
           </div>
@@ -113,7 +113,7 @@ export default function CatalogClient({ projects }: { projects: Project[] }) {
             </div>
           ) : (
             <div className="py-20 text-center">
-              <p className="text-lg text-[#78716C]">{c.empty}</p>
+              <p className="text-lg text-[#78716C] dark:text-[#A8A29E]">{c.empty}</p>
             </div>
           )}
         </div>

@@ -55,25 +55,25 @@ export default function Contacto() {
         <div className="flex items-center gap-3 mb-8">
           <div className="w-8 h-px bg-[#BF2638]" />
           <div className="w-3 h-px bg-[#D4AC0D]" />
-          <span className="text-xs uppercase tracking-[0.35em] text-[#78716C] font-medium">
+          <span className="text-xs uppercase tracking-[0.35em] text-[#78716C] font-medium dark:text-[#A8A29E]">
             {t.eyebrow}
           </span>
         </div>
 
-        <h2 className="text-4xl md:text-5xl font-black text-[#1C1917] mb-5">{t.title}</h2>
-        <p className="text-[#78716C] max-w-md mb-12 leading-relaxed text-base md:text-lg">
+        <h2 className="text-4xl md:text-5xl font-black text-[#1C1917] mb-5 dark:text-[#F5F5F4]">{t.title}</h2>
+        <p className="text-[#78716C] max-w-md mb-12 leading-relaxed text-base md:text-lg dark:text-[#A8A29E]">
           {t.subtitle}
         </p>
 
         {status === 'success' ? (
-          <div className="max-w-lg bg-white border border-[#E7E5E4] rounded-2xl p-10 text-center">
+          <div className="max-w-lg bg-white border border-[#E7E5E4] rounded-2xl p-10 text-center dark:bg-[#1C1917] dark:border-white/10">
             <div className="w-12 h-12 rounded-full bg-[#F0FDF4] flex items-center justify-center mx-auto mb-4">
               <svg className="w-6 h-6 text-[#16A34A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h3 className="font-bold text-xl text-[#1C1917] mb-2">{t.successTitle}</h3>
-            <p className="text-[#78716C]">{t.successText}</p>
+            <h3 className="font-bold text-xl text-[#1C1917] mb-2 dark:text-[#F5F5F4]">{t.successTitle}</h3>
+            <p className="text-[#78716C] dark:text-[#A8A29E]">{t.successText}</p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="max-w-lg space-y-5">
@@ -91,7 +91,7 @@ export default function Contacto() {
 
             {/* Name */}
             <div>
-              <label className="block text-sm font-medium text-[#1C1917] mb-1.5">
+              <label className="block text-sm font-medium text-[#1C1917] mb-1.5 dark:text-[#F5F5F4]">
                 {t.name}
               </label>
               <input
@@ -100,13 +100,13 @@ export default function Contacto() {
                 value={name}
                 onChange={e => setName(e.target.value)}
                 placeholder={t.namePlaceholder}
-                className="w-full px-4 py-3 rounded-xl border border-[#E7E5E4] bg-white text-[#1C1917] placeholder-[#78716C]/50 text-sm focus:outline-none focus:border-[#BF2638] transition-colors"
+                className="w-full px-4 py-3 rounded-xl border border-[#E7E5E4] bg-white text-[#1C1917] placeholder-[#78716C]/50 dark:border-white/15 dark:bg-white/5 dark:text-[#F5F5F4] text-sm focus:outline-none focus:border-[#BF2638] transition-colors"
               />
             </div>
 
             {/* Email */}
             <div>
-              <label className="block text-sm font-medium text-[#1C1917] mb-1.5">
+              <label className="block text-sm font-medium text-[#1C1917] mb-1.5 dark:text-[#F5F5F4]">
                 {t.email}
               </label>
               <input
@@ -115,13 +115,13 @@ export default function Contacto() {
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 placeholder={t.emailPlaceholder}
-                className="w-full px-4 py-3 rounded-xl border border-[#E7E5E4] bg-white text-[#1C1917] placeholder-[#78716C]/50 text-sm focus:outline-none focus:border-[#BF2638] transition-colors"
+                className="w-full px-4 py-3 rounded-xl border border-[#E7E5E4] bg-white text-[#1C1917] placeholder-[#78716C]/50 dark:border-white/15 dark:bg-white/5 dark:text-[#F5F5F4] text-sm focus:outline-none focus:border-[#BF2638] transition-colors"
               />
             </div>
 
             {/* Message */}
             <div>
-              <label className="block text-sm font-medium text-[#1C1917] mb-1.5">
+              <label className="block text-sm font-medium text-[#1C1917] mb-1.5 dark:text-[#F5F5F4]">
                 {t.message}
               </label>
               <textarea
@@ -130,7 +130,7 @@ export default function Contacto() {
                 value={message}
                 onChange={e => setMessage(e.target.value)}
                 placeholder={t.messagePlaceholder}
-                className="w-full px-4 py-3 rounded-xl border border-[#E7E5E4] bg-white text-[#1C1917] placeholder-[#78716C]/50 text-sm focus:outline-none focus:border-[#BF2638] transition-colors resize-none"
+                className="w-full px-4 py-3 rounded-xl border border-[#E7E5E4] bg-white text-[#1C1917] placeholder-[#78716C]/50 dark:border-white/15 dark:bg-white/5 dark:text-[#F5F5F4] text-sm focus:outline-none focus:border-[#BF2638] transition-colors resize-none"
               />
             </div>
 

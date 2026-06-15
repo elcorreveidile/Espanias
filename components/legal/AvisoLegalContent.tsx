@@ -4,7 +4,7 @@ import { useLanguage } from '@/context/LanguageContext'
 import LegalPage from '@/components/LegalPage'
 import { legalInfo as L } from '@/lib/legal'
 
-const h2 = 'text-xl font-bold text-[#1C1917] mb-2'
+const h2 = 'text-xl font-bold text-[#1C1917] mb-2 dark:text-[#F5F5F4]'
 const ul = 'list-disc space-y-1 pl-5'
 const link = 'text-[#BF2638] hover:underline'
 

@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { Analytics } from '@vercel/analytics/next'
 import { LanguageProvider } from '@/context/LanguageContext'
+import { ThemeProvider } from '@/components/ThemeProvider'
 import SiteBackground from '@/components/SiteBackground'
 
 const inter = Inter({
@@ -96,14 +97,16 @@ const orgJsonLd = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" className={inter.variable}>
+    <html lang="es" className={inter.variable} suppressHydrationWarning>
       <body className="font-[family-name:var(--font-inter)]">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
         />
-        <SiteBackground />
-        <LanguageProvider>{children}</LanguageProvider>
+        <ThemeProvider>
+          <SiteBackground />
+          <LanguageProvider>{children}</LanguageProvider>
+        </ThemeProvider>
         <Analytics />
       </body>
     </html>

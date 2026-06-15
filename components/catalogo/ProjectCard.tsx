@@ -14,7 +14,7 @@ export default function ProjectCard({ project, lang }: Props) {
 
   return (
     <Link href={`/catalogo/${project.slug}`} className="group block h-full">
-      <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-stone-300 hover:shadow-lg">
+      <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-stone-300 hover:shadow-lg dark:border-white/10 dark:bg-[#1C1917] dark:hover:border-white/20">
         {/* Portada: imagen real si existe, si no portada de color por categoría */}
         <div
           className="relative h-28 overflow-hidden"
@@ -83,12 +83,12 @@ export default function ProjectCard({ project, lang }: Props) {
 
         <div className="flex flex-1 flex-col p-6">
           {/* Nombre */}
-          <h3 className="mb-2 line-clamp-2 text-lg font-black leading-snug text-[#1C1917]">
+          <h3 className="mb-2 line-clamp-2 text-lg font-black leading-snug text-[#1C1917] dark:text-[#F5F5F4]">
             {project.name}
           </h3>
 
           {/* Descripción / claim */}
-          <p className="mb-5 line-clamp-3 flex-1 text-sm leading-relaxed text-[#78716C]">
+          <p className="mb-5 line-clamp-3 flex-1 text-sm leading-relaxed text-[#78716C] dark:text-[#A8A29E]">
             {project.description[lang]}
           </p>
 
