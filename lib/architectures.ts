@@ -70,6 +70,23 @@ y adaptado a cada negocio.
 @import "tailwindcss"; con @theme inline. Paleta y tipografías 100% originales por
 sector (restaurante: crema/burdeos/serif; clínica: blanco/azul/sans; bar: oscuro/ámbar/display).
 
+## Diseño corporativo e imágenes (obligatorio: generar instrucciones)
+Antes de codificar, define la identidad de marca completa y genera las instrucciones
+(prompts) para TODAS las imágenes que necesita la web. No se trata solo de placeholders:
+hay que entregar el diseño corporativo completo de la marca.
+- Logo: principal + isotipo/versión reducida; uso en navbar y footer.
+- Favicon: favicon.ico + icon (SVG/PNG 32, 180, 512) + apple-touch-icon.
+- Hero: imagen(es) principal(es) (composición, foco, formato, peso).
+- Fondos y texturas de sección (si el estilo las pide).
+- Imagen Open Graph / redes sociales (1200×630) para SEO al compartir.
+- Iconografía y elementos decorativos coherentes con la marca.
+- Paleta, tipografías y tono ya fijados en @theme.
+Para CADA imagen, especifica: descripción/prompt de generación, dimensiones, formato
+(SVG/PNG/WebP), peso objetivo y dónde se usa. Entrega placeholders SVG reemplazables
+(scripts/generate-placeholders.mjs) y un documento de marca (brand guide) con paleta,
+tipografías, logo e instrucciones de cada activo. NUNCA uses URLs de imágenes reales
+sin permiso del cliente.
+
 ## Navbar
 Logo izq · links centro/dcha · icono carrito siempre visible con badge totalItems ·
 hamburguesa móvil → overlay fullscreen · sticky top-0 con backdrop-blur.
