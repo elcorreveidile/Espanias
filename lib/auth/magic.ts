@@ -1,6 +1,7 @@
 import { randomBytes } from 'crypto'
 import { and, eq, gt } from 'drizzle-orm'
 import { db } from '@/lib/db/client'
+import { ensureSchema } from '@/lib/db/ensure-schema'
 import { magicTokens, users } from '@/lib/db/schema'
 
 const TOKEN_TTL_MS = 15 * 60 * 1000 // 15 minutos
@@ -13,6 +14,7 @@ export interface AllowedUser {
 
 /** Devuelve el usuario si su email está en la lista blanca (tabla users). */
 export async function getAllowedUser(email: string): Promise<AllowedUser | null> {
+  await ensureSchema()
   const normalized = email.trim().toLowerCase()
   const rows = await db
     .select({ email: users.email, rol: users.rol, nombre: users.nombre })
@@ -26,6 +28,7 @@ export async function getAllowedUser(email: string): Promise<AllowedUser | null>
 
 /** Crea y persiste un token de un solo uso para el email dado. */
 export async function createMagicToken(email: string): Promise<string> {
+  await ensureSchema()
   const token = randomBytes(32).toString('hex')
   const expiresAt = new Date(Date.now() + TOKEN_TTL_MS)
   await db.insert(magicTokens).values({
@@ -38,6 +41,7 @@ export async function createMagicToken(email: string): Promise<string> {
 
 /** Valida y consume (borra) el token. Devuelve el email si es válido. */
 export async function consumeMagicToken(token: string): Promise<string | null> {
+  await ensureSchema()
   const rows = await db
     .select()
     .from(magicTokens)
