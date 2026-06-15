@@ -64,7 +64,7 @@ export default async function ProjectDetailPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <main className="min-h-screen bg-white px-6 py-28 md:py-32">
+      <main className="min-h-screen px-6 py-28 md:py-32">
         <div className="mx-auto max-w-4xl">
           {/* Migas */}
           <Link

@@ -69,10 +69,39 @@ export const metadata: Metadata = {
   },
 }
 
+const orgJsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': 'https://www.espanias.com/#org',
+      name: 'Espanias',
+      url: 'https://www.espanias.com',
+      logo: 'https://www.espanias.com/icon.svg',
+      description:
+        'Proyectos, formación y consultoría con inteligencia artificial.',
+      founder: { '@type': 'Person', name: 'Francisco Javier Benítez Láinez' },
+      areaServed: 'ES',
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://www.espanias.com/#website',
+      name: 'Espanias',
+      url: 'https://www.espanias.com',
+      publisher: { '@id': 'https://www.espanias.com/#org' },
+      inLanguage: ['es-ES', 'en'],
+    },
+  ],
+}
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" className={inter.variable}>
       <body className="font-[family-name:var(--font-inter)]">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+        />
         <SiteBackground />
         <LanguageProvider>{children}</LanguageProvider>
         <Analytics />
