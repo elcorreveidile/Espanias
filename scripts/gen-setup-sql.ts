@@ -146,6 +146,7 @@ const componentes = [
   ['calculator', 'Calculadora de Presupuestos', 'calcular', 'Presupuestos interactivos en tiempo real.', '/dashboard/biblioteca/componentes#calculator'],
   ['fidelization', 'Fidelización', 'pauta', 'Sistema de bonos y fidelización automática de clientes.', '/dashboard/biblioteca/componentes#fidelization'],
   ['whatsapp-agent', 'Agente de WhatsApp', 'ia', 'Bot conversacional con Claude (tool use) que da citas por WhatsApp: entiende lenguaje natural, consulta huecos y reserva contra la misma base de datos que la web.', '/dashboard/biblioteca/componentes#whatsapp-agent'],
+  ['ecommerce', 'Tienda online', 'comercio', 'Catálogo de productos, carrito persistente (localStorage) y pago con Stripe Checkout, con confirmación por email.', '/dashboard/biblioteca/componentes#ecommerce'],
 ]
 
 const decisiones = [
@@ -210,6 +211,10 @@ UPDATE projects SET componentes_incluidos = 'booking-engine,whatsapp-agent',
   claim = COALESCE(claim, 'Tu cita, por la web o por WhatsApp'),
   repositorio_url = COALESCE(repositorio_url, 'https://github.com/elcorreveidile/barberia-demo')
 WHERE slug = 'barberia' AND componentes_incluidos IS NULL;
+
+UPDATE projects SET componentes_incluidos = 'booking-engine,admin-panel,ecommerce',
+  claim = COALESCE(claim, 'Rock, cañas y tienda online')
+WHERE slug = 'bar-de-eric' AND componentes_incluidos IS NULL;
 `
 
 mkdirSync('db', { recursive: true })
