@@ -45,8 +45,17 @@ export default function Servicios() {
   ]
 
   return (
-    <section id="servicios" className="py-28 md:py-36 px-6 bg-[#1C1917]">
-      <div className="max-w-6xl mx-auto">
+    <section id="servicios" className="relative overflow-hidden py-28 md:py-36 px-6 bg-[#1C1917]">
+      {/* Colored glows over the dark background */}
+      <div
+        className="pointer-events-none absolute -top-24 -left-20 h-[440px] w-[440px] rounded-full blur-3xl opacity-25"
+        style={{ background: 'radial-gradient(circle, #6D28D9 0%, transparent 70%)' }}
+      />
+      <div
+        className="pointer-events-none absolute -bottom-28 right-0 h-[420px] w-[420px] rounded-full blur-3xl opacity-20"
+        style={{ background: 'radial-gradient(circle, #BF2638 0%, transparent 70%)' }}
+      />
+      <div className="relative max-w-6xl mx-auto">
         {/* Eyebrow */}
         <div className="flex items-center gap-3 mb-8">
           <div className="w-8 h-px bg-[#BF2638]" />
