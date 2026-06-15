@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useLanguage } from '@/context/LanguageContext'
 import { translations } from '@/lib/translations'
 import Logo from '@/components/Logo'
@@ -31,6 +32,17 @@ export default function Footer() {
             </a>
           </span>
         </div>
+        <nav className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-[#78716C]">
+          <Link href="/aviso-legal" className="transition-colors hover:text-[#BF2638]">
+            {t.legal}
+          </Link>
+          <Link href="/privacidad" className="transition-colors hover:text-[#BF2638]">
+            {t.privacy}
+          </Link>
+          <Link href="/cookies" className="transition-colors hover:text-[#BF2638]">
+            {t.cookies}
+          </Link>
+        </nav>
         <p className="text-xs text-[#78716C] opacity-60">
           © {year} · {t.rights}
         </p>

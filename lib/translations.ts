@@ -61,6 +61,9 @@ export const translations = {
       por2duros: 'Por 2 Duros',
       por2durosTagline: 'sí, sale baratísimo 🪙',
       rights: 'Todos los derechos reservados',
+      legal: 'Aviso legal',
+      privacy: 'Política de privacidad',
+      cookies: 'Política de cookies',
     },
     servicios: {
       eyebrow: 'Servicios',
@@ -135,6 +138,9 @@ export const translations = {
       por2duros: 'Por 2 Duros',
       por2durosTagline: 'yep, dirt cheap 🪙',
       rights: 'All rights reserved',
+      legal: 'Legal notice',
+      privacy: 'Privacy policy',
+      cookies: 'Cookie policy',
     },
     servicios: {
       eyebrow: 'Services',
