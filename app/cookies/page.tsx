@@ -76,8 +76,9 @@ export default function CookiesPage() {
       <section>
         <h2 className={h2}>5. Más información</h2>
         <p>
-          Para cualquier duda sobre esta política de cookies puedes escribirnos a {L.email}. Consulta
-          también nuestra{' '}
+          Para cualquier duda sobre esta política de cookies puedes usar nuestro{' '}
+          <a className="text-[#BF2638] hover:underline" href={L.contacto}>formulario de contacto</a>.
+          Consulta también nuestra{' '}
           <a className="text-[#BF2638] hover:underline" href="/privacidad">política de privacidad</a>.
         </p>
       </section>
