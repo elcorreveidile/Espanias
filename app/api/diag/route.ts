@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
+import { sql } from "drizzle-orm";
 import { getAllowedUser, createMagicToken, sendMagicLink } from "@/lib/auth/magic";
+import { db } from "@/lib/db/client";
 
 // Endpoint TEMPORAL de diagnóstico. Protegido por token en la query.
 // Borrar cuando se resuelva el problema del magic link.
@@ -10,11 +12,13 @@ const DIAG_TOKEN = "espanias-diag-2026";
 function errInfo(e: unknown): unknown {
   if (!(e instanceof Error)) return { value: String(e) };
   const info: Record<string, unknown> = { message: e.message };
-  for (const k of Object.keys(e)) info[k] = (e as Record<string, unknown>)[k];
+  const eRec = e as unknown as Record<string, unknown>;
+  for (const k of Object.keys(e)) info[k] = eRec[k];
   const cause = (e as { cause?: unknown }).cause;
   if (cause instanceof Error) {
     const c: Record<string, unknown> = { message: cause.message };
-    for (const k of Object.keys(cause)) c[k] = (cause as Record<string, unknown>)[k];
+    const cRec = cause as unknown as Record<string, unknown>;
+    for (const k of Object.keys(cause)) c[k] = cRec[k];
     info.cause = c;
   } else if (cause) {
     info.cause = cause;
@@ -48,6 +52,20 @@ export async function GET(req: NextRequest) {
   };
 
   const admin = "informa@blablaele.com";
+
+  // Estructura real de la tabla magic_tokens en ESTA base de datos
+  try {
+    const res = await db.execute(
+      sql`select column_name, data_type, is_nullable, column_default
+          from information_schema.columns
+          where table_name = 'magic_tokens'
+          order by ordinal_position`
+    );
+    const r = res as unknown as { rows?: unknown[] };
+    out.tablaMagicTokens = Array.isArray(r.rows) ? r.rows : res;
+  } catch (e) {
+    out.tablaMagicTokens = { error: errInfo(e) };
+  }
 
   // Test de lectura de BD
   try {
