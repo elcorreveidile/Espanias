@@ -21,6 +21,12 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     if (saved === 'es' || saved === 'en') setLang(saved)
   }, [])
 
+  // Mantiene el atributo lang del documento sincronizado con el idioma elegido
+  // (accesibilidad y SEO).
+  useEffect(() => {
+    document.documentElement.lang = lang
+  }, [lang])
+
   const toggle = () => {
     const next: Lang = lang === 'es' ? 'en' : 'es'
     setLang(next)

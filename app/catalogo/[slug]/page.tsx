@@ -121,7 +121,7 @@ export default async function ProjectDetailPage({ params }: Props) {
               </dl>
             </div>
 
-            <div>
+            <div className={project.demo || isLive ? '' : 'hidden'}>
               <h2 className="mb-4 text-lg font-black text-[#1C1917]">Enlaces</h2>
               <div className="space-y-3">
                 {project.demo && (

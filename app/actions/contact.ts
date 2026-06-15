@@ -5,8 +5,15 @@ export type ContactResult = { ok: true } | { ok: false; error: string }
 export async function sendContact(
   name: string,
   email: string,
-  message: string
+  message: string,
+  honeypot = ''
 ): Promise<ContactResult> {
+  // Anti-spam: si el campo trampa (oculto para humanos) viene relleno, es un bot.
+  // Devolvemos éxito silencioso para no darle pistas.
+  if (honeypot.trim()) {
+    return { ok: true }
+  }
+
   if (!name.trim() || !email.trim() || !message.trim()) {
     return { ok: false, error: 'Todos los campos son obligatorios.' }
   }
