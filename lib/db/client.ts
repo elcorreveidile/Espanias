@@ -1,11 +1,12 @@
-import { drizzle } from "drizzle-orm/postgres-js";
-import postgres from "postgres";
+import { drizzle } from "drizzle-orm/neon-http";
+import { neon } from "@neondatabase/serverless";
 import * as schema from "./schema";
 
 type Db = ReturnType<typeof drizzle<typeof schema>>;
 
-// Conexión perezosa: el cliente solo se crea la primera vez que se usa la BD,
-// no al importar el módulo. Así el build (sin DATABASE_URL) no falla.
+// Conexión perezosa con el driver HTTP serverless de Neon: sin conexiones TCP
+// persistentes (que fallaban en arranque en frío cuando Neon estaba suspendida).
+// Cada consulta es una petición HTTP sin estado, ideal para Vercel serverless.
 let _db: Db | null = null;
 
 function getDb(): Db {
@@ -14,8 +15,7 @@ function getDb(): Db {
   if (!url) {
     throw new Error("DATABASE_URL environment variable is not set");
   }
-  const client = postgres(url, { prepare: false });
-  _db = drizzle(client, { schema });
+  _db = drizzle(neon(url), { schema });
   return _db;
 }
 
