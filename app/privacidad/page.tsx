@@ -28,7 +28,10 @@ export default function PrivacidadPage() {
           <li><strong>Titular:</strong> {L.titular}</li>
           <li><strong>NIF/CIF:</strong> {L.nif}</li>
           <li><strong>Domicilio:</strong> {L.domicilio}</li>
-          <li><strong>Correo de contacto:</strong> {L.email}</li>
+          <li>
+            <strong>Contacto:</strong>{' '}
+            <a className="text-[#BF2638] hover:underline" href={L.contacto}>formulario de contacto</a>
+          </li>
         </ul>
       </section>
 
@@ -95,9 +98,11 @@ export default function PrivacidadPage() {
         <h2 className={h2}>6. Tus derechos</h2>
         <p>
           Puedes ejercer en cualquier momento tus derechos de acceso, rectificación, supresión,
-          oposición, limitación del tratamiento y portabilidad, escribiendo a {L.email} e indicando el
-          derecho que deseas ejercer. También tienes derecho a retirar el consentimiento prestado y a
-          presentar una reclamación ante la <strong>Agencia Española de Protección de Datos</strong>{' '}
+          oposición, limitación del tratamiento y portabilidad a través de nuestro{' '}
+          <a className="text-[#BF2638] hover:underline" href={L.contacto}>formulario de contacto</a>,
+          indicando el derecho que deseas ejercer. También tienes derecho a retirar el consentimiento
+          prestado y a presentar una reclamación ante la{' '}
+          <strong>Agencia Española de Protección de Datos</strong>{' '}
           (<a className="text-[#BF2638] hover:underline" href="https://www.aepd.es" target="_blank" rel="noopener noreferrer">www.aepd.es</a>) si consideras que el tratamiento no se ajusta a la normativa.
         </p>
       </section>

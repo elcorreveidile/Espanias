@@ -5,10 +5,11 @@ export const legalInfo = {
   marca: 'Espanias',
   sitio: 'www.espanias.com',
   // Titular / responsable del tratamiento
-  titular: 'Javier Benítez',
-  nif: '[NIF/CIF — PENDIENTE]',
-  domicilio: '[Domicilio postal — PENDIENTE]',
-  email: 'informa@blablaele.com',
+  titular: 'Francisco Javier Benítez Láinez',
+  nif: '08916742X',
+  domicilio: 'C/ María Magdalena 5, 29680 Estepona (Málaga)',
+  // Para contacto no mostramos email: enlazamos al formulario de contacto.
+  contacto: '/contacto',
   actividad:
     'Diseño y desarrollo de aplicaciones web, y formación y consultoría en inteligencia artificial.',
   // Proveedores (encargados del tratamiento)

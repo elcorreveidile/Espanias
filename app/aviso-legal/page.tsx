@@ -25,7 +25,10 @@ export default function AvisoLegalPage() {
           <li><strong>Titular:</strong> {L.titular}</li>
           <li><strong>NIF/CIF:</strong> {L.nif}</li>
           <li><strong>Domicilio:</strong> {L.domicilio}</li>
-          <li><strong>Correo electrónico:</strong> {L.email}</li>
+          <li>
+            <strong>Contacto:</strong>{' '}
+            <a className="text-[#BF2638] hover:underline" href={L.contacto}>formulario de contacto</a>
+          </li>
           <li><strong>Sitio web:</strong> {L.sitio}</li>
           <li><strong>Actividad:</strong> {L.actividad}</li>
         </ul>
