@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useTransition } from 'react'
+import { useState, useEffect, useTransition } from 'react'
 import { useLanguage } from '@/context/LanguageContext'
 import { translations } from '@/lib/translations'
 import { sendContact } from '@/app/actions/contact'
@@ -16,6 +16,19 @@ export default function Contacto() {
   const [message, setMessage] = useState('')
   const [honeypot, setHoneypot] = useState('')
   const [status, setStatus] = useState<Status>('idle')
+
+  // Si se llega desde una ficha de "idea" (?idea=Nombre), prepara el mensaje.
+  useEffect(() => {
+    const idea = new URLSearchParams(window.location.search).get('idea')
+    if (idea) {
+      setMessage(
+        lang === 'en'
+          ? `Hi, I'm interested in the "${idea}" idea. I'd like to know more.`
+          : `Hola, me interesa la idea «${idea}». Me gustaría saber más.`
+      )
+    }
+    // Solo al montar / cambiar idioma
+  }, [lang])
   const [errorMsg, setErrorMsg] = useState('')
   const [isPending, startTransition] = useTransition()
 
