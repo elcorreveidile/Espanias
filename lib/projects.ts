@@ -677,6 +677,21 @@ export const projects: Project[] = [
     },
   },
 
+  {
+    id: 'bar-de-eric',
+    name: 'El Bar de Eric',
+    slug: 'bar-de-eric',
+    url: 'https://bar-de-eric-demo.vercel.app',
+    demo: 'https://bar-de-eric-demo.vercel.app',
+    category: 'hosteleria',
+    status: 'hecho',
+    sector: 'hosteleria',
+    description: {
+      es: 'Bar-museo de rock con tienda online, reservas y panel de gestión. Carrito persistente, pago con Stripe, autenticación por magic link y catálogo de productos.',
+      en: 'Rock bar-museum with online shop, bookings and admin panel. Persistent cart, Stripe checkout, magic-link authentication and a product catalogue.',
+    },
+  },
+
   // EVENTOS
   {
     id: 'venta-entradas',

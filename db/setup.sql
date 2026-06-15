@@ -99,7 +99,7 @@ INSERT INTO users (email, nombre, rol) VALUES ('informa@blablaele.com', 'Javier'
 ON CONFLICT (email) DO UPDATE SET rol = 'admin';
 
 -- ============================================================
--- Proyectos (49)
+-- Proyectos (50)
 -- ============================================================
 INSERT INTO projects (slug, nombre, category, estado, sector, descripcion_es, descripcion_en, url, demo_url) VALUES ('perruqueria-canina', 'Perruquería Canina Realejo', 'mascotas', 'hecho', 'servicios-personales', 'Plataforma de reservas para peluquería canina en Granada. Sistema de citas online, confirmación automática por email, y gestión de clientes con historial de visitas.', 'Dog grooming booking platform in Granada. Online appointment system, automatic email confirmations, and customer management with visit history.', 'https://perruqueria-canina.por2duros.com', 'https://perruqueria-canina-demo.vercel.app')
 ON CONFLICT (slug) DO NOTHING;
@@ -187,6 +187,8 @@ INSERT INTO projects (slug, nombre, category, estado, sector, descripcion_es, de
 ON CONFLICT (slug) DO NOTHING;
 INSERT INTO projects (slug, nombre, category, estado, sector, descripcion_es, descripcion_en, url, demo_url) VALUES ('barberia', 'Filo Barber Studio', 'belleza', 'hecho', 'servicios-personales', 'Barbería y estética masculina con reserva de cita por la web y un agente de WhatsApp que conversa y agenda solo. Anti-solapamiento garantizado en base de datos y panel de gestión móvil.', 'Barbershop and men’s grooming with online web booking and a WhatsApp AI agent that chats and books appointments on its own. Database-level double-booking prevention and a mobile management panel.', 'https://barberia-demo-ten.vercel.app', 'https://barberia-demo-ten.vercel.app')
 ON CONFLICT (slug) DO NOTHING;
+INSERT INTO projects (slug, nombre, category, estado, sector, descripcion_es, descripcion_en, url, demo_url) VALUES ('bar-de-eric', 'El Bar de Eric', 'hosteleria', 'hecho', 'hosteleria', 'Bar-museo de rock con tienda online, reservas y panel de gestión. Carrito persistente, pago con Stripe, autenticación por magic link y catálogo de productos.', 'Rock bar-museum with online shop, bookings and admin panel. Persistent cart, Stripe checkout, magic-link authentication and a product catalogue.', 'https://bar-de-eric-demo.vercel.app', 'https://bar-de-eric-demo.vercel.app')
+ON CONFLICT (slug) DO NOTHING;
 INSERT INTO projects (slug, nombre, category, estado, sector, descripcion_es, descripcion_en, url, demo_url) VALUES ('venta-entradas', 'Venta de Entradas', 'eventos', 'planeado', 'eventos', 'Plataforma de venta de entradas. Eventos, conciertos, teatro, control de aforo, asientos dinámicos y reportes.', 'Ticket sales platform. Events, concerts, theater, capacity control, dynamic seating and reports.', 'https://venta-entradas.por2duros.com', NULL)
 ON CONFLICT (slug) DO NOTHING;
 INSERT INTO projects (slug, nombre, category, estado, sector, descripcion_es, descripcion_en, url, demo_url) VALUES ('fotografo', 'Fotógrafo', 'eventos', 'planeado', 'eventos', 'Portafolio y tienda de fotógrafo. Galería, paquetes de sesión, pedidos de impresión, galerías privadas para clientes.', 'Photographer portfolio and shop. Gallery, session packages, print orders, private galleries for clients.', 'https://fotografo.por2duros.com', NULL)
@@ -212,6 +214,8 @@ ON CONFLICT (slug) DO NOTHING;
 INSERT INTO components (slug, nombre, categoria, descripcion, doc_url) VALUES ('fidelization', 'Fidelización', 'pauta', 'Sistema de bonos y fidelización automática de clientes.', '/dashboard/biblioteca/componentes#fidelization')
 ON CONFLICT (slug) DO NOTHING;
 INSERT INTO components (slug, nombre, categoria, descripcion, doc_url) VALUES ('whatsapp-agent', 'Agente de WhatsApp', 'ia', 'Bot conversacional con Claude (tool use) que da citas por WhatsApp: entiende lenguaje natural, consulta huecos y reserva contra la misma base de datos que la web.', '/dashboard/biblioteca/componentes#whatsapp-agent')
+ON CONFLICT (slug) DO NOTHING;
+INSERT INTO components (slug, nombre, categoria, descripcion, doc_url) VALUES ('ecommerce', 'Tienda online', 'comercio', 'Catálogo de productos, carrito persistente (localStorage) y pago con Stripe Checkout, con confirmación por email.', '/dashboard/biblioteca/componentes#ecommerce')
 ON CONFLICT (slug) DO NOTHING;
 
 -- ============================================================
@@ -256,4 +260,8 @@ UPDATE projects SET componentes_incluidos = 'booking-engine,whatsapp-agent',
   claim = COALESCE(claim, 'Tu cita, por la web o por WhatsApp'),
   repositorio_url = COALESCE(repositorio_url, 'https://github.com/elcorreveidile/barberia-demo')
 WHERE slug = 'barberia' AND componentes_incluidos IS NULL;
+
+UPDATE projects SET componentes_incluidos = 'booking-engine,admin-panel,ecommerce',
+  claim = COALESCE(claim, 'Rock, cañas y tienda online')
+WHERE slug = 'bar-de-eric' AND componentes_incluidos IS NULL;
 
