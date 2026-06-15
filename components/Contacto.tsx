@@ -35,13 +35,8 @@ export default function Contacto() {
   }
 
   return (
-    <section id="contacto" className="relative overflow-hidden py-28 md:py-36 px-6">
-      {/* Soft brand aura */}
-      <div
-        className="pointer-events-none absolute top-0 -right-24 h-[440px] w-[440px] rounded-full blur-3xl opacity-[0.12]"
-        style={{ background: 'radial-gradient(circle, #6D28D9 0%, transparent 70%)' }}
-      />
-      <div className="relative max-w-6xl mx-auto">
+    <section id="contacto" className="py-28 md:py-36 px-6">
+      <div className="max-w-6xl mx-auto">
         {/* Eyebrow */}
         <div className="flex items-center gap-3 mb-8">
           <div className="w-8 h-px bg-[#BF2638]" />
