@@ -7,6 +7,21 @@ export const dynamic = "force-dynamic";
 
 const DIAG_TOKEN = "espanias-diag-2026";
 
+function errInfo(e: unknown): unknown {
+  if (!(e instanceof Error)) return { value: String(e) };
+  const info: Record<string, unknown> = { message: e.message };
+  for (const k of Object.keys(e)) info[k] = (e as Record<string, unknown>)[k];
+  const cause = (e as { cause?: unknown }).cause;
+  if (cause instanceof Error) {
+    const c: Record<string, unknown> = { message: cause.message };
+    for (const k of Object.keys(cause)) c[k] = (cause as Record<string, unknown>)[k];
+    info.cause = c;
+  } else if (cause) {
+    info.cause = cause;
+  }
+  return info;
+}
+
 function maskUrl(url: string): string {
   try {
     const u = new URL(url);
@@ -47,7 +62,7 @@ export async function GET(req: NextRequest) {
     const token = await createMagicToken(admin);
     out.dbWrite = { ok: true, tokenLen: token.length };
   } catch (e) {
-    out.dbWrite = { ok: false, error: e instanceof Error ? e.message : String(e) };
+    out.dbWrite = { ok: false, error: errInfo(e) };
   }
 
   // Test de ENVÍO real (manda un correo de verdad al admin) — solo con &send=1
