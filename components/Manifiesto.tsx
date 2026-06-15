@@ -15,7 +15,7 @@ export default function Manifiesto() {
         <div className="flex items-center gap-3 mb-16">
           <div className="w-8 h-px bg-[#BF2638]" />
           <div className="w-3 h-px bg-[#D4AC0D]" />
-          <span className="text-xs uppercase tracking-[0.35em] text-[#78716C] font-medium">
+          <span className="text-xs uppercase tracking-[0.35em] text-[#78716C] font-medium dark:text-[#A8A29E]">
             {t.eyebrow}
           </span>
         </div>
@@ -23,7 +23,7 @@ export default function Manifiesto() {
         <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-start">
           {/* Left: title + decoration */}
           <div>
-            <h2 className="text-4xl md:text-5xl font-black text-[#1C1917] leading-tight mb-8 whitespace-pre-line">
+            <h2 className="text-4xl md:text-5xl font-black text-[#1C1917] leading-tight mb-8 whitespace-pre-line dark:text-[#F5F5F4]">
               {t.title}
             </h2>
             {/* Tricolor bar */}
@@ -35,7 +35,7 @@ export default function Manifiesto() {
           </div>
 
           {/* Right: body copy */}
-          <div className="space-y-5 text-[#78716C] leading-relaxed text-base md:text-lg">
+          <div className="space-y-5 text-[#78716C] leading-relaxed text-base md:text-lg dark:text-[#A8A29E]">
             <p>{t.p1}</p>
             <p>{t.p2}</p>
             <p>{t.p3}</p>
@@ -43,7 +43,7 @@ export default function Manifiesto() {
         </div>
 
         {/* Ilustración de marca: artesanía + IA */}
-        <div className="mt-16 md:mt-20 overflow-hidden rounded-3xl border border-[#E7E5E4]">
+        <div className="mt-16 md:mt-20 overflow-hidden rounded-3xl border border-[#E7E5E4] dark:border-white/10">
           <Image
             src="/ilustracion-espanias.webp"
             alt="Artesanía española e inteligencia artificial entrelazadas"
@@ -56,7 +56,7 @@ export default function Manifiesto() {
 
         {/* Pull quote */}
         <div className="mt-20 md:mt-24 relative pl-8 border-l-4 border-[#BF2638] py-1">
-          <blockquote className="text-2xl md:text-3xl font-light italic text-[#1C1917] leading-snug">
+          <blockquote className="text-2xl md:text-3xl font-light italic text-[#1C1917] leading-snug dark:text-[#F5F5F4]">
             &ldquo;{t.quote}&rdquo;
           </blockquote>
         </div>

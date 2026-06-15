@@ -70,7 +70,7 @@ export default async function ProjectDetailPage({ params }: Props) {
           {/* Migas */}
           <Link
             href="/catalogo"
-            className="mb-8 inline-block text-sm font-medium text-[#78716C] transition-colors hover:text-[#6D28D9]"
+            className="mb-8 inline-block text-sm font-medium text-[#78716C] transition-colors hover:text-[#6D28D9] dark:text-[#A8A29E]"
           >
             ← Volver al catálogo
           </Link>
@@ -84,19 +84,19 @@ export default async function ProjectDetailPage({ params }: Props) {
               >
                 {categoryLabels.es[project.category]}
               </span>
-              <span className="rounded-md bg-stone-100 px-2.5 py-1 text-xs font-semibold text-stone-700">
+              <span className="rounded-md bg-stone-100 px-2.5 py-1 text-xs font-semibold text-stone-700 dark:bg-white/10 dark:text-stone-200">
                 {statusLabels.es[project.status]}
               </span>
             </div>
-            <h1 className="mb-5 text-4xl font-black leading-tight text-[#1C1917] md:text-5xl">
+            <h1 className="mb-5 text-4xl font-black leading-tight text-[#1C1917] md:text-5xl dark:text-[#F5F5F4]">
               {project.name}
             </h1>
-            <p className="text-xl leading-relaxed text-[#78716C]">{project.description.es}</p>
+            <p className="text-xl leading-relaxed text-[#78716C] dark:text-[#A8A29E]">{project.description.es}</p>
           </div>
 
           {/* Captura del proyecto (si existe) */}
           {project.image && (
-            <div className="mb-12 overflow-hidden rounded-2xl border border-stone-200">
+            <div className="mb-12 overflow-hidden rounded-2xl border border-stone-200 dark:border-white/10">
               <Image
                 src={project.image}
                 alt={`Captura de ${project.name}`}
@@ -111,33 +111,33 @@ export default async function ProjectDetailPage({ params }: Props) {
           {/* Detalles + enlaces */}
           <div className="mb-12 grid grid-cols-1 gap-10 md:grid-cols-2">
             <div>
-              <h2 className="mb-4 text-lg font-black text-[#1C1917]">Detalles</h2>
+              <h2 className="mb-4 text-lg font-black text-[#1C1917] dark:text-[#F5F5F4]">Detalles</h2>
               <dl className="space-y-4">
                 <div>
-                  <dt className="text-xs font-semibold uppercase tracking-wider text-[#78716C]">
+                  <dt className="text-xs font-semibold uppercase tracking-wider text-[#78716C] dark:text-[#A8A29E]">
                     Categoría
                   </dt>
-                  <dd className="text-[#1C1917]">{categoryLabels.es[project.category]}</dd>
+                  <dd className="text-[#1C1917] dark:text-[#F5F5F4]">{categoryLabels.es[project.category]}</dd>
                 </div>
                 <div>
-                  <dt className="text-xs font-semibold uppercase tracking-wider text-[#78716C]">
+                  <dt className="text-xs font-semibold uppercase tracking-wider text-[#78716C] dark:text-[#A8A29E]">
                     Estado
                   </dt>
-                  <dd className="text-[#1C1917]">{statusLabels.es[project.status]}</dd>
+                  <dd className="text-[#1C1917] dark:text-[#F5F5F4]">{statusLabels.es[project.status]}</dd>
                 </div>
                 {project.sector && (
                   <div>
-                    <dt className="text-xs font-semibold uppercase tracking-wider text-[#78716C]">
+                    <dt className="text-xs font-semibold uppercase tracking-wider text-[#78716C] dark:text-[#A8A29E]">
                       Sector
                     </dt>
-                    <dd className="text-[#1C1917]">{project.sector}</dd>
+                    <dd className="text-[#1C1917] dark:text-[#F5F5F4]">{project.sector}</dd>
                   </div>
                 )}
               </dl>
             </div>
 
             <div className={project.demo || isLive ? '' : 'hidden'}>
-              <h2 className="mb-4 text-lg font-black text-[#1C1917]">Enlaces</h2>
+              <h2 className="mb-4 text-lg font-black text-[#1C1917] dark:text-[#F5F5F4]">Enlaces</h2>
               <div className="space-y-3">
                 {project.demo && (
                   <a
@@ -154,7 +154,7 @@ export default async function ProjectDetailPage({ params }: Props) {
                     href={project.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block rounded-lg border border-stone-300 px-4 py-2.5 text-center font-semibold text-[#1C1917] transition-colors hover:border-stone-400 hover:bg-stone-50"
+                    className="block rounded-lg border border-stone-300 px-4 py-2.5 text-center font-semibold text-[#1C1917] transition-colors hover:border-stone-400 hover:bg-stone-50 dark:border-white/20 dark:text-[#F5F5F4] dark:hover:bg-white/5"
                   >
                     Visitar sitio · {cleanUrl(project.url)}
                   </a>
@@ -195,7 +195,7 @@ export default async function ProjectDetailPage({ params }: Props) {
           </div>
 
           {/* Navegación anterior / siguiente */}
-          <nav className="flex items-center justify-between gap-4 border-t border-stone-200 pt-8">
+          <nav className="flex items-center justify-between gap-4 border-t border-stone-200 pt-8 dark:border-white/10">
             {prev ? (
               <Link
                 href={`/catalogo/${prev.slug}`}

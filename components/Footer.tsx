@@ -11,14 +11,14 @@ export default function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="border-t border-[#E7E5E4]">
+    <footer className="border-t border-[#E7E5E4] dark:border-white/10">
       {/* Flag stripe */}
       <div className="h-0.5 bg-gradient-to-r from-[#BF2638] via-[#D4AC0D] to-[#BF2638]" />
 
       <div className="max-w-6xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <Logo variant="footer" />
-          <span className="text-[#78716C] text-xs">
+          <span className="text-[#78716C] text-xs dark:text-[#A8A29E]">
             — {t.madeWith}{' '}
             <a
               href="https://www.por2duros.com"
@@ -32,7 +32,7 @@ export default function Footer() {
             </a>
           </span>
         </div>
-        <nav className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-[#78716C]">
+        <nav className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-[#78716C] dark:text-[#A8A29E]">
           <Link href="/aviso-legal" className="transition-colors hover:text-[#BF2638]">
             {t.legal}
           </Link>
@@ -43,7 +43,7 @@ export default function Footer() {
             {t.cookies}
           </Link>
         </nav>
-        <p className="text-xs text-[#78716C]">
+        <p className="text-xs text-[#78716C] dark:text-[#A8A29E]">
           © {year} · {t.rights}
         </p>
       </div>

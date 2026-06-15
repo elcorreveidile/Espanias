@@ -59,11 +59,11 @@ export default function FilterBar({
     searchTerm !== '' || selectedCategory !== 'all' || selectedStatus !== 'all'
 
   const fieldClass =
-    'w-full rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-[#1C1917] focus:border-[#6D28D9] focus:outline-none focus:ring-2 focus:ring-[#6D28D9]/20'
-  const labelClass = 'mb-2 block text-xs font-semibold uppercase tracking-wider text-[#78716C]'
+    'w-full rounded-lg border border-stone-300 bg-white px-4 py-2.5 text-[#1C1917] focus:border-[#6D28D9] focus:outline-none focus:ring-2 focus:ring-[#6D28D9]/20 dark:border-white/15 dark:bg-white/5 dark:text-[#F5F5F4]'
+  const labelClass = 'mb-2 block text-xs font-semibold uppercase tracking-wider text-[#78716C] dark:text-[#A8A29E]'
 
   return (
-    <div className="mb-10 rounded-2xl border border-stone-200 bg-white p-6">
+    <div className="mb-10 rounded-2xl border border-stone-200 bg-white p-6 dark:border-white/10 dark:bg-white/[0.03]">
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         {/* Búsqueda */}
         <div>

@@ -10,6 +10,15 @@
   --ai-violet: #6D28D9;
   --muted: #78716C;
   --border: #E7E5E4;
+  color-scheme: light;
+}
+
+html.dark {
+  --bg: #0C0A09;
+  --fg: #F5F5F4;
+  --muted: #A8A29E;
+  --border: #292524;
+  color-scheme: dark;
 }
 
 html {

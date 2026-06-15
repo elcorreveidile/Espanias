@@ -39,7 +39,7 @@ export default function Logo({ variant = 'nav' }: LogoProps) {
         </g>
       </svg>
       <span className={`font-black tracking-tight leading-none ${textClass}`}>
-        <span className="text-[#1C1917]">Espa</span>
+        <span className="text-[#1C1917] dark:text-[#F5F5F4]">Espa</span>
         <span className="text-[#BF2638]">n</span>
         <span className="text-[#6D28D9]">ias</span>
       </span>

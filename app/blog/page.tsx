@@ -40,18 +40,18 @@ export default async function BlogPage() {
             <div className="mb-8 flex items-center gap-3">
               <div className="h-px w-8 bg-[#BF2638]" />
               <div className="h-px w-3 bg-[#D4AC0D]" />
-              <span className="text-xs font-medium uppercase tracking-[0.35em] text-[#78716C]">
+              <span className="text-xs font-medium uppercase tracking-[0.35em] text-[#78716C] dark:text-[#A8A29E]">
                 Novedades
               </span>
             </div>
-            <h1 className="mb-4 text-4xl font-black text-[#1C1917] md:text-5xl">Blog</h1>
-            <p className="max-w-xl leading-relaxed text-[#78716C]">
+            <h1 className="mb-4 text-4xl font-black text-[#1C1917] md:text-5xl dark:text-[#F5F5F4]">Blog</h1>
+            <p className="max-w-xl leading-relaxed text-[#78716C] dark:text-[#A8A29E]">
               Ideas, casos y aprendizajes sobre inteligencia artificial aplicada a negocios reales.
             </p>
           </div>
 
           {posts.length === 0 ? (
-            <p className="rounded-2xl border border-stone-200 bg-white/60 p-10 text-center text-[#78716C]">
+            <p className="rounded-2xl border border-stone-200 bg-white/60 p-10 text-center text-[#78716C] dark:border-white/10 dark:bg-white/[0.03] dark:text-[#A8A29E]">
               Pronto publicaremos las primeras novedades. ¡Vuelve pronto!
             </p>
           ) : (
@@ -60,7 +60,7 @@ export default async function BlogPage() {
                 <Link
                   key={p.slug}
                   href={`/blog/${p.slug}`}
-                  className="group flex flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                  className="group flex flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white transition-all dark:border-white/10 dark:bg-[#1C1917] duration-300 hover:-translate-y-1 hover:shadow-lg"
                 >
                   {p.portadaUrl ? (
                     <div className="relative h-44 overflow-hidden">
@@ -79,11 +79,11 @@ export default async function BlogPage() {
                     <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-[#A8A29E]">
                       {formatDate(p.createdAt)}
                     </p>
-                    <h2 className="mb-2 text-xl font-black leading-snug text-[#1C1917]">
+                    <h2 className="mb-2 text-xl font-black leading-snug text-[#1C1917] dark:text-[#F5F5F4]">
                       {p.titulo}
                     </h2>
                     {p.resumen && (
-                      <p className="line-clamp-3 text-sm leading-relaxed text-[#78716C]">
+                      <p className="line-clamp-3 text-sm leading-relaxed text-[#78716C] dark:text-[#A8A29E]">
                         {p.resumen}
                       </p>
                     )}
