@@ -42,7 +42,7 @@ export default function ExtendedSection({ page }: { page: PageKey }) {
         return (
           <section
             key={i}
-            className={`px-6 py-24 md:py-28 ${b.dark ? 'bg-[#1C1917]' : 'bg-white'}`}
+            className={`px-6 py-24 md:py-28 ${b.dark ? 'bg-[#1C1917]' : ''}`}
           >
             <div className="mx-auto max-w-6xl">
               {/* Eyebrow */}
