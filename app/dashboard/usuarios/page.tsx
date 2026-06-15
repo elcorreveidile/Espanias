@@ -31,8 +31,8 @@ export default async function UsuariosPage() {
         </button>
       </form>
 
-      <div className="overflow-hidden rounded-2xl border border-stone-200 bg-white">
-        <table className="w-full text-sm">
+      <div className="overflow-x-auto rounded-2xl border border-stone-200 bg-white">
+        <table className="w-full min-w-[480px] text-sm">
           <thead>
             <tr className="border-b border-stone-200 text-left text-xs uppercase tracking-wider text-[#A8A29E]">
               <th className="px-5 py-3 font-semibold">Email</th>
