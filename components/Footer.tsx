@@ -18,7 +18,7 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <Logo variant="footer" />
-          <span className="text-[#78716C] text-xs opacity-70">
+          <span className="text-[#78716C] text-xs">
             — {t.madeWith}{' '}
             <a
               href="https://www.por2duros.com"
@@ -43,7 +43,7 @@ export default function Footer() {
             {t.cookies}
           </Link>
         </nav>
-        <p className="text-xs text-[#78716C] opacity-60">
+        <p className="text-xs text-[#78716C]">
           © {year} · {t.rights}
         </p>
       </div>
