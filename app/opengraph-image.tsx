@@ -10,6 +10,7 @@ export default function OGImage() {
     (
       <div
         style={{
+          position: 'relative',
           background: '#1C1917',
           width: '100%',
           height: '100%',
@@ -17,6 +18,11 @@ export default function OGImage() {
           flexDirection: 'column',
         }}
       >
+        {/* Brand color glows */}
+        <div style={{ position: 'absolute', top: -160, left: -120, width: 680, height: 680, background: 'radial-gradient(circle, rgba(109,40,217,0.55), rgba(109,40,217,0) 70%)', display: 'flex' }} />
+        <div style={{ position: 'absolute', bottom: -200, right: -140, width: 760, height: 760, background: 'radial-gradient(circle, rgba(191,38,56,0.50), rgba(191,38,56,0) 70%)', display: 'flex' }} />
+        <div style={{ position: 'absolute', top: 160, right: 140, width: 440, height: 440, background: 'radial-gradient(circle, rgba(212,172,13,0.30), rgba(212,172,13,0) 70%)', display: 'flex' }} />
+
         {/* Top flag stripe */}
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <div style={{ width: '100%', height: 10, background: '#BF2638', display: 'flex' }} />
