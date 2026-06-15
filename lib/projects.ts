@@ -69,11 +69,10 @@ export const projects: Project[] = [
   },
 
   {
-    id: 'fabrica-sonrisas',
-    name: 'La Fábrica de Sonrisas',
-    slug: 'fabrica-sonrisas',
-    url: 'https://fabrica-sonrisas.por2duros.com',
-    demo: 'https://fabrica-sonrisas-demo.vercel.app',
+    id: 'clinica-dental',
+    name: 'Clínica Dental',
+    slug: 'clinica-dental',
+    url: '',
     category: 'salud',
     status: 'hecho',
     sector: 'salud',
