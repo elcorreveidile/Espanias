@@ -6,7 +6,7 @@ export default function SiteBackground() {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none fixed inset-0 -z-10"
+      className="pointer-events-none fixed inset-0 -z-10 opacity-100 dark:opacity-50"
       style={{
         background: [
           'radial-gradient(60% 48% at 10% 6%, rgba(191,38,56,0.20), transparent 72%)',

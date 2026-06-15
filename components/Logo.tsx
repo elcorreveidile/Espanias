@@ -15,6 +15,7 @@ export default function Logo({ variant = 'nav' }: LogoProps) {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
+        className="rounded-[9px] dark:ring-1 dark:ring-white/15"
       >
         <defs>
           <clipPath id="logo-clip">
@@ -22,7 +23,7 @@ export default function Logo({ variant = 'nav' }: LogoProps) {
           </clipPath>
         </defs>
         <g clipPath="url(#logo-clip)">
-          <rect width="40" height="40" fill="#1C1917" />
+          <rect width="40" height="40" className="fill-[#1C1917] dark:fill-[#44403C]" />
           <rect width="40" height="7" fill="#BF2638" />
           <rect y="7" width="40" height="4" fill="#D4AC0D" opacity="0.6" />
           <text
