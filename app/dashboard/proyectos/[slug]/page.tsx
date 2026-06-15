@@ -71,7 +71,7 @@ export default async function EditProject({
           <input id="claim" name="claim" defaultValue={p.claim ?? ''} className={field} />
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
             <label className={label} htmlFor="category">Categoría</label>
             <select id="category" name="category" defaultValue={p.category ?? 'otros'} className={field}>
@@ -105,7 +105,7 @@ export default async function EditProject({
           <textarea id="descripcionEn" name="descripcionEn" rows={3} defaultValue={p.descripcionEn ?? ''} className={field} />
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
             <label className={label} htmlFor="url">URL del sitio</label>
             <input id="url" name="url" defaultValue={p.url ?? ''} className={field} />
@@ -116,7 +116,7 @@ export default async function EditProject({
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
             <label className={label} htmlFor="repositorioUrl">Repositorio (GitHub)</label>
             <input id="repositorioUrl" name="repositorioUrl" defaultValue={p.repositorioUrl ?? ''} className={field} />
@@ -135,7 +135,7 @@ export default async function EditProject({
 
         <fieldset className="rounded-xl border border-stone-200 p-4">
           <legend className="px-2 text-xs font-semibold uppercase tracking-wider text-[#78716C]">Identidad visual</legend>
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
             <div>
               <label className={label} htmlFor="paletaPrincipal">Paleta principal</label>
               <input id="paletaPrincipal" name="paletaPrincipal" defaultValue={p.paletaPrincipal ?? ''} placeholder="#A8D8F0" className={field} />
@@ -148,7 +148,7 @@ export default async function EditProject({
               <label className={label} htmlFor="paletaAccion">Acción</label>
               <input id="paletaAccion" name="paletaAccion" defaultValue={p.paletaAccion ?? ''} placeholder="#E8436B" className={field} />
             </div>
-            <div className="col-span-3 grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 gap-3 sm:col-span-3 sm:grid-cols-2">
               <div>
                 <label className={label} htmlFor="tipografiaTitulos">Tipografía titulares</label>
                 <input id="tipografiaTitulos" name="tipografiaTitulos" defaultValue={p.tipografiaTitulos ?? ''} placeholder="Fraunces" className={field} />

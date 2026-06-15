@@ -13,8 +13,8 @@ export default async function ProyectosList() {
       <h1 className="mb-2 text-3xl font-black text-[#1C1917]">Proyectos</h1>
       <p className="mb-8 text-[#78716C]">{rows.length} proyectos. Haz clic para editar.</p>
 
-      <div className="overflow-hidden rounded-2xl border border-stone-200 bg-white">
-        <table className="w-full text-sm">
+      <div className="overflow-x-auto rounded-2xl border border-stone-200 bg-white">
+        <table className="w-full min-w-[480px] text-sm">
           <thead>
             <tr className="border-b border-stone-200 text-left text-xs uppercase tracking-wider text-[#A8A29E]">
               <th className="px-5 py-3 font-semibold">Nombre</th>
