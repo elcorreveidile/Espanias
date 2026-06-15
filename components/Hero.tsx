@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { useLanguage } from '@/context/LanguageContext'
 import { translations } from '@/lib/translations'
@@ -13,20 +14,21 @@ export default function Hero() {
       id="inicio"
       className="relative min-h-screen flex flex-col items-center justify-center px-6 overflow-hidden"
     >
+      {/* Fondo del hero (ilustración de marca, centro claro para el texto) */}
+      <Image
+        src="/hero-bg.webp"
+        alt=""
+        aria-hidden="true"
+        fill
+        priority
+        sizes="100vw"
+        className="absolute inset-0 -z-10 object-cover"
+      />
+
       {/* Flag-stripe top accent */}
       <div className="absolute top-0 left-0 right-0 h-1">
         <div className="h-full w-full bg-gradient-to-r from-[#BF2638] via-[#D4AC0D] to-[#BF2638]" />
       </div>
-
-      {/* Subtle background grid */}
-      <div
-        className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage:
-            'linear-gradient(#1C1917 1px, transparent 1px), linear-gradient(90deg, #1C1917 1px, transparent 1px)',
-          backgroundSize: '48px 48px',
-        }}
-      />
 
       <div className="relative max-w-5xl w-full mx-auto text-center">
         {/* Small formula label */}
