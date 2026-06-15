@@ -53,6 +53,24 @@ export async function GET(req: NextRequest) {
 
   const admin = "informa@blablaele.com";
 
+  // Acción: crear la tabla magic_tokens si falta (solo con &migrate=1)
+  if (req.nextUrl.searchParams.get("migrate") === "1") {
+    try {
+      await db.execute(sql`
+        CREATE TABLE IF NOT EXISTS magic_tokens (
+          id serial PRIMARY KEY,
+          email varchar(255) NOT NULL,
+          token varchar(255) UNIQUE NOT NULL,
+          expires_at timestamp NOT NULL,
+          created_at timestamp DEFAULT now()
+        )
+      `);
+      out.migrate = { ok: true };
+    } catch (e) {
+      out.migrate = { ok: false, error: errInfo(e) };
+    }
+  }
+
   // Estructura real de la tabla magic_tokens en ESTA base de datos
   try {
     const res = await db.execute(
