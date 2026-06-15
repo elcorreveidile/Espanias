@@ -1,5 +1,6 @@
 import { eq } from 'drizzle-orm'
 import { db } from '@/lib/db/client'
+import { ensureProjectColumns } from '@/lib/db/ensure-schema'
 import {
   projects,
   components,
@@ -23,6 +24,7 @@ const splitList = (v: string | null): string[] =>
 
 /** Reúne todo el contexto de un proyecto: datos, componentes, patrones y learnings. */
 export async function getFullContext(slug: string): Promise<AgenteContext | null> {
+  await ensureProjectColumns()
   const projRows = await db.select().from(projects).where(eq(projects.slug, slug)).limit(1)
   const project = projRows[0]
   if (!project) return null

@@ -116,6 +116,12 @@ export default async function EditProject({
           </div>
         </div>
 
+        <div>
+          <label className={label} htmlFor="imagenUrl">Imagen / captura (URL)</label>
+          <input id="imagenUrl" name="imagenUrl" defaultValue={p.imagenUrl ?? ''} placeholder="https://… (captura del proyecto)" className={field} />
+          <p className="mt-1 text-xs text-[#A8A29E]">Aparece en la tarjeta del catálogo y en la ficha. Si se deja vacío, se usa la portada de color.</p>
+        </div>
+
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
             <label className={label} htmlFor="repositorioUrl">Repositorio (GitHub)</label>

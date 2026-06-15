@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS projects (
   plan_maestro_url text,
   repositorio_url text,
   demo_url text,
+  imagen_url text,
   notas_internas text,
   componentes_incluidos varchar(500),
   created_at timestamp DEFAULT now(),

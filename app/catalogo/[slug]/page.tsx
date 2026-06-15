@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import { categoryColors } from '@/lib/projects'
 import { getCatalogProjects, getCatalogProject } from '@/lib/catalog-data'
 import { categoryLabels, statusLabels } from '@/lib/catalogo-labels'
@@ -92,6 +93,20 @@ export default async function ProjectDetailPage({ params }: Props) {
             </h1>
             <p className="text-xl leading-relaxed text-[#78716C]">{project.description.es}</p>
           </div>
+
+          {/* Captura del proyecto (si existe) */}
+          {project.image && (
+            <div className="mb-12 overflow-hidden rounded-2xl border border-stone-200">
+              <Image
+                src={project.image}
+                alt={`Captura de ${project.name}`}
+                width={1200}
+                height={750}
+                sizes="(max-width: 768px) 100vw, 900px"
+                className="h-auto w-full"
+              />
+            </div>
+          )}
 
           {/* Detalles + enlaces */}
           <div className="mb-12 grid grid-cols-1 gap-10 md:grid-cols-2">

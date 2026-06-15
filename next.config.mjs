@@ -15,6 +15,9 @@ const securityHeaders = [
 ]
 
 const nextConfig = {
+  images: {
+    remotePatterns: [{ protocol: 'https', hostname: '**' }],
+  },
   async headers() {
     return [{ source: '/:path*', headers: securityHeaders }]
   },
