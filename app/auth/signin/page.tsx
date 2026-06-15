@@ -18,7 +18,9 @@ export default async function SignInPage({
         </p>
         {error && (
           <p className="mb-4 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">
-            Introduce un email válido.
+            {error === 'send'
+              ? 'No se pudo enviar el enlace ahora mismo. Inténtalo de nuevo en unos segundos.'
+              : 'Introduce un email válido.'}
           </p>
         )}
         <form action={requestMagicLink} className="space-y-4">
