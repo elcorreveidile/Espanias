@@ -12,11 +12,13 @@ const DIAG_TOKEN = "espanias-diag-2026";
 function errInfo(e: unknown): unknown {
   if (!(e instanceof Error)) return { value: String(e) };
   const info: Record<string, unknown> = { message: e.message };
-  for (const k of Object.keys(e)) info[k] = (e as Record<string, unknown>)[k];
+  const eRec = e as unknown as Record<string, unknown>;
+  for (const k of Object.keys(e)) info[k] = eRec[k];
   const cause = (e as { cause?: unknown }).cause;
   if (cause instanceof Error) {
     const c: Record<string, unknown> = { message: cause.message };
-    for (const k of Object.keys(cause)) c[k] = (cause as Record<string, unknown>)[k];
+    const cRec = cause as unknown as Record<string, unknown>;
+    for (const k of Object.keys(cause)) c[k] = cRec[k];
     info.cause = c;
   } else if (cause) {
     info.cause = cause;
