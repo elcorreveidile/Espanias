@@ -150,16 +150,33 @@ export default async function ProjectDetailPage({ params }: Props) {
 
           {/* CTA */}
           <div className="mb-12 rounded-2xl bg-[#1C1917] p-10 text-center text-white">
-            <h2 className="mb-3 text-2xl font-black md:text-3xl">¿Quieres una web como esta?</h2>
-            <p className="mb-6 text-stone-300">
-              Contáctanos para crear tu aplicación web a medida.
-            </p>
-            <Link
-              href="/#contacto"
-              className="inline-block rounded-lg bg-white px-6 py-3 font-semibold text-[#1C1917] transition-colors hover:bg-stone-200"
-            >
-              Solicitar información
-            </Link>
+            {project.status === 'idea' ? (
+              <>
+                <h2 className="mb-3 text-2xl font-black md:text-3xl">¿Te interesa esta idea?</h2>
+                <p className="mb-6 text-stone-300">
+                  Aún no está construida. Si la quieres para tu negocio, cuéntanoslo y la desarrollamos.
+                </p>
+                <Link
+                  href={`/contacto?idea=${encodeURIComponent(project.name)}`}
+                  className="inline-block rounded-lg bg-white px-6 py-3 font-semibold text-[#1C1917] transition-colors hover:bg-stone-200"
+                >
+                  Me interesa esta idea
+                </Link>
+              </>
+            ) : (
+              <>
+                <h2 className="mb-3 text-2xl font-black md:text-3xl">¿Quieres una web como esta?</h2>
+                <p className="mb-6 text-stone-300">
+                  Contáctanos para crear tu aplicación web a medida.
+                </p>
+                <Link
+                  href="/#contacto"
+                  className="inline-block rounded-lg bg-white px-6 py-3 font-semibold text-[#1C1917] transition-colors hover:bg-stone-200"
+                >
+                  Solicitar información
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Navegación anterior / siguiente */}
