@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
+import PostContent from '@/components/PostContent'
 import { getPost } from '@/lib/db/posts-repo'
 
 export const dynamic = 'force-dynamic'
@@ -53,11 +54,6 @@ export default async function PostPage({ params }: Props) {
   }
   if (!post || !post.publicado) notFound()
 
-  const paragraphs = (post.contenido ?? '')
-    .split(/\n{2,}/)
-    .map((p) => p.trim())
-    .filter(Boolean)
-
   return (
     <>
       <Nav />
@@ -91,11 +87,7 @@ export default async function PostPage({ params }: Props) {
             </div>
           )}
 
-          <div className="space-y-5 text-lg leading-relaxed text-[#44403C] dark:text-[#D6D3D1]">
-            {paragraphs.map((p, i) => (
-              <p key={i}>{p}</p>
-            ))}
-          </div>
+          <PostContent markdown={post.contenido ?? ''} />
 
           <div className="mt-14 rounded-2xl bg-[#1C1917] p-8 text-center text-white">
             <h2 className="mb-2 text-xl font-black">¿Hablamos de tu proyecto?</h2>
