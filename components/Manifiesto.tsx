@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { useLanguage } from '@/context/LanguageContext'
 import { translations } from '@/lib/translations'
 
@@ -39,6 +40,18 @@ export default function Manifiesto() {
             <p>{t.p2}</p>
             <p>{t.p3}</p>
           </div>
+        </div>
+
+        {/* Ilustración de marca: artesanía + IA */}
+        <div className="mt-16 md:mt-20 overflow-hidden rounded-3xl border border-[#E7E5E4]">
+          <Image
+            src="/ilustracion-espanias.webp"
+            alt="Artesanía española e inteligencia artificial entrelazadas"
+            width={1500}
+            height={1000}
+            sizes="(max-width: 768px) 100vw, 1100px"
+            className="w-full h-auto"
+          />
         </div>
 
         {/* Pull quote */}

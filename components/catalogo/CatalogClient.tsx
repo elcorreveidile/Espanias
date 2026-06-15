@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useMemo } from 'react'
+import Image from 'next/image'
 import { type Category, type Project } from '@/lib/projects'
 import { useLanguage } from '@/context/LanguageContext'
 import Nav from '@/components/Nav'
@@ -61,6 +62,19 @@ export default function CatalogClient({ projects }: { projects: Project[] }) {
       <Nav />
       <main className="min-h-screen px-6 py-28 md:py-32">
         <div className="mx-auto max-w-6xl">
+          {/* Banda geométrica de cabecera */}
+          <div className="mb-10 h-36 overflow-hidden rounded-3xl border border-[#E7E5E4] md:h-52">
+            <Image
+              src="/geometrico.webp"
+              alt=""
+              aria-hidden="true"
+              width={1500}
+              height={1000}
+              sizes="(max-width: 768px) 100vw, 1100px"
+              className="h-full w-full object-cover"
+            />
+          </div>
+
           {/* Encabezado */}
           <div className="mb-12">
             <div className="mb-8 flex items-center gap-3">
