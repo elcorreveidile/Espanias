@@ -70,3 +70,29 @@ export function ensureProjectColumns(): Promise<void> {
   }
   return projectCols;
 }
+
+// Crea la tabla del blog si no existe (idempotente).
+let postsReady: Promise<void> | null = null;
+
+export function ensurePostsTable(): Promise<void> {
+  if (!postsReady) {
+    postsReady = db
+      .execute(sql`CREATE TABLE IF NOT EXISTS posts (
+        id serial PRIMARY KEY,
+        slug varchar(160) UNIQUE NOT NULL,
+        titulo varchar(255) NOT NULL,
+        resumen varchar(500),
+        contenido text,
+        portada_url text,
+        publicado integer DEFAULT 0,
+        created_at timestamp DEFAULT now(),
+        updated_at timestamp DEFAULT now()
+      )`)
+      .then(() => undefined)
+      .catch((err) => {
+        postsReady = null;
+        throw err;
+      });
+  }
+  return postsReady;
+}

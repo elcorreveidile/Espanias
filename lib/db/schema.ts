@@ -32,6 +32,18 @@ export const projects = pgTable("projects", {
   updatedAt: timestamp("updated_at").defaultNow(),
 });
 
+export const posts = pgTable("posts", {
+  id: serial("id").primaryKey(),
+  slug: varchar("slug", { length: 160 }).unique().notNull(),
+  titulo: varchar("titulo", { length: 255 }).notNull(),
+  resumen: varchar("resumen", { length: 500 }),
+  contenido: text("contenido"),
+  portadaUrl: text("portada_url"),
+  publicado: integer("publicado").default(0),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
 export const components = pgTable("components", {
   id: serial("id").primaryKey(),
   slug: varchar("slug", { length: 100 }).unique().notNull(),
