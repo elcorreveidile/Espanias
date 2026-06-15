@@ -14,6 +14,7 @@ export default function Contacto() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
+  const [honeypot, setHoneypot] = useState('')
   const [status, setStatus] = useState<Status>('idle')
   const [errorMsg, setErrorMsg] = useState('')
   const [isPending, startTransition] = useTransition()
@@ -21,7 +22,7 @@ export default function Contacto() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     startTransition(async () => {
-      const result = await sendContact(name, email, message)
+      const result = await sendContact(name, email, message, honeypot)
       if (result.ok) {
         setStatus('success')
         setName('')
@@ -63,6 +64,18 @@ export default function Contacto() {
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="max-w-lg space-y-5">
+            {/* Honeypot anti-spam (oculto para personas, lo rellenan los bots) */}
+            <input
+              type="text"
+              name="website"
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden="true"
+              value={honeypot}
+              onChange={(e) => setHoneypot(e.target.value)}
+              className="absolute left-[-9999px] h-0 w-0 opacity-0"
+            />
+
             {/* Name */}
             <div>
               <label className="block text-sm font-medium text-[#1C1917] mb-1.5">
