@@ -3,19 +3,29 @@
 import { useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
 
-export default function ThemeToggle({ className = '' }: { className?: string }) {
+export default function ThemeToggle({
+  className = '',
+  onLightBg = false,
+}: {
+  className?: string
+  onLightBg?: boolean
+}) {
   const { resolvedTheme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
   useEffect(() => setMounted(true), [])
 
   const isDark = resolvedTheme === 'dark'
 
+  const base = onLightBg
+    ? 'border-[#E7E5E4] text-[#78716C] hover:border-[#BF2638] hover:text-[#BF2638]'
+    : 'border-[#E7E5E4] text-[#78716C] hover:border-[#BF2638] hover:text-[#BF2638] dark:border-white/15 dark:text-[#A8A29E] dark:hover:border-[#BF2638]'
+
   return (
     <button
       type="button"
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
       aria-label={isDark ? 'Activar modo claro' : 'Activar modo oscuro'}
-      className={`rounded-full border border-[#E7E5E4] p-2 text-[#78716C] transition-all hover:border-[#BF2638] hover:text-[#BF2638] dark:border-white/15 dark:text-[#A8A29E] dark:hover:border-[#BF2638] ${className}`}
+      className={`rounded-full border p-2 transition-all ${base} ${className}`}
     >
       {/* Evita parpadeo: hasta montar, icono neutro */}
       {mounted && isDark ? (
