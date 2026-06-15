@@ -18,14 +18,21 @@ export async function requestMagicLink(formData: FormData): Promise<void> {
 
   // Solo enviamos si el email está autorizado. No revelamos si existe o no:
   // en ambos casos llevamos a la página de "revisa tu correo".
-  const user = await getAllowedUser(email)
-  if (user) {
-    const token = await createMagicToken(email)
-    const url = `${await baseUrl()}/auth/callback?token=${token}`
-    await sendMagicLink(email, url)
+  // Si algo falla (BD o Resend) avisamos en vez de reventar con un 500.
+  let ok = true
+  try {
+    const user = await getAllowedUser(email)
+    if (user) {
+      const token = await createMagicToken(email)
+      const url = `${await baseUrl()}/auth/callback?token=${token}`
+      await sendMagicLink(email, url)
+    }
+  } catch (err) {
+    console.error('[auth] requestMagicLink falló:', err)
+    ok = false
   }
 
-  redirect('/auth/verify')
+  redirect(ok ? '/auth/verify' : '/auth/signin?error=send')
 }
 
 export async function signOut(): Promise<void> {

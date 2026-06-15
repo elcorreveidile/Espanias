@@ -57,7 +57,7 @@ export async function sendMagicLink(email: string, url: string): Promise<void> {
   const from = process.env.EMAIL_FROM || 'Espanias <noreply@espanias.com>'
   const resend = new Resend(apiKey)
 
-  await resend.emails.send({
+  const { error } = await resend.emails.send({
     from,
     to: email,
     subject: 'Tu enlace de acceso a Espanias',
@@ -72,4 +72,10 @@ export async function sendMagicLink(email: string, url: string): Promise<void> {
       </div>
     `,
   })
+
+  if (error) {
+    throw new Error(
+      `Resend rechazó el envío: ${error.message ?? JSON.stringify(error)}`
+    )
+  }
 }
