@@ -1,6 +1,5 @@
 // Datos legales del titular del sitio. Centralizados aquí para poder
-// actualizarlos en un único lugar. Los valores marcados como PENDIENTE deben
-// completarse con los datos reales del titular antes de considerarse válidos.
+// actualizarlos en un único lugar.
 export const legalInfo = {
   marca: 'Espanias',
   sitio: 'www.espanias.com',
