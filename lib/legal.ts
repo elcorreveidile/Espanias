@@ -17,4 +17,5 @@ export const legalInfo = {
   emailProveedor: 'Resend (Plus Five Five, Inc., EE. UU.)',
   // Última actualización de los textos legales
   actualizado: '15 de junio de 2026',
+  actualizadoEn: 'June 15, 2026',
 } as const
