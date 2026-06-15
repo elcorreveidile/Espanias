@@ -4,29 +4,51 @@ import Link from 'next/link'
 import { useLanguage } from '@/context/LanguageContext'
 import { translations } from '@/lib/translations'
 
+// Iconos propios de Espanias: línea redondeada + un destello (✦) común como
+// firma de marca (guiño a la IA). Cada servicio en su color del tricolor.
+const sparkle = (
+  <path
+    d="M17.8 3l.5 1.45 1.45.5-1.45.5L17.8 7l-.5-1.45L15.85 5l1.45-.5z"
+    fill="currentColor"
+    stroke="none"
+  />
+)
+
 const services = [
   {
+    // Formación → libro abierto
     icon: (
-      <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" />
+      <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 8.5v10" />
+        <path d="M12 8.5C10.4 7.4 8.3 7 5.8 7.2c-.5 0-.8.4-.8.9v8.4c0 .5.4.9.9.8 2.2-.2 4 .2 6.1 1.2" />
+        <path d="M12 8.5c1.6-1.1 3.7-1.5 6.2-1.3.5 0 .8.4.8.9v8.4c0 .5-.4.9-.9.8-2.2-.2-4 .2-6.1 1.2" />
+        {sparkle}
       </svg>
     ),
     color: '#BF2638',
     key: 's1',
   },
   {
+    // Consultoría → diana / foco
     icon: (
-      <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+      <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="11" cy="13" r="7.2" />
+        <circle cx="11" cy="13" r="3.4" />
+        <circle cx="11" cy="13" r="0.6" fill="currentColor" stroke="none" />
+        {sparkle}
       </svg>
     ),
     color: '#D4AC0D',
     key: 's2',
   },
   {
+    // Herramientas a medida → chip / procesador
     icon: (
-      <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+      <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+        <rect x="6.5" y="7.5" width="9" height="9" rx="2" />
+        <rect x="9.5" y="10.5" width="3" height="3" rx="0.8" />
+        <path d="M9 7.5V5M13 7.5V5M9 19v-2.5M13 19v-2.5M6.5 10H4M6.5 14H4M18.5 10H16M18.5 14H16" />
+        {sparkle}
       </svg>
     ),
     color: '#6D28D9',
