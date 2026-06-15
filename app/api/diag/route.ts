@@ -61,8 +61,8 @@ export async function GET(req: NextRequest) {
           where table_name = 'magic_tokens'
           order by ordinal_position`
     );
-    const rows = (res as { rows?: unknown[] }).rows ?? (res as unknown[]);
-    out.tablaMagicTokens = rows;
+    const r = res as unknown as { rows?: unknown[] };
+    out.tablaMagicTokens = Array.isArray(r.rows) ? r.rows : res;
   } catch (e) {
     out.tablaMagicTokens = { error: errInfo(e) };
   }
