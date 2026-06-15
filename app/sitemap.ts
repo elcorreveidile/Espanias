@@ -7,16 +7,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date()
 
   const staticRoutes: MetadataRoute.Sitemap = [
-    { url: BASE, changeFrequency: 'monthly', priority: 1 },
-    { url: `${BASE}/catalogo`, changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${BASE}/servicios`, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE}/ia-empresas`, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE}/manifiesto`, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${BASE}/contacto`, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${BASE}/aviso-legal`, changeFrequency: 'yearly', priority: 0.3 },
-    { url: `${BASE}/privacidad`, changeFrequency: 'yearly', priority: 0.3 },
-    { url: `${BASE}/cookies`, changeFrequency: 'yearly', priority: 0.3 },
-  ].map((r) => ({ ...r, lastModified: now }))
+    { url: BASE, lastModified: now, changeFrequency: 'monthly', priority: 1 },
+    { url: `${BASE}/catalogo`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${BASE}/servicios`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${BASE}/ia-empresas`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${BASE}/manifiesto`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${BASE}/contacto`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${BASE}/aviso-legal`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${BASE}/privacidad`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${BASE}/cookies`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
+  ]
 
   const projectRoutes: MetadataRoute.Sitemap = projects.map((p) => ({
     url: `${BASE}/catalogo/${p.slug}`,
