@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import { Analytics } from '@vercel/analytics/next'
 import { LanguageProvider } from '@/context/LanguageContext'
 import SiteBackground from '@/components/SiteBackground'
 
@@ -74,6 +75,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="font-[family-name:var(--font-inter)]">
         <SiteBackground />
         <LanguageProvider>{children}</LanguageProvider>
+        <Analytics />
       </body>
     </html>
   )
