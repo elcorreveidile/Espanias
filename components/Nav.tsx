@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { useLanguage } from '@/context/LanguageContext'
 import { translations } from '@/lib/translations'
 import Logo from '@/components/Logo'
@@ -10,8 +11,13 @@ import ThemeToggle from '@/components/ThemeToggle'
 export default function Nav() {
   const { lang, toggle } = useLanguage()
   const t = translations[lang].nav
+  const pathname = usePathname()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+
+  // En la home, arriba del todo, la barra es transparente sobre la imagen clara
+  // del hero: el texto debe ir oscuro aunque el tema sea oscuro.
+  const onLight = pathname === '/' && !scrolled
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 24)
@@ -31,7 +37,7 @@ export default function Nav() {
     >
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         <Link href="/" aria-label="Espanias — inicio">
-          <Logo variant="nav" />
+          <Logo variant="nav" onLightBg={onLight} />
         </Link>
 
         {/* Desktop links */}
@@ -47,18 +53,24 @@ export default function Nav() {
             <Link
               key={href}
               href={href}
-              className="text-sm text-[#78716C] hover:text-[#1C1917] transition-colors dark:text-[#A8A29E] dark:hover:text-white"
+              className={`text-sm transition-colors hover:text-[#1C1917] ${
+                onLight
+                  ? 'text-[#57534E]'
+                  : 'text-[#78716C] dark:text-[#A8A29E] dark:hover:text-white'
+              }`}
             >
               {label}
             </Link>
           ))}
           <button
             onClick={toggle}
-            className="text-sm font-semibold px-3 py-1 rounded-full border border-[#E7E5E4] text-[#78716C] hover:border-[#BF2638] hover:text-[#BF2638] transition-all dark:border-white/15 dark:text-[#A8A29E]"
+            className={`text-sm font-semibold px-3 py-1 rounded-full border border-[#E7E5E4] text-[#78716C] hover:border-[#BF2638] hover:text-[#BF2638] transition-all ${
+              onLight ? '' : 'dark:border-white/15 dark:text-[#A8A29E]'
+            }`}
           >
             {t.langSwitch}
           </button>
-          <ThemeToggle />
+          <ThemeToggle onLightBg={onLight} />
         </div>
 
         {/* Mobile hamburger */}
@@ -68,17 +80,17 @@ export default function Nav() {
           aria-label="Menú"
         >
           <span
-            className={`block w-5 h-0.5 bg-[#1C1917] dark:bg-white transition-all origin-center ${
+            className={`block w-5 h-0.5 transition-all ${onLight ? 'bg-[#1C1917]' : 'bg-[#1C1917] dark:bg-white'} origin-center ${
               menuOpen ? 'rotate-45 translate-y-2' : ''
             }`}
           />
           <span
-            className={`block w-5 h-0.5 bg-[#1C1917] dark:bg-white transition-all ${
+            className={`block w-5 h-0.5 transition-all ${onLight ? 'bg-[#1C1917]' : 'bg-[#1C1917] dark:bg-white'} ${
               menuOpen ? 'opacity-0' : ''
             }`}
           />
           <span
-            className={`block w-5 h-0.5 bg-[#1C1917] dark:bg-white transition-all origin-center ${
+            className={`block w-5 h-0.5 transition-all ${onLight ? 'bg-[#1C1917]' : 'bg-[#1C1917] dark:bg-white'} origin-center ${
               menuOpen ? '-rotate-45 -translate-y-2' : ''
             }`}
           />
