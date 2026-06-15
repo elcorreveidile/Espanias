@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getAllowedUser } from "@/lib/auth/magic";
+import { getAllowedUser, createMagicToken, sendMagicLink } from "@/lib/auth/magic";
 
 // Endpoint TEMPORAL de diagnóstico. Protegido por token en la query.
 // Borrar cuando se resuelva el problema del magic link.
@@ -32,12 +32,32 @@ export async function GET(req: NextRequest) {
     AUTH_SECRET: process.env.AUTH_SECRET ? "set" : "MISSING",
   };
 
-  // Test de base de datos
+  const admin = "informa@blablaele.com";
+
+  // Test de lectura de BD
   try {
-    const u = await getAllowedUser("informa@blablaele.com");
+    const u = await getAllowedUser(admin);
     out.db = { ok: true, encontradoAdmin: !!u };
   } catch (e) {
     out.db = { ok: false, error: e instanceof Error ? e.message : String(e) };
+  }
+
+  // Test de ESCRITURA de BD (igual que el flujo real: crear token)
+  try {
+    const token = await createMagicToken(admin);
+    out.dbWrite = { ok: true, tokenLen: token.length };
+  } catch (e) {
+    out.dbWrite = { ok: false, error: e instanceof Error ? e.message : String(e) };
+  }
+
+  // Test de ENVÍO real (manda un correo de verdad al admin)
+  if (req.nextUrl.searchParams.get("send") === "1") {
+    try {
+      await sendMagicLink(admin, "https://www.espanias.com/api/diag-test-link");
+      out.send = { ok: true, sentTo: admin };
+    } catch (e) {
+      out.send = { ok: false, error: e instanceof Error ? e.message : String(e) };
+    }
   }
 
   // Test de Resend (lista dominios, NO envía correo)
