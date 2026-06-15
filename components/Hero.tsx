@@ -41,7 +41,7 @@ export default function Hero() {
           className="font-black leading-[0.9] tracking-tight mb-10 select-none"
           style={{ fontSize: 'clamp(3.5rem, 14vw, 11rem)' }}
         >
-          <span className="text-[#1C1917]">Espa</span>
+          <span className="bg-gradient-to-r from-[#BF2638] to-[#6D28D9] bg-clip-text text-transparent">Espa</span>
           <span
             className="text-[#BF2638] relative inline-block group cursor-default"
             title="ñ"
