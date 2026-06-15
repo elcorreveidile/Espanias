@@ -15,7 +15,7 @@ export const legalInfo = {
   hosting: 'Vercel Inc. (340 S Lemon Ave #4133, Walnut, CA 91789, EE. UU.)',
   baseDatos: 'Neon Inc. (proveedor de base de datos PostgreSQL, EE. UU./UE)',
   emailProveedor: 'Resend (Plus Five Five, Inc., EE. UU.)',
-  // Última actualización de los textos legales
+  // Última actualización de los textos legales.
   actualizado: '15 de junio de 2026',
   actualizadoEn: 'June 15, 2026',
 } as const
