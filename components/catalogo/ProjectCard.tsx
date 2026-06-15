@@ -14,18 +14,54 @@ export default function ProjectCard({ project, lang }: Props) {
   return (
     <Link href={`/catalogo/${project.slug}`} className="group block h-full">
       <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-stone-300 hover:shadow-lg">
-        {/* Barra de color de categoría */}
-        <div className="h-1" style={{ backgroundColor: categoryColor }} />
-
-        <div className="flex flex-1 flex-col p-6">
-          {/* Badge de categoría */}
+        {/* Portada de color de categoría (generada por código) */}
+        <div
+          className="relative h-28 overflow-hidden"
+          style={{ backgroundColor: categoryColor }}
+        >
+          {/* Brillo */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                'radial-gradient(circle at 25% 18%, rgba(255,255,255,0.40), transparent 55%)',
+            }}
+          />
+          {/* Sombra diagonal */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background: 'linear-gradient(135deg, transparent 38%, rgba(0,0,0,0.22))',
+            }}
+          />
+          {/* Patrón de puntos */}
+          <div
+            className="absolute inset-0 opacity-20"
+            style={{
+              backgroundImage:
+                'radial-gradient(rgba(255,255,255,0.9) 1px, transparent 1.6px)',
+              backgroundSize: '14px 14px',
+            }}
+          />
+          {/* Destello de marca */}
+          <svg
+            className="absolute -right-3 -top-2 h-24 w-24 text-white/15 transition-transform duration-500 group-hover:scale-110"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path d="M12 1.5l1.7 6.8 6.8 1.7-6.8 1.7L12 22.5l-1.7-6.8L3.5 10l6.8-1.7z" />
+          </svg>
+          {/* Etiqueta de categoría */}
           <span
-            className="mb-3 inline-block w-fit rounded-full px-3 py-1 text-xs font-semibold text-white"
-            style={{ backgroundColor: categoryColor }}
+            className="absolute bottom-2.5 left-3 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold backdrop-blur-sm"
+            style={{ color: categoryColor }}
           >
             {categoryLabels[lang][project.category]}
           </span>
+        </div>
 
+        <div className="flex flex-1 flex-col p-6">
           {/* Nombre */}
           <h3 className="mb-2 line-clamp-2 text-lg font-black leading-snug text-[#1C1917]">
             {project.name}
