@@ -37,6 +37,9 @@ export async function savePost(
     titulo,
     resumen: opt(formData.get('resumen')),
     contenido: opt(formData.get('contenido')),
+    tituloEn: opt(formData.get('tituloEn')),
+    resumenEn: opt(formData.get('resumenEn')),
+    contenidoEn: opt(formData.get('contenidoEn')),
     portadaUrl: opt(formData.get('portadaUrl')),
     publicado: formData.get('publicado') ? 1 : 0,
   }
