@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
+import { sql } from "drizzle-orm";
 import { getAllowedUser, createMagicToken, sendMagicLink } from "@/lib/auth/magic";
+import { db } from "@/lib/db/client";
 
 // Endpoint TEMPORAL de diagnóstico. Protegido por token en la query.
 // Borrar cuando se resuelva el problema del magic link.
@@ -48,6 +50,20 @@ export async function GET(req: NextRequest) {
   };
 
   const admin = "informa@blablaele.com";
+
+  // Estructura real de la tabla magic_tokens en ESTA base de datos
+  try {
+    const res = await db.execute(
+      sql`select column_name, data_type, is_nullable, column_default
+          from information_schema.columns
+          where table_name = 'magic_tokens'
+          order by ordinal_position`
+    );
+    const rows = (res as { rows?: unknown[] }).rows ?? (res as unknown[]);
+    out.tablaMagicTokens = rows;
+  } catch (e) {
+    out.tablaMagicTokens = { error: errInfo(e) };
+  }
 
   // Test de lectura de BD
   try {
