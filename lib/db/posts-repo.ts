@@ -32,6 +32,9 @@ export interface PostInput {
   titulo: string
   resumen: string | null
   contenido: string | null
+  tituloEn: string | null
+  resumenEn: string | null
+  contenidoEn: string | null
   portadaUrl: string | null
   publicado: number
 }

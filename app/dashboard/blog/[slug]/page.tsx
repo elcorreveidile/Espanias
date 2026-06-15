@@ -67,6 +67,25 @@ export default async function PostEditor({ params }: Props) {
           </div>
         </div>
 
+        {/* Versión en inglés (opcional; si se deja vacía, se usa la española) */}
+        <div className="space-y-5 rounded-2xl border border-stone-200 bg-stone-50/50 p-5">
+          <p className="text-sm font-bold uppercase tracking-wider text-[#78716C]">
+            🇬🇧 Versión en inglés <span className="font-normal normal-case">(opcional)</span>
+          </p>
+          <div>
+            <label className={label} htmlFor="tituloEn">Title (EN)</label>
+            <input id="tituloEn" name="tituloEn" defaultValue={post?.tituloEn ?? ''} className={field} />
+          </div>
+          <div>
+            <label className={label} htmlFor="resumenEn">Summary (EN)</label>
+            <textarea id="resumenEn" name="resumenEn" rows={2} defaultValue={post?.resumenEn ?? ''} className={field} />
+          </div>
+          <div>
+            <label className={label} htmlFor="contenidoEn">Content (EN)</label>
+            <textarea id="contenidoEn" name="contenidoEn" rows={16} defaultValue={post?.contenidoEn ?? ''} placeholder="Same Markdown formatting. Leave blank to show the Spanish version to English visitors." className={`${field} font-mono`} />
+          </div>
+        </div>
+
         <label className="flex items-center gap-2 text-sm font-medium text-[#1C1917]">
           <input type="checkbox" name="publicado" defaultChecked={!!post?.publicado} className="h-4 w-4" />
           Publicado (visible en la web)

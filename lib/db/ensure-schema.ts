@@ -76,23 +76,28 @@ let postsReady: Promise<void> | null = null;
 
 export function ensurePostsTable(): Promise<void> {
   if (!postsReady) {
-    postsReady = db
-      .execute(sql`CREATE TABLE IF NOT EXISTS posts (
-        id serial PRIMARY KEY,
-        slug varchar(160) UNIQUE NOT NULL,
-        titulo varchar(255) NOT NULL,
-        resumen varchar(500),
-        contenido text,
-        portada_url text,
-        publicado integer DEFAULT 0,
-        created_at timestamp DEFAULT now(),
-        updated_at timestamp DEFAULT now()
-      )`)
-      .then(() => undefined)
-      .catch((err) => {
-        postsReady = null;
-        throw err;
-      });
+    postsReady = run_posts().catch((err) => {
+      postsReady = null;
+      throw err;
+    });
   }
   return postsReady;
+}
+
+async function run_posts(): Promise<void> {
+  await db.execute(sql`CREATE TABLE IF NOT EXISTS posts (
+    id serial PRIMARY KEY,
+    slug varchar(160) UNIQUE NOT NULL,
+    titulo varchar(255) NOT NULL,
+    resumen varchar(500),
+    contenido text,
+    portada_url text,
+    publicado integer DEFAULT 0,
+    created_at timestamp DEFAULT now(),
+    updated_at timestamp DEFAULT now()
+  )`);
+  // Columnas bilingües (añadidas a posteriori; idempotente).
+  await db.execute(sql`ALTER TABLE posts ADD COLUMN IF NOT EXISTS titulo_en varchar(255)`);
+  await db.execute(sql`ALTER TABLE posts ADD COLUMN IF NOT EXISTS resumen_en varchar(500)`);
+  await db.execute(sql`ALTER TABLE posts ADD COLUMN IF NOT EXISTS contenido_en text`);
 }
