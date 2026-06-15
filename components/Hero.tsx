@@ -70,7 +70,7 @@ export default function Hero() {
         {/* CTA */}
         <Link
           href="/catalogo"
-          className="inline-flex items-center gap-2 bg-[#1C1917] text-[#F9F7F4] px-8 py-3.5 rounded-full text-sm font-semibold hover:bg-[#BF2638] transition-colors duration-300 group"
+          className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#BF2638] to-[#6D28D9] px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-[#6D28D9]/20 transition duration-300 hover:brightness-110 hover:shadow-xl hover:shadow-[#6D28D9]/30"
         >
           {t.cta}
           <svg
