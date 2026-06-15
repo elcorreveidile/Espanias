@@ -50,7 +50,7 @@ export async function GET(req: NextRequest) {
     out.dbWrite = { ok: false, error: e instanceof Error ? e.message : String(e) };
   }
 
-  // Test de ENVÍO real (manda un correo de verdad al admin)
+  // Test de ENVÍO real (manda un correo de verdad al admin) — solo con &send=1
   if (req.nextUrl.searchParams.get("send") === "1") {
     try {
       await sendMagicLink(admin, "https://www.espanias.com/api/diag-test-link");
