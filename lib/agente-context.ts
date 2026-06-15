@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { AgenteContext } from '@/lib/db/agente-repo'
+import { architectures } from '@/lib/architectures'
 
 /** Respuesta JSON con charset utf-8 explícito (evita mojibake en el navegador). */
 export function jsonUtf8(data: unknown, status = 200): NextResponse {
@@ -64,6 +65,7 @@ export function buildContext(ctx: AgenteContext) {
       tipo: l.tipo,
       contenido: l.contenido,
     })),
+    arquitectura: architectures[p.slug] ?? null,
     notas_internas: p.notasInternas,
   }
 }
@@ -113,6 +115,9 @@ export function buildMarkdown(ctx: AgenteContext): string {
       lines.push(`- **${l.titulo ?? ''}**: ${l.contenido ?? ''}`)
     }
   }
+
+  const arquitectura = architectures[p.slug]
+  if (arquitectura) lines.push('', '## Arquitectura replicable', arquitectura)
 
   if (p.repositorioUrl) lines.push('', `## Repositorio`, p.repositorioUrl)
   if (p.demoUrl) lines.push('', `## Demo`, p.demoUrl)
