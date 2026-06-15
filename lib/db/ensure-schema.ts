@@ -6,6 +6,13 @@ import { db } from "./client";
 // al montar la base de datos. Se ejecuta una sola vez por instancia del servidor.
 let schemaReady: Promise<void> | null = null;
 
+// Email del admin con acceso al panel. Configurable por entorno; si no, el
+// mismo que siembra db/setup.sql, para que un arranque en BD nueva no deje el
+// login inservible (whitelist vacía → ningún email se enviaría).
+const ADMIN_EMAIL = (process.env.ADMIN_EMAIL || 'informa@blablaele.com')
+  .trim()
+  .toLowerCase()
+
 // Cada sentencia por separado: el driver HTTP de Neon ejecuta una por petición.
 const STATEMENTS = [
   sql`CREATE TABLE IF NOT EXISTS users (
@@ -24,6 +31,10 @@ const STATEMENTS = [
     expires_at timestamp NOT NULL,
     created_at timestamp DEFAULT now()
   )`,
+  // Garantiza que el admin existe y tiene rol admin (no pisa otros datos).
+  sql`INSERT INTO users (email, nombre, rol)
+      VALUES (${ADMIN_EMAIL}, 'Javier', 'admin')
+      ON CONFLICT (email) DO UPDATE SET rol = 'admin'`,
 ];
 
 async function run(): Promise<void> {
