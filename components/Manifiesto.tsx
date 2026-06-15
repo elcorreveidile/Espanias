@@ -8,17 +8,8 @@ export default function Manifiesto() {
   const t = translations[lang].manifiesto
 
   return (
-    <section id="manifiesto" className="relative overflow-hidden py-28 md:py-36 px-6">
-      {/* Soft brand aura */}
-      <div
-        className="pointer-events-none absolute -top-20 right-0 h-[420px] w-[420px] rounded-full blur-3xl opacity-[0.12]"
-        style={{ background: 'radial-gradient(circle, #D4AC0D 0%, transparent 70%)' }}
-      />
-      <div
-        className="pointer-events-none absolute bottom-0 -left-24 h-[360px] w-[360px] rounded-full blur-3xl opacity-[0.10]"
-        style={{ background: 'radial-gradient(circle, #BF2638 0%, transparent 70%)' }}
-      />
-      <div className="relative max-w-6xl mx-auto">
+    <section id="manifiesto" className="py-28 md:py-36 px-6">
+      <div className="max-w-6xl mx-auto">
         {/* Eyebrow */}
         <div className="flex items-center gap-3 mb-16">
           <div className="w-8 h-px bg-[#BF2638]" />

@@ -28,20 +28,6 @@ export default function Hero() {
         }}
       />
 
-      {/* Soft brand auras (colorido sutil) */}
-      <div
-        className="pointer-events-none absolute -top-24 -left-24 h-[460px] w-[460px] rounded-full blur-3xl opacity-25"
-        style={{ background: 'radial-gradient(circle, #BF2638 0%, transparent 70%)' }}
-      />
-      <div
-        className="pointer-events-none absolute -bottom-32 -right-24 h-[520px] w-[520px] rounded-full blur-3xl opacity-20"
-        style={{ background: 'radial-gradient(circle, #6D28D9 0%, transparent 70%)' }}
-      />
-      <div
-        className="pointer-events-none absolute top-1/4 right-1/3 h-[340px] w-[340px] rounded-full blur-3xl opacity-[0.16]"
-        style={{ background: 'radial-gradient(circle, #D4AC0D 0%, transparent 70%)' }}
-      />
-
       <div className="relative max-w-5xl w-full mx-auto text-center">
         {/* Small formula label */}
         <p className="text-xs uppercase tracking-[0.4em] text-[#78716C] mb-10 font-medium">

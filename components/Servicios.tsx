@@ -45,16 +45,17 @@ export default function Servicios() {
   ]
 
   return (
-    <section id="servicios" className="relative overflow-hidden py-28 md:py-36 px-6 bg-[#1C1917]">
-      {/* Colored glows over the dark background */}
-      <div
-        className="pointer-events-none absolute -top-24 -left-20 h-[440px] w-[440px] rounded-full blur-3xl opacity-25"
-        style={{ background: 'radial-gradient(circle, #6D28D9 0%, transparent 70%)' }}
-      />
-      <div
-        className="pointer-events-none absolute -bottom-28 right-0 h-[420px] w-[420px] rounded-full blur-3xl opacity-20"
-        style={{ background: 'radial-gradient(circle, #BF2638 0%, transparent 70%)' }}
-      />
+    <section
+      id="servicios"
+      className="py-28 md:py-36 px-6"
+      style={{
+        backgroundColor: '#1C1917',
+        backgroundImage: [
+          'radial-gradient(50% 45% at 12% 8%, rgba(109,40,217,0.35), transparent 70%)',
+          'radial-gradient(50% 45% at 92% 96%, rgba(191,38,56,0.30), transparent 70%)',
+        ].join(', '),
+      }}
+    >
       <div className="relative max-w-6xl mx-auto">
         {/* Eyebrow */}
         <div className="flex items-center gap-3 mb-8">
