@@ -61,6 +61,7 @@ const EDITS: Array<{ slug: string; data: ProjectUpdate }> = [
       url: "https://www.comiteclm.com",
       estado: "hecho",
       demoUrl: null,
+      imagenUrl: "/projects/comite-clm.webp",
     },
   },
 ];

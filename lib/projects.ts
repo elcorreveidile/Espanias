@@ -89,6 +89,7 @@ export const projects: Project[] = [
     name: 'Comité CLM',
     slug: 'comite-clm',
     url: 'https://www.comiteclm.com',
+    image: '/projects/comite-clm.webp',
     category: 'gestion',
     status: 'hecho',
     sector: 'institucional',
