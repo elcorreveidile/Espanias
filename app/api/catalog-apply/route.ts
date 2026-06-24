@@ -273,7 +273,7 @@ const EDITS: Array<{ slug: string; data: ProjectUpdate }> = [
       url: "https://www.por2duros.com",
       estado: "hecho",
       demoUrl: null,
-      category: "otros",
+      category: "desarrollo-web",
       imagenUrl: "/projects/por2duros.webp",
       descripcionEs:
         "Agencia de desarrollo web con sede en Andalucía que entrega proyectos digitales en 48 horas a precios accesibles. Desarrolla desde cero —sin plantillas— landing pages, tiendas online, MVPs y apps a medida para autónomos, startups y pequeñas empresas. Pago único desde 299 €, sin suscripciones obligatorias y con 15 días de garantía de devolución.",

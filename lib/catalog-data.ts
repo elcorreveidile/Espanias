@@ -12,7 +12,7 @@ import {
 const VALID_CATEGORIES: Category[] = [
   'ia', 'educacion', 'literatura', 'personal', 'salud', 'derecho',
   'inmobiliaria', 'hosteleria', 'comercio', 'deporte', 'eventos', 'saas',
-  'gestion', 'mascotas', 'belleza', 'otros',
+  'gestion', 'mascotas', 'belleza', 'desarrollo-web', 'otros',
 ]
 
 const VALID_STATUS: Project['status'][] = ['idea', 'planeado', 'desarrollo', 'hecho']

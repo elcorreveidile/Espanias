@@ -21,6 +21,7 @@ export const categoryLabels: Record<Lang, Record<Category, string>> = {
     gestion: 'Gestión',
     mascotas: 'Mascotas',
     belleza: 'Belleza',
+    'desarrollo-web': 'Desarrollo web',
     otros: 'Otros',
   },
   en: {
@@ -39,6 +40,7 @@ export const categoryLabels: Record<Lang, Record<Category, string>> = {
     gestion: 'Management',
     mascotas: 'Pets',
     belleza: 'Beauty',
+    'desarrollo-web': 'Web development',
     otros: 'Other',
   },
 }

@@ -1,4 +1,4 @@
-export type Category = 'ia' | 'educacion' | 'literatura' | 'personal' | 'salud' | 'derecho' | 'inmobiliaria' | 'hosteleria' | 'comercio' | 'deporte' | 'eventos' | 'saas' | 'gestion' | 'mascotas' | 'belleza' | 'otros'
+export type Category = 'ia' | 'educacion' | 'literatura' | 'personal' | 'salud' | 'derecho' | 'inmobiliaria' | 'hosteleria' | 'comercio' | 'deporte' | 'eventos' | 'saas' | 'gestion' | 'mascotas' | 'belleza' | 'desarrollo-web' | 'otros'
 
 export interface Project {
   id: string
@@ -39,6 +39,7 @@ export const categoryColors: Record<Category, string> = {
   gestion: '#0F766E',
   mascotas: '#65A30D',
   belleza: '#C026D3',
+  'desarrollo-web': '#1E293B',
   otros: '#78716C',
 }
 
@@ -298,7 +299,7 @@ export const projects: Project[] = [
     slug: 'por2duros',
     url: 'https://www.por2duros.com',
     image: '/projects/por2duros.webp',
-    category: 'otros',
+    category: 'desarrollo-web',
     status: 'hecho',
     sector: 'desarrollo web',
     description: {
