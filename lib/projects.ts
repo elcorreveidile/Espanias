@@ -116,16 +116,16 @@ export const projects: Project[] = [
 
   {
     id: 'ia-ele-course',
-    name: 'IA para ELE',
+    name: 'Clínica Cultural y Lingüística de Español',
     slug: 'ia-ele-course',
-    url: 'https://iaele.es',
-    demo: 'https://ia-ele-demo.vercel.app',
-    category: 'ia',
+    url: 'https://www.clinicacultural.com',
+    image: '/projects/clinica-cultural.webp',
+    category: 'educacion',
     status: 'hecho',
     sector: 'educacion',
     description: {
-      es: 'Plataforma de formación en inteligencia artificial para profesores de español. Módulos sobre prompts, chatbots custom, MCER, y recursos multimodales.',
-      en: 'AI training platform for Spanish language teachers. Modules on prompts, custom chatbots, CEFR alignment, and multimodal resources.',
+      es: 'Experiencia integral de inmersión en español y cultura en Granada. No es un curso al uso: combina el aprendizaje del idioma con inmersión cultural, con un diagnóstico inicial y un itinerario personalizado. Vinculada a la Universidad de Granada.',
+      en: 'Immersive Spanish-language and cultural experience in Granada. Not a typical course: it blends language learning with cultural immersion through an initial diagnostic and a personalized itinerary. Linked to the University of Granada.',
     },
   },
 
@@ -194,13 +194,13 @@ export const projects: Project[] = [
     name: 'La Clase Digital',
     slug: 'clase-digital-main',
     url: 'https://laclasedigital.com',
-    demo: 'https://clase-digital-demo.vercel.app',
-    category: 'educacion',
+    image: '/projects/clase-digital.webp',
+    category: 'ia',
     status: 'hecho',
     sector: 'educacion',
     description: {
-      es: 'Plataforma educativa para ELE (Español como Lengua Extranjera) con recursos, lecciones interactivas y formación de profesores.',
-      en: 'Educational platform for Spanish as a Foreign Language with resources, interactive lessons and teacher training.',
+      es: 'Plataforma de formación docente en inteligencia artificial para profesores de Español como Lengua Extranjera (ELE). Curso de 20 horas con módulos sobre ética y prompts (marco FRAME), chatbots a medida, planificación alineada con el MCER y creación de recursos multimodales. Incluye certificado de aprovechamiento.',
+      en: 'Teacher-training platform on artificial intelligence for Spanish as a Foreign Language (ELE) teachers. A 20-hour course with modules on AI ethics and prompting (FRAME framework), tailored chatbots, CEFR-aligned planning and multimodal resource creation. Includes a certificate of completion.',
     },
   },
 

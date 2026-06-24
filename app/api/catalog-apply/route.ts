@@ -99,6 +99,36 @@ const EDITS: Array<{ slug: string; data: ProjectUpdate }> = [
         "Multi-company SaaS to organize team work. It builds automatic shift rotas for care homes and shift-based sectors, and manages teaching allocation and hours tracking for language academies. Each client gets its own subdomain.",
     },
   },
+  {
+    slug: "clase-digital-main",
+    data: {
+      nombre: "La Clase Digital",
+      url: "https://laclasedigital.com",
+      demoUrl: null,
+      imagenUrl: "/projects/clase-digital.webp",
+      category: "ia",
+      estado: "hecho",
+      descripcionEs:
+        "Plataforma de formación docente en inteligencia artificial para profesores de Español como Lengua Extranjera (ELE). Curso de 20 horas con módulos sobre ética y prompts (marco FRAME), chatbots a medida, planificación alineada con el MCER y creación de recursos multimodales. Incluye certificado de aprovechamiento.",
+      descripcionEn:
+        "Teacher-training platform on artificial intelligence for Spanish as a Foreign Language (ELE) teachers. A 20-hour course with modules on AI ethics and prompting (FRAME framework), tailored chatbots, CEFR-aligned planning and multimodal resource creation. Includes a certificate of completion.",
+    },
+  },
+  {
+    slug: "ia-ele-course",
+    data: {
+      nombre: "Clínica Cultural y Lingüística de Español",
+      url: "https://www.clinicacultural.com",
+      demoUrl: null,
+      imagenUrl: "/projects/clinica-cultural.webp",
+      category: "educacion",
+      estado: "hecho",
+      descripcionEs:
+        "Experiencia integral de inmersión en español y cultura en Granada. No es un curso al uso: combina el aprendizaje del idioma con inmersión cultural, con un diagnóstico inicial y un itinerario personalizado. Vinculada a la Universidad de Granada.",
+      descripcionEn:
+        "Immersive Spanish-language and cultural experience in Granada. Not a typical course: it blends language learning with cultural immersion through an initial diagnostic and a personalized itinerary. Linked to the University of Granada.",
+    },
+  },
 ];
 
 export async function GET(req: NextRequest) {
