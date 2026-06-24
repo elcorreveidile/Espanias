@@ -159,6 +159,7 @@ export const projects: Project[] = [
     name: 'MakiCar',
     slug: 'makicar',
     url: 'https://makicar.app',
+    image: '/projects/makicar.webp',
     category: 'saas',
     status: 'hecho',
     sector: 'transporte',

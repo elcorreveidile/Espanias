@@ -151,6 +151,7 @@ const EDITS: Array<{ slug: string; data: ProjectUpdate }> = [
       estado: "hecho",
       demoUrl: null,
       category: "saas",
+      imagenUrl: "/projects/makicar.webp",
       descripcionEs:
         "PWA de transporte compartido con un conductor de confianza en la ruta Granada–Algeciras. El conductor publica viajes y el pasajero reserva su plaza, con cálculo automático de tarifas (día/noche y suplementos), confirmación manual y pago directo al conductor. Instalable sin tiendas de apps.",
       descripcionEn:
