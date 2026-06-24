@@ -164,7 +164,21 @@ export default async function ProjectDetailPage({ params }: Props) {
           </div>
 
           {/* CTA */}
-          <div className="mb-12 rounded-2xl bg-[#1C1917] p-10 text-center text-white">
+          <div className="relative mb-12 overflow-hidden rounded-2xl bg-[#1C1917] p-10 text-center text-white">
+            {project.status !== 'idea' && (
+              <>
+                <Image
+                  src="/cta-por2duros.webp"
+                  alt=""
+                  aria-hidden="true"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 900px"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-[#1C1917]/80" />
+              </>
+            )}
+            <div className="relative">
             {project.status === 'idea' ? (
               <>
                 <h2 className="mb-3 text-2xl font-black md:text-3xl">¿Te interesa esta idea?</h2>
@@ -182,7 +196,7 @@ export default async function ProjectDetailPage({ params }: Props) {
               <>
                 <h2 className="mb-3 text-2xl font-black md:text-3xl">¿Quieres una web como esta?</h2>
                 <p className="mb-6 text-stone-300">
-                  Contáctanos para crear tu aplicación web a medida.
+                  Te la desarrollamos a medida, lista en 48 horas.
                 </p>
                 <a
                   href="https://www.por2duros.com/#precio"
@@ -194,6 +208,7 @@ export default async function ProjectDetailPage({ params }: Props) {
                 </a>
               </>
             )}
+            </div>
           </div>
 
           {/* Navegación anterior / siguiente */}
