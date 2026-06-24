@@ -188,6 +188,20 @@ const EDITS: Array<{ slug: string; data: ProjectUpdate }> = [
         "Poetry, music and technology in one place: turn your words into visual and sound art. Create poems with visual and musical accompaniment and publish them.",
     },
   },
+  {
+    slug: "javier-benitez",
+    data: {
+      url: "https://javier.soy",
+      estado: "hecho",
+      demoUrl: null,
+      category: "personal",
+      imagenUrl: "/projects/javier-benitez.webp",
+      descripcionEs:
+        "Web personal de Javier Benítez Láinez: lengua, poesía, docencia, IA y crítica cultural. Un repositorio vivo con formación, asesoría y blog, donde la IA se trabaja como herramienta crítica.",
+      descripcionEn:
+        "Personal website of Javier Benítez Láinez: language, poetry, teaching, AI and cultural criticism. A living repository with training, consulting and a blog, where AI is used as a critical tool.",
+    },
+  },
 ];
 
 export async function GET(req: NextRequest) {

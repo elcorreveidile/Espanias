@@ -267,13 +267,13 @@ export const projects: Project[] = [
     name: 'Javier Benítez — Personal',
     slug: 'javier-benitez',
     url: 'https://javier.soy',
-    demo: 'https://javier-benitez-demo.vercel.app',
+    image: '/projects/javier-benitez.webp',
     category: 'personal',
     status: 'hecho',
     sector: 'personal',
     description: {
-      es: 'Sitio personal de Javier Benítez. Profesor de ELE, poeta, desarrollador web y empresario cultural.',
-      en: 'Personal website of Javier Benítez. Spanish language teacher, poet, web developer and cultural entrepreneur.',
+      es: 'Web personal de Javier Benítez Láinez: lengua, poesía, docencia, IA y crítica cultural. Un repositorio vivo con formación, asesoría y blog, donde la IA se trabaja como herramienta crítica.',
+      en: 'Personal website of Javier Benítez Láinez: language, poetry, teaching, AI and cultural criticism. A living repository with training, consulting and a blog, where AI is used as a critical tool.',
     },
   },
 
