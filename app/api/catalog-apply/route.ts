@@ -173,6 +173,21 @@ const EDITS: Array<{ slug: string; data: ProjectUpdate }> = [
         "Videopoem app: each poem comes alive in three formats —immersive reading, video recitation and an AI-generated musical version. Includes a poetry-book catalogue, favourites and user profiles.",
     },
   },
+  {
+    slug: "poedronomo",
+    data: {
+      url: "https://poedronomo.com",
+      estado: "hecho",
+      demoUrl: null,
+      category: "literatura",
+      categories: "literatura,ia",
+      imagenUrl: "/projects/poedronomo.webp",
+      descripcionEs:
+        "Poesía, música y tecnología en un solo lugar: convierte tus palabras en arte visual y sonoro. Crea poemas con acompañamiento visual y musical y publícalos.",
+      descripcionEn:
+        "Poetry, music and technology in one place: turn your words into visual and sound art. Create poems with visual and musical accompaniment and publish them.",
+    },
+  },
 ];
 
 export async function GET(req: NextRequest) {

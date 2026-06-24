@@ -221,13 +221,14 @@ export const projects: Project[] = [
     name: 'Poedrónomo',
     slug: 'poedronomo',
     url: 'https://poedronomo.com',
-    demo: 'https://poedronomo-demo.vercel.app',
+    image: '/projects/poedronomo.webp',
     category: 'literatura',
+    categories: ['ia'],
     status: 'hecho',
     sector: 'literatura',
     description: {
-      es: 'Plataforma de publicación y venta de obras de poesía. Catálogo de libros, descarga digital, e interacción con lectores.',
-      en: 'Publishing and sales platform for poetry collections. Book catalog, digital downloads, and reader engagement.',
+      es: 'Poesía, música y tecnología en un solo lugar: convierte tus palabras en arte visual y sonoro. Crea poemas con acompañamiento visual y musical y publícalos.',
+      en: 'Poetry, music and technology in one place: turn your words into visual and sound art. Create poems with visual and musical accompaniment and publish them.',
     },
   },
 
