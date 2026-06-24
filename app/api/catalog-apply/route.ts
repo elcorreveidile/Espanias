@@ -13,6 +13,7 @@ const EDITS: Array<{ slug: string; data: ProjectUpdate }> = [
     slug: "perruqueria-canina",
     data: {
       url: "https://perruqueria.espanias.com",
+      estado: "hecho",
       demoUrl: null,
       imagenUrl: "/projects/perruqueria-canina.webp",
     },
@@ -21,6 +22,7 @@ const EDITS: Array<{ slug: string; data: ProjectUpdate }> = [
     slug: "eje-fisioterapia",
     data: {
       url: "https://fisioterapia.espanias.com",
+      estado: "hecho",
       demoUrl: null,
       imagenUrl: "/projects/eje-fisioterapia.webp",
     },
@@ -38,6 +40,7 @@ const EDITS: Array<{ slug: string; data: ProjectUpdate }> = [
     slug: "barberia",
     data: {
       url: "https://barberia.espanias.com",
+      estado: "hecho",
       demoUrl: null,
     },
   },
@@ -45,6 +48,7 @@ const EDITS: Array<{ slug: string; data: ProjectUpdate }> = [
     slug: "bar-de-eric",
     data: {
       url: "https://bardeeric.espanias.com",
+      estado: "hecho",
       demoUrl: null,
     },
   },
