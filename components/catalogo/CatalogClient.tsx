@@ -4,6 +4,7 @@ import { useState, useMemo } from 'react'
 import Image from 'next/image'
 import { projectCategories, type Category, type Project } from '@/lib/projects'
 import { useLanguage } from '@/context/LanguageContext'
+import { categoryLabels } from '@/lib/catalogo-labels'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import ProjectCard from '@/components/catalogo/ProjectCard'
@@ -39,11 +40,18 @@ export default function CatalogClient({ projects }: { projects: Project[] }) {
   const filteredProjects = useMemo(() => {
     const term = searchTerm.trim().toLowerCase()
     return projects.filter((project) => {
+      // Texto buscable: nombre, descripción (ES/EN) y etiquetas de categoría
+      // (ES/EN), para que p. ej. "educación" encuentre sus apps aunque la
+      // palabra no esté en la descripción.
+      const categoryText = projectCategories(project)
+        .flatMap((cat) => [categoryLabels.es[cat], categoryLabels.en[cat]])
+        .join(' ')
       const matchesSearch =
         term === '' ||
         project.name.toLowerCase().includes(term) ||
         project.description.es.toLowerCase().includes(term) ||
-        project.description.en.toLowerCase().includes(term)
+        project.description.en.toLowerCase().includes(term) ||
+        categoryText.toLowerCase().includes(term)
       const matchesCategory =
         selectedCategory === 'all' || projectCategories(project).includes(selectedCategory)
       const matchesStatus = selectedStatus === 'all' || project.status === selectedStatus
