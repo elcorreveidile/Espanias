@@ -282,13 +282,13 @@ export const projects: Project[] = [
     name: 'MakiLibre',
     slug: 'makilibre',
     url: 'https://makilibre.app',
-    demo: 'https://makilibre-demo.vercel.app',
+    image: '/projects/makilibre.webp',
     category: 'saas',
     status: 'hecho',
-    sector: 'saas',
+    sector: 'social',
     description: {
-      es: 'Herramienta open-source de gestión de transporte colaborativo. API pública y SDK para integración.',
-      en: 'Open-source collaborative transport management tool. Public API and SDK for integration.',
+      es: 'Plataforma de apoyo integral para internos y sus familias: conecta, informa y prepara para la reinserción social, con espacios para familiares y para quienes quieren ayudar. Porque empezar de nuevo es más fácil cuando no estás solo.',
+      en: 'Comprehensive support platform for inmates and their families: it connects, informs and prepares for social reintegration, with spaces for relatives and for people who want to help. Because starting over is easier when you are not alone.',
     },
   },
 

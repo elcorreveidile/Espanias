@@ -202,6 +202,20 @@ const EDITS: Array<{ slug: string; data: ProjectUpdate }> = [
         "Personal website of Javier Benítez Láinez: language, poetry, teaching, AI and cultural criticism. A living repository with training, consulting and a blog, where AI is used as a critical tool.",
     },
   },
+  {
+    slug: "makilibre",
+    data: {
+      url: "https://makilibre.app",
+      estado: "hecho",
+      demoUrl: null,
+      category: "saas",
+      imagenUrl: "/projects/makilibre.webp",
+      descripcionEs:
+        "Plataforma de apoyo integral para internos y sus familias: conecta, informa y prepara para la reinserción social, con espacios para familiares y para quienes quieren ayudar. Porque empezar de nuevo es más fácil cuando no estás solo.",
+      descripcionEn:
+        "Comprehensive support platform for inmates and their families: it connects, informs and prepares for social reintegration, with spaces for relatives and for people who want to help. Because starting over is easier when you are not alone.",
+    },
+  },
 ];
 
 export async function GET(req: NextRequest) {
