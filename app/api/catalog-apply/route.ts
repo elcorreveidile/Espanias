@@ -17,6 +17,14 @@ const EDITS: Array<{ slug: string; data: ProjectUpdate }> = [
       imagenUrl: "/projects/perruqueria-canina.webp",
     },
   },
+  {
+    slug: "eje-fisioterapia",
+    data: {
+      url: "https://fisioterapia-henna.vercel.app",
+      demoUrl: null,
+      imagenUrl: "/projects/eje-fisioterapia.webp",
+    },
+  },
 ];
 
 export async function GET(req: NextRequest) {
