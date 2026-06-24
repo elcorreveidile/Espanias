@@ -55,6 +55,25 @@ export async function updateProject(slug: string, data: ProjectUpdate): Promise<
     .where(eq(projects.slug, slug))
 }
 
+export interface ProjectCreate {
+  slug: string
+  nombre: string
+  category: string
+  estado: string
+  descripcionEs?: string | null
+  descripcionEn?: string | null
+}
+
+export async function createProject(data: ProjectCreate): Promise<void> {
+  await ensureProjectColumns()
+  await db.insert(projects).values(data)
+}
+
+export async function slugExists(slug: string): Promise<boolean> {
+  const rows = await db.select({ id: projects.id }).from(projects).where(eq(projects.slug, slug)).limit(1)
+  return rows.length > 0
+}
+
 export async function getStats() {
   const rows = await listProjects()
   const byStatus: Record<string, number> = {}

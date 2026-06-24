@@ -10,8 +10,18 @@ export default async function ProyectosList() {
 
   return (
     <div>
-      <h1 className="mb-2 text-3xl font-black text-[#1C1917]">Proyectos</h1>
-      <p className="mb-8 text-[#78716C]">{rows.length} proyectos. Haz clic para editar.</p>
+      <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <h1 className="mb-2 text-3xl font-black text-[#1C1917]">Proyectos</h1>
+          <p className="text-[#78716C]">{rows.length} proyectos. Haz clic para editar.</p>
+        </div>
+        <Link
+          href="/dashboard/proyectos/new"
+          className="rounded-lg bg-[#1C1917] px-5 py-2.5 font-semibold text-white transition-colors hover:bg-[#44403C]"
+        >
+          + Nuevo proyecto
+        </Link>
+      </div>
 
       <div className="overflow-x-auto rounded-2xl border border-stone-200 bg-white">
         <table className="w-full min-w-[480px] text-sm">
