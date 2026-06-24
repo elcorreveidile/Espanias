@@ -158,6 +158,21 @@ const EDITS: Array<{ slug: string; data: ProjectUpdate }> = [
         "Shared-transport PWA with a trusted driver on the Granada–Algeciras route. The driver posts trips and passengers book a seat, with automatic fare calculation (day/night and surcharges), manual confirmation and payment straight to the driver. Installable without app stores.",
     },
   },
+  {
+    slug: "versovivo",
+    data: {
+      url: "https://versovivo.ai",
+      estado: "hecho",
+      demoUrl: null,
+      category: "literatura",
+      categories: "literatura,ia",
+      imagenUrl: "/projects/versovivo.webp",
+      descripcionEs:
+        "App de videopoemas: cada poema cobra vida en tres formatos —lectura inmersiva, recitación en vídeo y versión musical generada por IA. Con catálogo de libros de poesía, favoritos y perfil de usuario.",
+      descripcionEn:
+        "Videopoem app: each poem comes alive in three formats —immersive reading, video recitation and an AI-generated musical version. Includes a poetry-book catalogue, favourites and user profiles.",
+    },
+  },
 ];
 
 export async function GET(req: NextRequest) {

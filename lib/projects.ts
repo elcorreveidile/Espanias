@@ -174,13 +174,14 @@ export const projects: Project[] = [
     name: 'VersoVivo',
     slug: 'versovivo',
     url: 'https://versovivo.ai',
-    demo: 'https://versovivo-demo.vercel.app',
+    image: '/projects/versovivo.webp',
     category: 'literatura',
+    categories: ['ia'],
     status: 'hecho',
     sector: 'cultura',
     description: {
-      es: 'Antología interactiva de poesía española con análisis literario asistido por IA. Selección de obras comentadas y recursos educativos.',
-      en: 'Interactive anthology of Spanish poetry with AI-assisted literary analysis. Curated works with commentary and educational resources.',
+      es: 'App de videopoemas: cada poema cobra vida en tres formatos —lectura inmersiva, recitación en vídeo y versión musical generada por IA. Con catálogo de libros de poesía, favoritos y perfil de usuario.',
+      en: 'Videopoem app: each poem comes alive in three formats —immersive reading, video recitation and an AI-generated musical version. Includes a poetry-book catalogue, favourites and user profiles.',
     },
   },
 
