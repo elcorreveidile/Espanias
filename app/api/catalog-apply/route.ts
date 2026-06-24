@@ -34,6 +34,7 @@ const EDITS: Array<{ slug: string; data: ProjectUpdate }> = [
       url: "https://dentista.espanias.com",
       estado: "hecho",
       demoUrl: null,
+      imagenUrl: "/projects/clinica-dental.webp",
     },
   },
   {
@@ -42,6 +43,7 @@ const EDITS: Array<{ slug: string; data: ProjectUpdate }> = [
       url: "https://barberia.espanias.com",
       estado: "hecho",
       demoUrl: null,
+      imagenUrl: "/projects/barberia.webp",
     },
   },
   {
@@ -50,6 +52,7 @@ const EDITS: Array<{ slug: string; data: ProjectUpdate }> = [
       url: "https://bardeeric.espanias.com",
       estado: "hecho",
       demoUrl: null,
+      imagenUrl: "/projects/bar-de-eric.webp",
     },
   },
 ];
