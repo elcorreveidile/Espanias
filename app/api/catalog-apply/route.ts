@@ -80,6 +80,8 @@ const EDITS: Array<{ slug: string; data: ProjectUpdate }> = [
       url: "https://costacompanion.com",
       estado: "hecho",
       demoUrl: null,
+      category: "saas",
+      imagenUrl: "/projects/costa-companion.webp",
     },
   },
 ];

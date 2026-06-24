@@ -134,7 +134,8 @@ export const projects: Project[] = [
     name: 'Costa Companion',
     slug: 'costa-companion',
     url: 'https://costacompanion.com',
-    category: 'personal',
+    image: '/projects/costa-companion.webp',
+    category: 'saas',
     status: 'hecho',
     sector: 'turismo',
     description: {
