@@ -84,6 +84,20 @@ const EDITS: Array<{ slug: string; data: ProjectUpdate }> = [
       imagenUrl: "/projects/costa-companion.webp",
     },
   },
+  {
+    slug: "turno-claro",
+    data: {
+      nombre: "PlanTurnos",
+      url: "https://planturnos.com",
+      demoUrl: "https://planturnos.com/demo",
+      category: "saas",
+      estado: "hecho",
+      descripcionEs:
+        "SaaS multiempresa para organizar el trabajo de equipos. Genera cuadrantes de turnos automáticos para residencias y sectores a turnos, y gestiona reparto de docencia y control de horas para academias. Cada cliente con su propio subdominio.",
+      descripcionEn:
+        "Multi-company SaaS to organize team work. It builds automatic shift rotas for care homes and shift-based sectors, and manages teaching allocation and hours tracking for language academies. Each client gets its own subdomain.",
+    },
+  },
 ];
 
 export async function GET(req: NextRequest) {
