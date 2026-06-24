@@ -184,12 +184,14 @@ export default async function ProjectDetailPage({ params }: Props) {
                 <p className="mb-6 text-stone-300">
                   Contáctanos para crear tu aplicación web a medida.
                 </p>
-                <Link
-                  href="/#contacto"
+                <a
+                  href="https://www.por2duros.com/#precio"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-block rounded-lg bg-white px-6 py-3 font-semibold text-[#1C1917] transition-colors hover:bg-stone-200"
                 >
                   Solicitar información
-                </Link>
+                </a>
               </>
             )}
           </div>
