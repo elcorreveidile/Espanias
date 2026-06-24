@@ -216,6 +216,20 @@ const EDITS: Array<{ slug: string; data: ProjectUpdate }> = [
         "Comprehensive support platform for inmates and their families: it connects, informs and prepares for social reintegration, with spaces for relatives and for people who want to help. Because starting over is easier when you are not alone.",
     },
   },
+  {
+    slug: "academia-musica",
+    data: {
+      url: "https://musica.espanias.com",
+      estado: "hecho",
+      demoUrl: null,
+      category: "educacion",
+      imagenUrl: "/projects/academia-musica.webp",
+      descripcionEs:
+        "Plataforma educativa híbrida de música: clases en vivo (grupos de hasta 8 alumnos) y lecciones grabadas, con catálogo de cursos por instrumento y nivel, comunidad (foro, recitales y jam sessions) y seguimiento del alumno. 7 instrumentos y planes de suscripción.",
+      descripcionEn:
+        "Hybrid music learning platform: live classes (groups of up to 8 students) and recorded lessons, with a course catalogue by instrument and level, a community (forum, recitals and jam sessions) and student progress tracking. 7 instruments and subscription plans.",
+    },
+  },
 ];
 
 export async function GET(req: NextRequest) {
