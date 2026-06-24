@@ -64,6 +64,14 @@ const EDITS: Array<{ slug: string; data: ProjectUpdate }> = [
       imagenUrl: "/projects/comite-clm.webp",
     },
   },
+  {
+    slug: "mariano-maresca",
+    data: {
+      url: "https://www.marianomaresca.com",
+      estado: "hecho",
+      demoUrl: null,
+    },
+  },
 ];
 
 export async function GET(req: NextRequest) {
