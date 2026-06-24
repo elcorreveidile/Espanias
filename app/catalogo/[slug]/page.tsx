@@ -174,8 +174,9 @@ export default async function ProjectDetailPage({ params }: Props) {
                   fill
                   sizes="(max-width: 768px) 100vw, 900px"
                   className="object-cover"
+                  style={{ objectPosition: 'right center' }}
                 />
-                <div className="absolute inset-0 bg-[#1C1917]/80" />
+                <div className="absolute inset-0 bg-[#1C1917]/55" />
               </>
             )}
             <div className="relative">
