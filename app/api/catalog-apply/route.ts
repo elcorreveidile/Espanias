@@ -30,6 +30,7 @@ const EDITS: Array<{ slug: string; data: ProjectUpdate }> = [
     data: {
       nombre: "Dentista de Barrio",
       url: "https://dentista.espanias.com",
+      estado: "hecho",
       demoUrl: null,
     },
   },
