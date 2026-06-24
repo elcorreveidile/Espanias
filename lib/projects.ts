@@ -325,6 +325,7 @@ export const projects: Project[] = [
     slug: 'turno-claro',
     url: 'https://planturnos.com',
     demo: 'https://planturnos.com/demo',
+    image: '/projects/plan-turnos.webp',
     category: 'saas',
     status: 'hecho',
     sector: 'software',

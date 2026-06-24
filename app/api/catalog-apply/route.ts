@@ -90,6 +90,7 @@ const EDITS: Array<{ slug: string; data: ProjectUpdate }> = [
       nombre: "PlanTurnos",
       url: "https://planturnos.com",
       demoUrl: "https://planturnos.com/demo",
+      imagenUrl: "/projects/plan-turnos.webp",
       category: "saas",
       estado: "hecho",
       descripcionEs:
