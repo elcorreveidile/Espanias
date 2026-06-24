@@ -12,13 +12,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
   }
 
-  if (!process.env.BLOB_READ_WRITE_TOKEN) {
-    return NextResponse.json(
-      { error: 'Almacenamiento no configurado (falta activar Blob en Vercel).' },
-      { status: 500 }
-    )
-  }
-
   let file: FormDataEntryValue | null
   try {
     const form = await req.formData()
@@ -37,10 +30,29 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'La imagen supera el máximo de 8 MB' }, { status: 400 })
   }
 
+  // El token lo aporta Vercel al conectar el almacén Blob. Aceptamos el nombre
+  // por defecto o cualquier variante *_READ_WRITE_TOKEN.
+  const token =
+    process.env.BLOB_READ_WRITE_TOKEN ||
+    Object.entries(process.env).find(
+      ([k, v]) => k.endsWith('READ_WRITE_TOKEN') && v
+    )?.[1]
+
+  if (!token) {
+    return NextResponse.json(
+      {
+        error:
+          'Almacenamiento no disponible. Si acabas de conectar Blob en Vercel, vuelve a desplegar (Redeploy) para que se aplique.',
+      },
+      { status: 500 }
+    )
+  }
+
   try {
     const blob = await put(file.name || 'imagen', file, {
       access: 'public',
       addRandomSuffix: true,
+      token,
     })
     return NextResponse.json({ url: blob.url })
   } catch (e) {
