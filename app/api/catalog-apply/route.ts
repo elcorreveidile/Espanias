@@ -136,6 +136,12 @@ const EDITS: Array<{ slug: string; data: ProjectUpdate }> = [
       url: "https://espanias.com",
       estado: "hecho",
       demoUrl: null,
+      category: "otros",
+      imagenUrl: "/projects/espanias-main.webp",
+      descripcionEs:
+        "Portfolio de web apps rápidas y profesionales: catálogo de aplicaciones a medida, panel de gestión y sistema de componentes reutilizables.",
+      descripcionEn:
+        "Portfolio of fast, professional web apps: a catalogue of custom applications, a management dashboard and a reusable component system.",
     },
   },
 ];

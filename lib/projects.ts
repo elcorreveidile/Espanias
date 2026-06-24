@@ -250,12 +250,13 @@ export const projects: Project[] = [
     name: 'Espanias',
     slug: 'espanias-main',
     url: 'https://espanias.com',
-    category: 'saas',
+    image: '/projects/espanias-main.webp',
+    category: 'otros',
     status: 'hecho',
     sector: 'saas',
     description: {
-      es: 'Portfolio de web apps rápidas y profesionales. Catálogo de 50 aplicaciones, dashboard de gestión y sistema de componentes reutilizables.',
-      en: 'Portfolio of fast and professional web apps. Catalog of 50 applications, management dashboard and reusable component system.',
+      es: 'Portfolio de web apps rápidas y profesionales: catálogo de aplicaciones a medida, panel de gestión y sistema de componentes reutilizables.',
+      en: 'Portfolio of fast, professional web apps: a catalogue of custom applications, a management dashboard and a reusable component system.',
     },
   },
 
