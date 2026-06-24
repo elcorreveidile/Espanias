@@ -134,7 +134,6 @@ export const projects: Project[] = [
     name: 'Costa Companion',
     slug: 'costa-companion',
     url: 'https://costacompanion.com',
-    demo: 'https://costa-companion-demo.vercel.app',
     category: 'personal',
     status: 'hecho',
     sector: 'turismo',

@@ -74,6 +74,14 @@ const EDITS: Array<{ slug: string; data: ProjectUpdate }> = [
       imagenUrl: "/projects/mariano-maresca.webp",
     },
   },
+  {
+    slug: "costa-companion",
+    data: {
+      url: "https://costacompanion.com",
+      estado: "hecho",
+      demoUrl: null,
+    },
+  },
 ];
 
 export async function GET(req: NextRequest) {
