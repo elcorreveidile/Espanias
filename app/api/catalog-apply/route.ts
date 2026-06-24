@@ -144,6 +144,19 @@ const EDITS: Array<{ slug: string; data: ProjectUpdate }> = [
         "Portfolio of fast, professional web apps: a catalogue of custom applications, a management dashboard and a reusable component system.",
     },
   },
+  {
+    slug: "makicar",
+    data: {
+      url: "https://makicar.app",
+      estado: "hecho",
+      demoUrl: null,
+      category: "saas",
+      descripcionEs:
+        "PWA de transporte compartido con un conductor de confianza en la ruta Granada–Algeciras. El conductor publica viajes y el pasajero reserva su plaza, con cálculo automático de tarifas (día/noche y suplementos), confirmación manual y pago directo al conductor. Instalable sin tiendas de apps.",
+      descripcionEn:
+        "Shared-transport PWA with a trusted driver on the Granada–Algeciras route. The driver posts trips and passengers book a seat, with automatic fare calculation (day/night and surcharges), manual confirmation and payment straight to the driver. Installable without app stores.",
+    },
+  },
 ];
 
 export async function GET(req: NextRequest) {

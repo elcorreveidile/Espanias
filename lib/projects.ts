@@ -159,13 +159,12 @@ export const projects: Project[] = [
     name: 'MakiCar',
     slug: 'makicar',
     url: 'https://makicar.app',
-    demo: 'https://makicar-demo.vercel.app',
     category: 'saas',
     status: 'hecho',
     sector: 'transporte',
     description: {
-      es: 'PWA para reserva de transporte compartido. Cálculo dinámico de tarifas, sistema de pre-autorización, y gestión de viajes.',
-      en: 'PWA for shared transport booking. Dynamic fare calculation, pre-authorization system, and trip management.',
+      es: 'PWA de transporte compartido con un conductor de confianza en la ruta Granada–Algeciras. El conductor publica viajes y el pasajero reserva su plaza, con cálculo automático de tarifas (día/noche y suplementos), confirmación manual y pago directo al conductor. Instalable sin tiendas de apps.',
+      en: 'Shared-transport PWA with a trusted driver on the Granada–Algeciras route. The driver posts trips and passengers book a seat, with automatic fare calculation (day/night and surcharges), manual confirmation and payment straight to the driver. Installable without app stores.',
     },
   },
 
