@@ -263,6 +263,21 @@ export const projects: Project[] = [
   },
 
   {
+    id: 'blablaele',
+    name: 'BlablaELE',
+    slug: 'blablaele',
+    url: 'https://blablaele.com',
+    image: '/projects/blablaele.webp',
+    category: 'educacion',
+    status: 'hecho',
+    sector: 'ELE',
+    description: {
+      es: 'Plataforma para aprender y enseñar español como lengua extranjera (ELE) a través de la cultura: arte, poesía, cine, música e historia hispánica. Recursos por nivel MCER y destreza, con cursos como Arte y Sociedad (C1), Escuela de Poetas (C1) y Laboratorio de Cine (B2). «Hablamos español».',
+      en: 'Platform to learn and teach Spanish as a foreign language through culture: art, poetry, cinema, music and Hispanic history. Resources organised by CEFR level and skill, with courses like Arte y Sociedad (C1), Escuela de Poetas (C1) and Laboratorio de Cine (B2). “Hablamos español”.',
+    },
+  },
+
+  {
     id: 'branding-javier',
     name: 'Javier Benítez — Personal',
     slug: 'javier-benitez',

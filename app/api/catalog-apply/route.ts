@@ -1,8 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
-import { updateProject, type ProjectUpdate } from "@/lib/db/projects-repo";
+import {
+  updateProject,
+  createProject,
+  slugExists,
+  type ProjectUpdate,
+} from "@/lib/db/projects-repo";
 
 // Endpoint TEMPORAL: aplica a la BD de producción las ediciones del catálogo
-// que vamos acordando en la revisión 1×1. Idempotente (UPDATE por slug).
+// que vamos acordando en la revisión 1×1. Idempotente (UPSERT por slug:
+// crea la ficha si no existe y luego la actualiza).
 // Se irá ampliando; borrar al terminar la revisión.
 export const dynamic = "force-dynamic";
 
@@ -230,6 +236,21 @@ const EDITS: Array<{ slug: string; data: ProjectUpdate }> = [
         "Hybrid music learning platform: live classes (groups of up to 8 students) and recorded lessons, with a course catalogue by instrument and level, a community (forum, recitals and jam sessions) and student progress tracking. 7 instruments and subscription plans.",
     },
   },
+  {
+    slug: "blablaele",
+    data: {
+      nombre: "BlablaELE",
+      url: "https://blablaele.com",
+      estado: "hecho",
+      demoUrl: null,
+      category: "educacion",
+      imagenUrl: "/projects/blablaele.webp",
+      descripcionEs:
+        "Plataforma para aprender y enseñar español como lengua extranjera (ELE) a través de la cultura: arte, poesía, cine, música e historia hispánica. Recursos por nivel MCER y destreza, con cursos como Arte y Sociedad (C1), Escuela de Poetas (C1) y Laboratorio de Cine (B2). «Hablamos español».",
+      descripcionEn:
+        "Platform to learn and teach Spanish as a foreign language through culture: art, poetry, cinema, music and Hispanic history. Resources organised by CEFR level and skill, with courses like Arte y Sociedad (C1), Escuela de Poetas (C1) and Laboratorio de Cine (B2). “Hablamos español”.",
+    },
+  },
 ];
 
 export async function GET(req: NextRequest) {
@@ -239,6 +260,16 @@ export async function GET(req: NextRequest) {
   const applied: string[] = [];
   try {
     for (const e of EDITS) {
+      if (!(await slugExists(e.slug))) {
+        await createProject({
+          slug: e.slug,
+          nombre: e.data.nombre ?? e.slug,
+          category: e.data.category ?? "otros",
+          estado: e.data.estado ?? "hecho",
+          descripcionEs: e.data.descripcionEs ?? null,
+          descripcionEn: e.data.descripcionEn ?? null,
+        });
+      }
       await updateProject(e.slug, e.data);
       applied.push(e.slug);
     }
