@@ -281,7 +281,7 @@ export const projects: Project[] = [
     id: 'makilibre',
     name: 'MakiLibre',
     slug: 'makilibre',
-    url: 'https://makilibre.app',
+    url: 'https://makilibre.com',
     image: '/projects/makilibre.webp',
     category: 'saas',
     status: 'hecho',

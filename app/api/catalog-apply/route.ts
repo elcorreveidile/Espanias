@@ -205,7 +205,7 @@ const EDITS: Array<{ slug: string; data: ProjectUpdate }> = [
   {
     slug: "makilibre",
     data: {
-      url: "https://makilibre.app",
+      url: "https://makilibre.com",
       estado: "hecho",
       demoUrl: null,
       category: "saas",
