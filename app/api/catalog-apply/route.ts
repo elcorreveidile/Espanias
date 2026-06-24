@@ -12,7 +12,7 @@ const EDITS: Array<{ slug: string; data: ProjectUpdate }> = [
   {
     slug: "perruqueria-canina",
     data: {
-      url: "https://perruqueria.vercel.app",
+      url: "https://perruqueria.espanias.com",
       demoUrl: null,
       imagenUrl: "/projects/perruqueria-canina.webp",
     },
@@ -20,9 +20,31 @@ const EDITS: Array<{ slug: string; data: ProjectUpdate }> = [
   {
     slug: "eje-fisioterapia",
     data: {
-      url: "https://fisioterapia-henna.vercel.app",
+      url: "https://fisioterapia.espanias.com",
       demoUrl: null,
       imagenUrl: "/projects/eje-fisioterapia.webp",
+    },
+  },
+  {
+    slug: "clinica-dental",
+    data: {
+      nombre: "Dentista de Barrio",
+      url: "https://dentista.espanias.com",
+      demoUrl: null,
+    },
+  },
+  {
+    slug: "barberia",
+    data: {
+      url: "https://barberia.espanias.com",
+      demoUrl: null,
+    },
+  },
+  {
+    slug: "bar-de-eric",
+    data: {
+      url: "https://bardeeric.espanias.com",
+      demoUrl: null,
     },
   },
 ];
