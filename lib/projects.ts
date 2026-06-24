@@ -293,6 +293,21 @@ export const projects: Project[] = [
   },
 
   {
+    id: 'por2duros',
+    name: 'Por 2 Duros',
+    slug: 'por2duros',
+    url: 'https://www.por2duros.com',
+    image: '/projects/por2duros.webp',
+    category: 'otros',
+    status: 'hecho',
+    sector: 'desarrollo web',
+    description: {
+      es: 'Agencia de desarrollo web con sede en Andalucía que entrega proyectos digitales en 48 horas a precios accesibles. Desarrolla desde cero —sin plantillas— landing pages, tiendas online, MVPs y apps a medida para autónomos, startups y pequeñas empresas. Pago único desde 299 €, sin suscripciones obligatorias y con 15 días de garantía de devolución.',
+      en: 'Web development agency based in Andalusia that delivers digital projects in 48 hours at accessible prices. It builds from scratch —no templates— landing pages, online shops, MVPs and custom apps for freelancers, startups and small businesses. Single payment from €299, no mandatory subscriptions and a 15-day money-back guarantee.',
+    },
+  },
+
+  {
     id: 'branding-javier',
     name: 'Javier Benítez — Personal',
     slug: 'javier-benitez',

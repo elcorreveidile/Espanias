@@ -266,6 +266,21 @@ const EDITS: Array<{ slug: string; data: ProjectUpdate }> = [
         "Educational platform from the Modern Languages Centre at the University of Granada for advanced Spanish courses (C1–C2). It complements in-person classes with readings, writing exercises and cultural debates: “Producción Escrita” (C2) and “Arte y sociedad en la cultura hispánica” (C1).",
     },
   },
+  {
+    slug: "por2duros",
+    data: {
+      nombre: "Por 2 Duros",
+      url: "https://www.por2duros.com",
+      estado: "hecho",
+      demoUrl: null,
+      category: "otros",
+      imagenUrl: "/projects/por2duros.webp",
+      descripcionEs:
+        "Agencia de desarrollo web con sede en Andalucía que entrega proyectos digitales en 48 horas a precios accesibles. Desarrolla desde cero —sin plantillas— landing pages, tiendas online, MVPs y apps a medida para autónomos, startups y pequeñas empresas. Pago único desde 299 €, sin suscripciones obligatorias y con 15 días de garantía de devolución.",
+      descripcionEn:
+        "Web development agency based in Andalusia that delivers digital projects in 48 hours at accessible prices. It builds from scratch —no templates— landing pages, online shops, MVPs and custom apps for freelancers, startups and small businesses. Single payment from €299, no mandatory subscriptions and a 15-day money-back guarantee.",
+    },
+  },
 ];
 
 export async function GET(req: NextRequest) {
