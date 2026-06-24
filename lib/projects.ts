@@ -89,7 +89,6 @@ export const projects: Project[] = [
     name: 'Comité CLM',
     slug: 'comite-clm',
     url: 'https://www.comiteclm.com',
-    demo: 'https://comite-clm-demo.vercel.app',
     category: 'gestion',
     status: 'hecho',
     sector: 'institucional',

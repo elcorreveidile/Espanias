@@ -55,6 +55,14 @@ const EDITS: Array<{ slug: string; data: ProjectUpdate }> = [
       imagenUrl: "/projects/bar-de-eric.webp",
     },
   },
+  {
+    slug: "comite-clm",
+    data: {
+      url: "https://www.comiteclm.com",
+      estado: "hecho",
+      demoUrl: null,
+    },
+  },
 ];
 
 export async function GET(req: NextRequest) {
