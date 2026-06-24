@@ -281,6 +281,22 @@ const EDITS: Array<{ slug: string; data: ProjectUpdate }> = [
         "Web development agency based in Andalusia that delivers digital projects in 48 hours at accessible prices. It builds from scratch —no templates— landing pages, online shops, MVPs and custom apps for freelancers, startups and small businesses. Single payment from €299, no mandatory subscriptions and a 15-day money-back guarantee.",
     },
   },
+  {
+    slug: "borja-satrustegui",
+    data: {
+      nombre: "Borja Satrústegui",
+      url: "https://www.borjasatrustegui.online",
+      estado: "hecho",
+      demoUrl: null,
+      category: "personal",
+      categories: "personal,comercio",
+      imagenUrl: "/projects/borja-satrustegui.webp",
+      descripcionEs:
+        "Web del pintor Borja Satrústegui: galería de obras con estado (disponible/reservado/vendido), biografía e información de la exposición. Compra directa de cuadros con tarjeta vía Stripe (la obra pasa a «vendido» automáticamente por webhook) y panel de administración para gestionar obras, pedidos y ventas.",
+      descripcionEn:
+        "Website for painter Borja Satrústegui: artwork gallery with status (available/reserved/sold), artist bio and exhibition info. Buy paintings directly by card via Stripe (each piece switches to “sold” automatically via webhook) and an admin panel to manage works, orders and sales.",
+    },
+  },
 ];
 
 export async function GET(req: NextRequest) {

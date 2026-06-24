@@ -309,6 +309,22 @@ export const projects: Project[] = [
   },
 
   {
+    id: 'borja-satrustegui',
+    name: 'Borja Satrústegui',
+    slug: 'borja-satrustegui',
+    url: 'https://www.borjasatrustegui.online',
+    image: '/projects/borja-satrustegui.webp',
+    category: 'personal',
+    categories: ['comercio'],
+    status: 'hecho',
+    sector: 'arte',
+    description: {
+      es: 'Web del pintor Borja Satrústegui: galería de obras con estado (disponible/reservado/vendido), biografía e información de la exposición. Compra directa de cuadros con tarjeta vía Stripe (la obra pasa a «vendido» automáticamente por webhook) y panel de administración para gestionar obras, pedidos y ventas.',
+      en: 'Website for painter Borja Satrústegui: artwork gallery with status (available/reserved/sold), artist bio and exhibition info. Buy paintings directly by card via Stripe (each piece switches to “sold” automatically via webhook) and an admin panel to manage works, orders and sales.',
+    },
+  },
+
+  {
     id: 'branding-javier',
     name: 'Javier Benítez — Personal',
     slug: 'javier-benitez',
