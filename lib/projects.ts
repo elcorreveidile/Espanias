@@ -70,7 +70,7 @@ export const projects: Project[] = [
 
   {
     id: 'clinica-dental',
-    name: 'Clínica Dental',
+    name: 'Dentista de Barrio',
     slug: 'clinica-dental',
     url: '',
     category: 'salud',
