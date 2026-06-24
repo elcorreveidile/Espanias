@@ -130,6 +130,14 @@ const EDITS: Array<{ slug: string; data: ProjectUpdate }> = [
         "Immersive Spanish-language and cultural experience in Granada. Not a typical course: it blends language learning with cultural immersion through an initial diagnostic and a personalized itinerary. Linked to the University of Granada.",
     },
   },
+  {
+    slug: "espanias-main",
+    data: {
+      url: "https://espanias.com",
+      estado: "hecho",
+      demoUrl: null,
+    },
+  },
 ];
 
 export async function GET(req: NextRequest) {

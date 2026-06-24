@@ -250,7 +250,6 @@ export const projects: Project[] = [
     name: 'Espanias',
     slug: 'espanias-main',
     url: 'https://espanias.com',
-    demo: 'https://espanias-demo.vercel.app',
     category: 'saas',
     status: 'hecho',
     sector: 'saas',
