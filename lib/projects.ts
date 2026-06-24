@@ -278,6 +278,21 @@ export const projects: Project[] = [
   },
 
   {
+    id: 'cognoscencia',
+    name: 'Cognoscencia',
+    slug: 'cognoscencia',
+    url: 'https://www.cognoscencia.com',
+    image: '/projects/cognoscencia.webp',
+    category: 'educacion',
+    status: 'hecho',
+    sector: 'ELE',
+    description: {
+      es: 'Plataforma educativa del Centro de Lenguas Modernas de la Universidad de Granada para cursos de español de nivel avanzado (C1–C2). Complementa las clases presenciales con lecturas, ejercicios de escritura y debates culturales: «Producción Escrita» (C2) y «Arte y sociedad en la cultura hispánica» (C1).',
+      en: 'Educational platform from the Modern Languages Centre at the University of Granada for advanced Spanish courses (C1–C2). It complements in-person classes with readings, writing exercises and cultural debates: “Producción Escrita” (C2) and “Arte y sociedad en la cultura hispánica” (C1).',
+    },
+  },
+
+  {
     id: 'branding-javier',
     name: 'Javier Benítez — Personal',
     slug: 'javier-benitez',

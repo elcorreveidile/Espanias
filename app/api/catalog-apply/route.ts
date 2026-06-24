@@ -251,6 +251,21 @@ const EDITS: Array<{ slug: string; data: ProjectUpdate }> = [
         "Platform to learn and teach Spanish as a foreign language through culture: art, poetry, cinema, music and Hispanic history. Resources organised by CEFR level and skill, with courses like Arte y Sociedad (C1), Escuela de Poetas (C1) and Laboratorio de Cine (B2). “Hablamos español”.",
     },
   },
+  {
+    slug: "cognoscencia",
+    data: {
+      nombre: "Cognoscencia",
+      url: "https://www.cognoscencia.com",
+      estado: "hecho",
+      demoUrl: null,
+      category: "educacion",
+      imagenUrl: "/projects/cognoscencia.webp",
+      descripcionEs:
+        "Plataforma educativa del Centro de Lenguas Modernas de la Universidad de Granada para cursos de español de nivel avanzado (C1–C2). Complementa las clases presenciales con lecturas, ejercicios de escritura y debates culturales: «Producción Escrita» (C2) y «Arte y sociedad en la cultura hispánica» (C1).",
+      descripcionEn:
+        "Educational platform from the Modern Languages Centre at the University of Granada for advanced Spanish courses (C1–C2). It complements in-person classes with readings, writing exercises and cultural debates: “Producción Escrita” (C2) and “Arte y sociedad en la cultura hispánica” (C1).",
+    },
+  },
 ];
 
 export async function GET(req: NextRequest) {
