@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react'
 import Image from 'next/image'
-import { type Category, type Project } from '@/lib/projects'
+import { projectCategories, type Category, type Project } from '@/lib/projects'
 import { useLanguage } from '@/context/LanguageContext'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
@@ -45,7 +45,7 @@ export default function CatalogClient({ projects }: { projects: Project[] }) {
         project.description.es.toLowerCase().includes(term) ||
         project.description.en.toLowerCase().includes(term)
       const matchesCategory =
-        selectedCategory === 'all' || project.category === selectedCategory
+        selectedCategory === 'all' || projectCategories(project).includes(selectedCategory)
       const matchesStatus = selectedStatus === 'all' || project.status === selectedStatus
       return matchesSearch && matchesCategory && matchesStatus
     })

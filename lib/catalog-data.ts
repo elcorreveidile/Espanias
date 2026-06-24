@@ -37,6 +37,15 @@ function mapRow(row: DbRow): Project {
   const sector = str(row.sector)
   const image = str(row.imagenUrl)
 
+  // Categorías adicionales: columna `categories` (lista separada por comas).
+  // Se filtran las válidas y se excluye la principal para no duplicar.
+  const extraCategories = str(row.categories)
+    .split(',')
+    .map((s) => s.trim())
+    .filter((s): s is Category =>
+      (VALID_CATEGORIES as string[]).includes(s) && s !== category
+    )
+
   return {
     id: str(row.slug),
     name: str(row.nombre),
@@ -45,6 +54,7 @@ function mapRow(row: DbRow): Project {
     demo: demo || undefined,
     description: { es, en },
     category,
+    categories: extraCategories.length ? extraCategories : undefined,
     status,
     sector: sector || undefined,
     image: image || undefined,

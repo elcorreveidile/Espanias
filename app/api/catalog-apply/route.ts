@@ -107,6 +107,7 @@ const EDITS: Array<{ slug: string; data: ProjectUpdate }> = [
       demoUrl: null,
       imagenUrl: "/projects/clase-digital.webp",
       category: "ia",
+      categories: "ia,educacion",
       estado: "hecho",
       descripcionEs:
         "Plataforma de formación docente en inteligencia artificial para profesores de Español como Lengua Extranjera (ELE). Curso de 20 horas con módulos sobre ética y prompts (marco FRAME), chatbots a medida, planificación alineada con el MCER y creación de recursos multimodales. Incluye certificado de aprovechamiento.",

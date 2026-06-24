@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
-import { categoryColors } from '@/lib/projects'
+import { categoryColors, projectCategories } from '@/lib/projects'
 import { getCatalogProjects, getCatalogProject } from '@/lib/catalog-data'
 import { categoryLabels, statusLabels } from '@/lib/catalogo-labels'
 import Nav from '@/components/Nav'
@@ -41,7 +41,7 @@ export default async function ProjectDetailPage({ params }: Props) {
   const project = projects.find((p) => p.slug === slug)
   if (!project) notFound()
 
-  const categoryColor = categoryColors[project.category]
+  const cats = projectCategories(project)
   const index = projects.findIndex((p) => p.slug === slug)
   const prev = index > 0 ? projects[index - 1] : null
   const next = index < projects.length - 1 ? projects[index + 1] : null
@@ -78,12 +78,15 @@ export default async function ProjectDetailPage({ params }: Props) {
           {/* Hero */}
           <div className="mb-12">
             <div className="mb-4 flex flex-wrap items-center gap-3">
-              <span
-                className="rounded-full px-3 py-1 text-xs font-semibold text-white"
-                style={{ backgroundColor: categoryColor }}
-              >
-                {categoryLabels.es[project.category]}
-              </span>
+              {cats.map((cat) => (
+                <span
+                  key={cat}
+                  className="rounded-full px-3 py-1 text-xs font-semibold text-white"
+                  style={{ backgroundColor: categoryColors[cat] }}
+                >
+                  {categoryLabels.es[cat]}
+                </span>
+              ))}
               <span className="rounded-md bg-stone-100 px-2.5 py-1 text-xs font-semibold text-stone-700 dark:bg-white/10 dark:text-stone-200">
                 {statusLabels.es[project.status]}
               </span>
@@ -117,7 +120,7 @@ export default async function ProjectDetailPage({ params }: Props) {
                   <dt className="text-xs font-semibold uppercase tracking-wider text-[#78716C] dark:text-[#A8A29E]">
                     Categoría
                   </dt>
-                  <dd className="text-[#1C1917] dark:text-[#F5F5F4]">{categoryLabels.es[project.category]}</dd>
+                  <dd className="text-[#1C1917] dark:text-[#F5F5F4]">{cats.map((cat) => categoryLabels.es[cat]).join(', ')}</dd>
                 </div>
                 <div>
                   <dt className="text-xs font-semibold uppercase tracking-wider text-[#78716C] dark:text-[#A8A29E]">

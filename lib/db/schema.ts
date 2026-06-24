@@ -7,6 +7,8 @@ export const projects = pgTable("projects", {
   nombre: varchar("nombre", { length: 255 }).notNull(),
   // Campos para el catálogo público (bilingüe + categoría)
   category: varchar("category", { length: 50 }),
+  // Lista completa de categorías separadas por comas (multi-categoría).
+  categories: text("categories"),
   descripcionEs: text("descripcion_es"),
   descripcionEn: text("descripcion_en"),
   url: text("url"),

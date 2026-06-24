@@ -28,6 +28,7 @@ export async function deleteProject(slug: string): Promise<void> {
 export interface ProjectUpdate {
   nombre?: string
   category?: string
+  categories?: string | null
   estado?: string
   sector?: string | null
   claim?: string | null

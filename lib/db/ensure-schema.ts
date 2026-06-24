@@ -60,13 +60,13 @@ let projectCols: Promise<void> | null = null;
 
 export function ensureProjectColumns(): Promise<void> {
   if (!projectCols) {
-    projectCols = db
-      .execute(sql`ALTER TABLE projects ADD COLUMN IF NOT EXISTS imagen_url text`)
-      .then(() => undefined)
-      .catch((err) => {
-        projectCols = null;
-        throw err;
-      });
+    projectCols = (async () => {
+      await db.execute(sql`ALTER TABLE projects ADD COLUMN IF NOT EXISTS imagen_url text`);
+      await db.execute(sql`ALTER TABLE projects ADD COLUMN IF NOT EXISTS categories text`);
+    })().catch((err) => {
+      projectCols = null;
+      throw err;
+    });
   }
   return projectCols;
 }

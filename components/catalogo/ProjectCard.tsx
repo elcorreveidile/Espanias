@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { categoryColors, type Project } from '@/lib/projects'
+import { categoryColors, projectCategories, type Project } from '@/lib/projects'
 import type { Lang } from '@/lib/translations'
 import { categoryLabels, statusLabels, statusColors } from '@/lib/catalogo-labels'
 
@@ -72,13 +72,18 @@ export default function ProjectCard({ project, lang }: Props) {
               </svg>
             </>
           )}
-          {/* Etiqueta de categoría */}
-          <span
-            className="absolute bottom-2.5 left-3 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold backdrop-blur-sm"
-            style={{ color: categoryColor }}
-          >
-            {categoryLabels[lang][project.category]}
-          </span>
+          {/* Etiquetas de categoría (una por categoría) */}
+          <div className="absolute bottom-2.5 left-3 flex flex-wrap gap-1.5">
+            {projectCategories(project).map((cat) => (
+              <span
+                key={cat}
+                className="rounded-full bg-white/90 px-3 py-1 text-xs font-semibold backdrop-blur-sm"
+                style={{ color: categoryColors[cat] }}
+              >
+                {categoryLabels[lang][cat]}
+              </span>
+            ))}
+          </div>
         </div>
 
         <div className="flex flex-1 flex-col p-6">

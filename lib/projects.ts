@@ -7,10 +7,20 @@ export interface Project {
   url: string
   description: { es: string; en: string }
   category: Category
+  // Categorías adicionales (multi-categoría). `category` es la principal
+  // (color del badge); el filtro y las etiquetas usan la unión de ambas.
+  categories?: Category[]
   status: 'idea' | 'planeado' | 'desarrollo' | 'hecho'
   demo?: string
   sector?: string
   image?: string
+}
+
+/** Conjunto único de categorías de una ficha (principal + adicionales). */
+export function projectCategories(
+  p: { category: Category; categories?: Category[] }
+): Category[] {
+  return Array.from(new Set([p.category, ...(p.categories ?? [])]))
 }
 
 export const categoryColors: Record<Category, string> = {
@@ -196,6 +206,7 @@ export const projects: Project[] = [
     url: 'https://laclasedigital.com',
     image: '/projects/clase-digital.webp',
     category: 'ia',
+    categories: ['educacion'],
     status: 'hecho',
     sector: 'educacion',
     description: {

@@ -1,6 +1,6 @@
 'use client'
 
-import { type Category, type Project } from '@/lib/projects'
+import { projectCategories, type Category, type Project } from '@/lib/projects'
 import type { Lang } from '@/lib/translations'
 import { categoryLabels, statusLabels } from '@/lib/catalogo-labels'
 
@@ -50,9 +50,9 @@ export default function FilterBar({
 }: Props) {
   const tr = t[lang]
   // Solo categorías presentes en los datos, ordenadas alfabéticamente por etiqueta.
-  const categories = (Array.from(new Set(projects.map((p) => p.category))) as Category[]).sort(
-    (a, b) => categoryLabels[lang][a].localeCompare(categoryLabels[lang][b])
-  )
+  const categories = (
+    Array.from(new Set(projects.flatMap((p) => projectCategories(p)))) as Category[]
+  ).sort((a, b) => categoryLabels[lang][a].localeCompare(categoryLabels[lang][b]))
   const statuses: Array<Project['status']> = ['hecho', 'desarrollo', 'planeado', 'idea']
 
   const hasFilters =
