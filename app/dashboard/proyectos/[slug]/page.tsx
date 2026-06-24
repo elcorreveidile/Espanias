@@ -4,6 +4,7 @@ import { getProjectRow } from '@/lib/db/projects-repo'
 import { categoryLabels, statusLabels } from '@/lib/catalogo-labels'
 import { saveProject, deleteProjectAction } from '@/app/dashboard/proyectos/actions'
 import DeleteProjectButton from '@/components/dashboard/DeleteProjectButton'
+import ImageField from '@/components/dashboard/ImageField'
 
 export const dynamic = 'force-dynamic'
 
@@ -117,8 +118,8 @@ export default async function EditProject({
         </div>
 
         <div>
-          <label className={label} htmlFor="imagenUrl">Imagen / captura (URL)</label>
-          <input id="imagenUrl" name="imagenUrl" defaultValue={p.imagenUrl ?? ''} placeholder="https://… (captura del proyecto)" className={field} />
+          <label className={label} htmlFor="imagenUrl">Imagen / captura</label>
+          <ImageField name="imagenUrl" defaultValue={p.imagenUrl ?? ''} />
           <p className="mt-1 text-xs text-[#A8A29E]">Aparece en la tarjeta del catálogo y en la ficha. Si se deja vacío, se usa la portada de color.</p>
         </div>
 

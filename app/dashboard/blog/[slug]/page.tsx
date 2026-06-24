@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getPost } from '@/lib/db/posts-repo'
 import { savePost, deletePostAction } from '@/app/dashboard/blog/actions'
+import ImageField from '@/components/dashboard/ImageField'
 
 export const dynamic = 'force-dynamic'
 
@@ -52,8 +53,8 @@ export default async function PostEditor({ params }: Props) {
         </div>
 
         <div>
-          <label className={label} htmlFor="portadaUrl">Imagen de portada (URL)</label>
-          <input id="portadaUrl" name="portadaUrl" defaultValue={post?.portadaUrl ?? ''} placeholder="https://… (opcional)" className={field} />
+          <label className={label} htmlFor="portadaUrl">Imagen de portada</label>
+          <ImageField name="portadaUrl" defaultValue={post?.portadaUrl ?? ''} />
         </div>
 
         <div>
