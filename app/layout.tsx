@@ -5,6 +5,7 @@ import { Analytics } from '@vercel/analytics/next'
 import { LanguageProvider } from '@/context/LanguageContext'
 import { ThemeProvider } from '@/components/ThemeProvider'
 import SiteBackground from '@/components/SiteBackground'
+import ScrollToTop from '@/components/ScrollToTop'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -106,6 +107,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ThemeProvider>
           <SiteBackground />
           <LanguageProvider>{children}</LanguageProvider>
+          <ScrollToTop />
         </ThemeProvider>
         <Analytics />
       </body>
