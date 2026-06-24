@@ -104,7 +104,8 @@ export const projects: Project[] = [
     name: 'Mariano Maresca',
     slug: 'mariano-maresca',
     url: 'https://www.marianomaresca.com',
-    category: 'literatura',
+    image: '/projects/mariano-maresca.webp',
+    category: 'personal',
     status: 'hecho',
     sector: 'cultural',
     description: {

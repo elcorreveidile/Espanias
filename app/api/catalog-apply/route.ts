@@ -70,6 +70,8 @@ const EDITS: Array<{ slug: string; data: ProjectUpdate }> = [
       url: "https://www.marianomaresca.com",
       estado: "hecho",
       demoUrl: null,
+      category: "personal",
+      imagenUrl: "/projects/mariano-maresca.webp",
     },
   },
 ];
