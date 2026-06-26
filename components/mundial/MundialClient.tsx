@@ -204,19 +204,82 @@ function PenaltyGame({ t }: { t: Copy }) {
   const [shot, setShot] = useState<Dir>('center')
   const [keeper, setKeeper] = useState<Dir>('center')
   const [prize, setPrize] = useState<Prize | null>(null)
+  const [muted, setMuted] = useState(false)
+  const acRef = useRef<AudioContext | null>(null)
+
+  // Audio sintetizado (Web Audio API): sin archivos, se crea en el primer chut.
+  const ac = (): AudioContext | null => {
+    if (typeof window === 'undefined') return null
+    if (!acRef.current) {
+      const AC = window.AudioContext || (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext
+      if (!AC) return null
+      acRef.current = new AC()
+    }
+    if (acRef.current.state === 'suspended') void acRef.current.resume()
+    return acRef.current
+  }
+  const tone = (c: AudioContext, freq: number, t0: number, dur: number, type: OscillatorType, vol: number) => {
+    const o = c.createOscillator()
+    const g = c.createGain()
+    o.type = type
+    o.frequency.setValueAtTime(freq, t0)
+    g.gain.setValueAtTime(0.0001, t0)
+    g.gain.linearRampToValueAtTime(vol, t0 + 0.012)
+    g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur)
+    o.connect(g).connect(c.destination)
+    o.start(t0)
+    o.stop(t0 + dur)
+  }
+  const noise = (c: AudioContext, t0: number, dur: number, vol: number) => {
+    const buffer = c.createBuffer(1, Math.floor(c.sampleRate * dur), c.sampleRate)
+    const data = buffer.getChannelData(0)
+    for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1
+    const src = c.createBufferSource()
+    src.buffer = buffer
+    const filt = c.createBiquadFilter()
+    filt.type = 'highpass'
+    filt.frequency.value = 700
+    const g = c.createGain()
+    g.gain.setValueAtTime(vol, t0)
+    g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur)
+    src.connect(filt).connect(g).connect(c.destination)
+    src.start(t0)
+    src.stop(t0 + dur)
+  }
+  const sKick = () => { const c = ac(); if (!c || muted) return; const t = c.currentTime; noise(c, t, 0.1, 0.35); tone(c, 200, t, 0.12, 'triangle', 0.25) }
+  const sGoal = () => { const c = ac(); if (!c || muted) return; const t = c.currentTime;[523, 659, 784, 1047].forEach((f, i) => tone(c, f, t + i * 0.085, 0.32, 'sawtooth', 0.16)); noise(c, t, 0.45, 0.12) }
+  const sSave = () => { const c = ac(); if (!c || muted) return; const t = c.currentTime; tone(c, 150, t, 0.16, 'square', 0.25); tone(c, 95, t + 0.07, 0.22, 'square', 0.2) }
+  const vibrate = (p: number | number[]) => {
+    if (muted || typeof navigator === 'undefined' || !navigator.vibrate) return
+    try { navigator.vibrate(p) } catch { /* no-op */ }
+  }
 
   const shoot = (dir: Dir) => {
     if (phase !== 'aim') return
-    const kdir = DIRS[Math.floor(Math.random() * 3)]
+    // 1 de cada 3 es gol. Colocamos al portero para que la animación cuadre:
+    // parada → se lanza a tu zona; gol → se lanza a otra.
+    const isGoal = Math.random() < 1 / 3
+    const kdir = isGoal
+      ? (() => {
+          const others = DIRS.filter((d) => d !== dir)
+          return others[Math.floor(Math.random() * others.length)]
+        })()
+      : dir
     setShot(dir)
     setKeeper(kdir)
     setPhase('shoot')
+    sKick()
+    vibrate(20)
     window.setTimeout(() => {
-      if (kdir === dir) {
-        setPhase('saved')
-      } else {
+      if (isGoal) {
         setPrize(pickPrize())
         setPhase('goal')
+        sGoal()
+        vibrate([40, 40, 90])
+      } else {
+        setPhase('saved')
+        sSave()
+        vibrate(60)
       }
     }, 950)
   }
@@ -235,6 +298,16 @@ function PenaltyGame({ t }: { t: Copy }) {
 
   return (
     <div className="flex flex-col items-center">
+      {/* Sonido / vibración */}
+      <div className="mb-1 flex w-full max-w-[360px] justify-end">
+        <button
+          onClick={() => setMuted((m) => !m)}
+          aria-label={muted ? 'Activar sonido' : 'Silenciar'}
+          className="rounded-full px-2 py-1 text-lg transition-opacity hover:opacity-80"
+        >
+          {muted ? '🔇' : '🔊'}
+        </button>
+      </div>
       {/* Portería */}
       <div className="relative h-[210px] w-full max-w-[360px] select-none">
         {/* césped */}
