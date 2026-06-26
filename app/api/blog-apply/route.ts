@@ -41,6 +41,12 @@ Porque **España está, literalmente, en nuestro nombre**. Léelo despacio: **Es
 
 España llega líder (4-0 a Arabia Saudí); Uruguay, segundo, va a por todas. Nosotros ya estamos animando: **cada victoria de la Roja es un poco más barata tu web**.
 
+## Brindamos por la Victoria (la de España… y la de Málaga)
+
+Esta noche, "Victoria" tiene doble sentido. Está la victoria de la Roja… y está **Cervezas Victoria**, la cervecera **malagueña** que es la cerveza oficial de la selección española en este Mundial. ¿Y sabes qué? Nuestro estudio de desarrollo también es **de Málaga**. Pura tierra.
+
+Así que esta madrugada brindamos doble: por la **Victoria** que abarata tu web y por la que se toma bien fría viendo el partido. Imagínatelo: España campeona, una Victoria en la mano y tu web nueva, gratis. **Apostamos por la Victoria.** 🍺
+
 👉 Mira [lo que hacemos](/catalogo) mientras esperas el pitido.
 
 **¡Vamos, España! 🇪🇸**
@@ -77,6 +83,12 @@ Discount applies to a custom professional website with [Por 2 Duros](https://www
 Because **Spain is, quite literally, in our name**. Read it slowly: **Espa + Ñ + IA = España (Spain) + Artificial Intelligence**. Hover over the **N** in our logo… and the **Ñ** appears. That letter that is uniquely ours is the bridge between **Spanish creativity** and **artificial intelligence**.
 
 Spain top the group (4-0 vs Saudi Arabia); Uruguay, second, will go all in. We're already cheering: **every Spain win makes your website a little cheaper**.
+
+## We're betting on Victoria (Spain's win… and Málaga's beer)
+
+Tonight, "Victoria" has a double meaning. There's *La Roja*'s victory… and there's **Cervezas Victoria**, the **Málaga** brewery that is the official beer of the Spanish national team at this World Cup. And guess what? Our development studio is **from Málaga** too. Same soil.
+
+So tonight we're toasting twice: to the **Victoria** that makes your website cheaper, and to the one you drink ice-cold watching the match. Picture it: Spain champions, a Victoria in hand and your brand-new website, free. **We're betting on Victoria.** 🍺
 
 👉 See [what we do](/catalogo) while you wait for kick-off.
 
