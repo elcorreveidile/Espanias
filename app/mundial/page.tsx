@@ -1,5 +1,9 @@
 import type { Metadata } from 'next'
 import MundialClient from '@/components/mundial/MundialClient'
+import { getMundialData } from '@/lib/mundial-live'
+
+// Revalida los datos del Mundial (en vivo si hay API; si no, manuales).
+export const revalidate = 1800
 
 export const metadata: Metadata = {
   title: 'Mundial 2026 · El reto de Espanias',
@@ -16,6 +20,7 @@ export const metadata: Metadata = {
   },
 }
 
-export default function MundialPage() {
-  return <MundialClient />
+export default async function MundialPage() {
+  const { path, group } = await getMundialData()
+  return <MundialClient path={path} group={group} />
 }

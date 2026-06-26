@@ -36,9 +36,9 @@ export const ESPANA_PATH: EspMatch[] = [
 export const WIN_DISCOUNT = 15
 export const MAX_NON_CHAMPION = 90
 
-export function retoEstado() {
-  const wins = ESPANA_PATH.filter((m) => m.estado === 'ganado').length
-  const champion = ESPANA_PATH.some((m) => m.esFinal && m.estado === 'ganado')
+export function retoEstado(path: EspMatch[] = ESPANA_PATH) {
+  const wins = path.filter((m) => m.estado === 'ganado').length
+  const champion = path.some((m) => m.esFinal && m.estado === 'ganado')
   const pct = champion ? 100 : Math.min(MAX_NON_CHAMPION, wins * WIN_DISCOUNT)
   return { wins, champion, pct }
 }

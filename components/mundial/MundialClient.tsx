@@ -5,7 +5,7 @@ import Link from 'next/link'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import { useLanguage } from '@/context/LanguageContext'
-import { ESPANA_PATH, GROUP_H, retoEstado, type MatchStatus } from '@/lib/mundial'
+import { ESPANA_PATH, GROUP_H, retoEstado, type EspMatch, type GroupRow, type MatchStatus } from '@/lib/mundial'
 
 type Dir = 'left' | 'center' | 'right'
 type Phase = 'aim' | 'shoot' | 'goal' | 'saved'
@@ -467,10 +467,16 @@ function PenaltyGame({ t }: { t: Copy }) {
   )
 }
 
-export default function MundialClient() {
+export default function MundialClient({
+  path = ESPANA_PATH,
+  group = GROUP_H,
+}: {
+  path?: EspMatch[]
+  group?: GroupRow[]
+}) {
   const { lang } = useLanguage()
   const t = copy[lang]
-  const reto = retoEstado()
+  const reto = retoEstado(path)
 
   return (
     <>
@@ -563,7 +569,7 @@ export default function MundialClient() {
 
             {/* Cronología de partidos */}
             <ol className="mb-8 space-y-2">
-              {ESPANA_PATH.map((m, i) => (
+              {path.map((m, i) => (
                 <li
                   key={i}
                   className="flex items-center gap-3 rounded-xl border border-stone-200 px-4 py-3 dark:border-white/10"
@@ -593,7 +599,7 @@ export default function MundialClient() {
                 {t.groupTitle}
               </h3>
               <div className="overflow-hidden rounded-xl border border-stone-200 dark:border-white/10">
-                {GROUP_H.map((r, i) => (
+                {group.map((r, i) => (
                   <div
                     key={i}
                     className={`flex items-center justify-between px-4 py-2 text-sm ${
