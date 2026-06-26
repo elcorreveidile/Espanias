@@ -17,17 +17,39 @@ const POS: Record<Dir, string> = { left: '24%', center: '50%', right: '76%' }
 const STATUS_EMOJI: Record<MatchStatus, string> = { ganado: '✅', empate: '🟰', perdido: '❌', proximo: '🔜', eliminado: '🚫' }
 const STATUS_COLOR: Record<MatchStatus, string> = { ganado: 'text-emerald-600', empate: 'text-stone-500', perdido: 'text-red-600', proximo: 'text-amber-600', eliminado: 'text-stone-500' }
 
+const FREEWEB_KEY = 'espanias_mundial_freeweb'
+
+function freeWebAlreadyWon(): boolean {
+  try {
+    return typeof window !== 'undefined' && !!window.localStorage.getItem(FREEWEB_KEY)
+  } catch {
+    return false
+  }
+}
+
+function markFreeWebWon(code: string) {
+  try {
+    window.localStorage.setItem(FREEWEB_KEY, code)
+  } catch {
+    /* no-op */
+  }
+}
+
 function pickPrize(): Prize {
   const r = Math.random() * 100
   // Ponderado: los premios gordos salen muy de vez en cuando.
-  const pct =
+  let pct =
     r < 2 ? 100 : // web GRATIS (muy raro)
     r < 8 ? 80 : // 80% (raro)
     r < 28 ? 20 :
     r < 55 ? 15 :
     r < 82 ? 10 :
     0 // ¡suerte la próxima!
+  // La web gratis solo se puede ganar UNA vez por navegador: si ya tocó,
+  // ese resultado se degrada a un 80%.
+  if (pct === 100 && freeWebAlreadyWon()) pct = 80
   const code = 'MUNDIAL-' + Math.random().toString(36).slice(2, 6).toUpperCase()
+  if (pct === 100) markFreeWebWon(code)
   return { pct, code }
 }
 
