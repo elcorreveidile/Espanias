@@ -49,6 +49,8 @@ Así que esta madrugada brindamos doble: por la **Victoria** que abarata tu web 
 
 👉 Mira [lo que hacemos](/catalogo) mientras esperas el pitido.
 
+🎯 **¿Te atreves?** Marca tu penalti y rasca tu cupón en **[Mundial 2026](/mundial)**.
+
 **¡Vamos, España! 🇪🇸**
 
 ---
@@ -91,6 +93,8 @@ Tonight, "Victoria" has a double meaning. There's *La Roja*'s victory… and the
 So tonight we're toasting twice: to the **Victoria** that makes your website cheaper, and to the one you drink ice-cold watching the match. Picture it: Spain champions, a Victoria in hand and your brand-new website, free. **We're betting on Victoria.** 🍺
 
 👉 See [what we do](/catalogo) while you wait for kick-off.
+
+🎯 **Dare to play?** Score your penalty and scratch your coupon at **[World Cup 2026](/mundial)**.
 
 **Vamos, España! 🇪🇸**
 
