@@ -97,7 +97,7 @@ export const projects: Project[] = [
   // EDUCACIÓN E INSTITUCIONAL
   {
     id: 'comite-clm',
-    name: 'Comité CLM',
+    name: 'CLM - Sección sindical UGT',
     slug: 'comite-clm',
     url: 'https://www.comiteclm.com',
     image: '/projects/comite-clm.webp',
@@ -105,8 +105,8 @@ export const projects: Project[] = [
     status: 'hecho',
     sector: 'institucional',
     description: {
-      es: 'Web del comité de empresa del Centro de Lenguas Modernas de la Universidad de Granada. Información sindical, convenios y comunicaciones internas.',
-      en: 'Workers\' committee website for the Modern Languages Centre at the University of Granada. Union information, agreements and internal communications.',
+      es: 'Esta plataforma ha sido desarrollada por la Sección Sindical de UGT del CLM como instrumento legalmente establecido de comunicación con los trabajadores y trabajadoras. Está diseñada para servir al conjunto de la plantilla, tanto en el actual mandato como en los futuros comités de empresa.',
+      en: 'A platform developed by the UGT Trade Union Section of the CLM as a legally established channel of communication with the workforce. It is designed to serve the entire staff, both in the current term and in future works councils.',
     },
   },
 

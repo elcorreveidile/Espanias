@@ -64,10 +64,15 @@ const EDITS: Array<{ slug: string; data: ProjectUpdate }> = [
   {
     slug: "comite-clm",
     data: {
+      nombre: "CLM - Sección sindical UGT",
       url: "https://www.comiteclm.com",
       estado: "hecho",
       demoUrl: null,
       imagenUrl: "/projects/comite-clm.webp",
+      descripcionEs:
+        "Esta plataforma ha sido desarrollada por la Sección Sindical de UGT del CLM como instrumento legalmente establecido de comunicación con los trabajadores y trabajadoras. Está diseñada para servir al conjunto de la plantilla, tanto en el actual mandato como en los futuros comités de empresa.",
+      descripcionEn:
+        "A platform developed by the UGT Trade Union Section of the CLM as a legally established channel of communication with the workforce. It is designed to serve the entire staff, both in the current term and in future works councils.",
     },
   },
   {
