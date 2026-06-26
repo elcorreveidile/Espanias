@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import { useLanguage } from '@/context/LanguageContext'
+import { ESPANA_PATH, GROUP_H, retoEstado, type MatchStatus } from '@/lib/mundial'
 
 type Dir = 'left' | 'center' | 'right'
 type Phase = 'aim' | 'shoot' | 'goal' | 'saved'
@@ -12,6 +13,9 @@ interface Prize { pct: number; code: string }
 
 const DIRS: Dir[] = ['left', 'center', 'right']
 const POS: Record<Dir, string> = { left: '24%', center: '50%', right: '76%' }
+
+const STATUS_EMOJI: Record<MatchStatus, string> = { ganado: '✅', empate: '🟰', perdido: '❌', proximo: '🔜', eliminado: '🚫' }
+const STATUS_COLOR: Record<MatchStatus, string> = { ganado: 'text-emerald-600', empate: 'text-stone-500', perdido: 'text-red-600', proximo: 'text-amber-600', eliminado: 'text-stone-500' }
 
 function pickPrize(): Prize {
   const r = Math.random() * 100
@@ -27,10 +31,22 @@ const copy = {
     heroSub:
       'Por cada partido que gane España en el Mundial 2026, baja el precio de tu web con nosotros. Si se proclama campeona, te la regalamos. España está, literalmente, en nuestro nombre.',
     ladder: [
-      { k: 'Gana hoy a Uruguay', v: '15%' },
-      { k: 'Cada siguiente victoria', v: '+15%' },
+      { k: 'Por cada victoria de España', v: '+15%' },
+      { k: 'Tope acumulado', v: '90%' },
       { k: 'Campeona del Mundo', v: 'GRATIS' },
     ],
+    panelTitle: 'El camino de España',
+    panelSub: 'Cada victoria sube tu descuento. Este es el marcador del reto.',
+    discountNow: 'Tu descuento ahora',
+    ofFree: 'hacia la web gratis',
+    champBanner: '¡CAMPEONA! Tu web es GRATIS 🏆',
+    st: { ganado: 'Ganado', empate: 'Empate', perdido: 'Perdido', proximo: 'Próximo', eliminado: 'Eliminada' } as Record<MatchStatus, string>,
+    tbd: 'Por determinar',
+    vs: 'vs',
+    groupTitle: 'Grupo H',
+    pts: 'pts',
+    signupNote: 'Apúntate ahora: tu descuento crece solo con cada victoria de España.',
+    signupBtn: 'Apuntarme al reto',
     victoria:
       'Y brindamos por la Victoria: la de la Roja y la de Cervezas Victoria, la malagueña que patrocina a la selección. Nuestro estudio también es de Málaga. 🍺',
     gameTitle: 'Marca el penalti y rasca tu premio',
@@ -60,10 +76,22 @@ const copy = {
     heroSub:
       'For every match Spain wins at the 2026 World Cup, the price of your website with us drops. If they become World Champions, it’s on us. Spain is, literally, in our name.',
     ladder: [
-      { k: 'Beat Uruguay tonight', v: '15%' },
-      { k: 'Each further win', v: '+15%' },
+      { k: 'Per Spain win', v: '+15%' },
+      { k: 'Max stacked', v: '90%' },
       { k: 'World Champions', v: 'FREE' },
     ],
+    panelTitle: 'Spain’s road',
+    panelSub: 'Every win raises your discount. This is the challenge scoreboard.',
+    discountNow: 'Your discount now',
+    ofFree: 'towards the free website',
+    champBanner: 'CHAMPIONS! Your website is FREE 🏆',
+    st: { ganado: 'Won', empate: 'Draw', perdido: 'Lost', proximo: 'Upcoming', eliminado: 'Out' } as Record<MatchStatus, string>,
+    tbd: 'TBD',
+    vs: 'vs',
+    groupTitle: 'Group H',
+    pts: 'pts',
+    signupNote: 'Sign up now: your discount grows on its own with every Spain win.',
+    signupBtn: 'Join the challenge',
     victoria:
       'And we toast to Victoria: La Roja’s win and Cervezas Victoria, the Málaga brewery sponsoring the national team. Our studio is from Málaga too. 🍺',
     gameTitle: 'Score the penalty and scratch your prize',
@@ -389,6 +417,7 @@ function PenaltyGame({ t }: { t: Copy }) {
 export default function MundialClient() {
   const { lang } = useLanguage()
   const t = copy[lang]
+  const reto = retoEstado()
 
   return (
     <>
@@ -438,7 +467,7 @@ export default function MundialClient() {
             <p className="mx-auto mb-6 max-w-md text-stone-300">{t.ctaText}</p>
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Link
-                href="/contacto"
+                href="#camino"
                 className="rounded-lg bg-white px-6 py-3 font-semibold text-[#1C1917] transition-colors hover:bg-stone-200"
               >
                 {t.ctaBtn}
@@ -451,6 +480,94 @@ export default function MundialClient() {
               </Link>
             </div>
             <p className="mt-6 text-sm font-bold text-[#FFC400]">{t.vamos}</p>
+          </div>
+
+          {/* Panel del reto: el camino de España */}
+          <div
+            id="camino"
+            className="mt-12 scroll-mt-24 rounded-3xl border border-stone-200 bg-white p-6 sm:p-8 dark:border-white/10 dark:bg-white/[0.03]"
+          >
+            <h2 className="mb-1 text-center text-2xl font-black text-[#1C1917] md:text-3xl dark:text-[#F5F5F4]">
+              {t.panelTitle}
+            </h2>
+            <p className="mb-8 text-center text-sm text-[#78716C] dark:text-[#A8A29E]">{t.panelSub}</p>
+
+            {/* Descuento actual */}
+            <div className="mb-8 rounded-2xl bg-[#1C1917] p-6 text-center text-white">
+              {reto.champion ? (
+                <div className="text-2xl font-black text-[#FFC400]">{t.champBanner}</div>
+              ) : (
+                <>
+                  <div className="text-xs uppercase tracking-wider text-stone-400">{t.discountNow}</div>
+                  <div className="my-1 text-5xl font-black text-[#FFC400]">{reto.pct}%</div>
+                  <div className="mx-auto mt-3 h-2 max-w-sm overflow-hidden rounded-full bg-white/15">
+                    <div className="h-full rounded-full bg-[#FFC400] transition-all" style={{ width: `${reto.pct}%` }} />
+                  </div>
+                  <div className="mt-2 text-xs text-stone-400">{reto.pct}% {t.ofFree}</div>
+                </>
+              )}
+            </div>
+
+            {/* Cronología de partidos */}
+            <ol className="mb-8 space-y-2">
+              {ESPANA_PATH.map((m, i) => (
+                <li
+                  key={i}
+                  className="flex items-center gap-3 rounded-xl border border-stone-200 px-4 py-3 dark:border-white/10"
+                >
+                  <span className="text-lg">{STATUS_EMOJI[m.estado]}</span>
+                  <div className="min-w-0 flex-1">
+                    <div className="text-sm font-bold text-[#1C1917] dark:text-[#F5F5F4]">
+                      {lang === 'es' ? m.faseEs : m.faseEn}
+                    </div>
+                    <div className="truncate text-xs text-[#78716C] dark:text-[#A8A29E]">
+                      {t.vs} {m.rival || t.tbd} · {lang === 'es' ? m.fechaEs : m.fechaEn}
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    {m.marcador && (
+                      <div className="text-sm font-black text-[#1C1917] dark:text-[#F5F5F4]">{m.marcador}</div>
+                    )}
+                    <div className={`text-xs font-semibold ${STATUS_COLOR[m.estado]}`}>{t.st[m.estado]}</div>
+                  </div>
+                </li>
+              ))}
+            </ol>
+
+            {/* Grupo H */}
+            <div className="mb-8">
+              <h3 className="mb-2 text-sm font-black uppercase tracking-wider text-[#78716C] dark:text-[#A8A29E]">
+                {t.groupTitle}
+              </h3>
+              <div className="overflow-hidden rounded-xl border border-stone-200 dark:border-white/10">
+                {GROUP_H.map((r, i) => (
+                  <div
+                    key={i}
+                    className={`flex items-center justify-between px-4 py-2 text-sm ${
+                      r.es ? 'bg-[#FFC400]/15 font-bold' : ''
+                    } ${i > 0 ? 'border-t border-stone-100 dark:border-white/5' : ''}`}
+                  >
+                    <span className="text-[#1C1917] dark:text-[#F5F5F4]">
+                      {r.flag} {r.team}
+                    </span>
+                    <span className="text-[#78716C] dark:text-[#A8A29E]">
+                      {r.pts} {t.pts}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Apuntarse */}
+            <div className="text-center">
+              <p className="mx-auto mb-4 max-w-md text-sm text-[#78716C] dark:text-[#A8A29E]">{t.signupNote}</p>
+              <Link
+                href="/contacto"
+                className="inline-block rounded-lg bg-[#BF2638] px-6 py-3 font-semibold text-white transition-colors hover:bg-[#a01f2e]"
+              >
+                {t.signupBtn}
+              </Link>
+            </div>
           </div>
         </div>
       </main>
