@@ -19,7 +19,14 @@ const STATUS_COLOR: Record<MatchStatus, string> = { ganado: 'text-emerald-600', 
 
 function pickPrize(): Prize {
   const r = Math.random() * 100
-  const pct = r < 35 ? 10 : r < 65 ? 15 : r < 85 ? 20 : 0
+  // Ponderado: los premios gordos salen muy de vez en cuando.
+  const pct =
+    r < 2 ? 100 : // web GRATIS (muy raro)
+    r < 8 ? 80 : // 80% (raro)
+    r < 28 ? 20 :
+    r < 55 ? 15 :
+    r < 82 ? 10 :
+    0 // ¡suerte la próxima!
   const code = 'MUNDIAL-' + Math.random().toString(36).slice(2, 6).toUpperCase()
   return { pct, code }
 }
@@ -59,6 +66,8 @@ const copy = {
     scratchInstr: 'Rasca con el dedo o el ratón para descubrir tu cupón',
     noluck: '¡Suerte la próxima!',
     discount: (p: number) => `${p}% de descuento`,
+    freeWeb: '¡ENHORABUENA! Has ganado una WEB GRATIS 🏆',
+    bigWin: (p: number) => `¡ENHORABUENA! Has conseguido un ${p}% de descuento 🎉`,
     yourCode: 'Tu código',
     claim: 'Conseguir mi cupón',
     claimNote: 'Escríbenos con tu código y te lo aplicamos en tu web.',
@@ -104,6 +113,8 @@ const copy = {
     scratchInstr: 'Scratch with your finger or mouse to reveal your coupon',
     noluck: 'Better luck next time!',
     discount: (p: number) => `${p}% off`,
+    freeWeb: 'CONGRATULATIONS! You won a FREE WEBSITE 🏆',
+    bigWin: (p: number) => `CONGRATULATIONS! You got ${p}% off 🎉`,
     yourCode: 'Your code',
     claim: 'Claim my coupon',
     claimNote: 'Message us with your code and we’ll apply it to your website.',
@@ -119,10 +130,17 @@ const copy = {
 
 type Copy = typeof copy.es
 
-function ScratchCard({ prize, t }: { prize: Prize; t: Copy }) {
+function ScratchCard({ prize, t, muted }: { prize: Prize; t: Copy; muted: boolean }) {
   const ref = useRef<HTMLCanvasElement | null>(null)
   const drawing = useRef(false)
   const [revealed, setRevealed] = useState(false)
+
+  // Vibración de celebración al destapar un premio gordo (80% o web gratis).
+  useEffect(() => {
+    if (revealed && prize.pct >= 80 && !muted && typeof navigator !== 'undefined' && navigator.vibrate) {
+      try { navigator.vibrate([60, 40, 60, 40, 140]) } catch { /* no-op */ }
+    }
+  }, [revealed, prize.pct, muted])
 
   useEffect(() => {
     const c = ref.current
@@ -174,11 +192,19 @@ function ScratchCard({ prize, t }: { prize: Prize; t: Copy }) {
     <div className="flex flex-col items-center gap-3">
       <div className="relative h-[150px] w-[300px] overflow-hidden rounded-xl border border-[#FFC400]/40 shadow-lg">
         <div
-          className={`absolute inset-0 flex flex-col items-center justify-center text-center ${
-            prize.pct > 0 ? 'bg-[#0e7d4d]' : 'bg-[#3b2f2a]'
+          className={`absolute inset-0 flex flex-col items-center justify-center px-3 text-center ${
+            prize.pct >= 80
+              ? 'bg-gradient-to-br from-[#C60B1E] to-[#7a0712]'
+              : prize.pct > 0
+                ? 'bg-[#0e7d4d]'
+                : 'bg-[#3b2f2a]'
           }`}
         >
-          {prize.pct > 0 ? (
+          {prize.pct >= 100 ? (
+            <span className="text-lg font-black leading-tight text-[#FFC400]">{t.freeWeb}</span>
+          ) : prize.pct >= 80 ? (
+            <span className="text-base font-black leading-tight text-[#FFC400]">{t.bigWin(prize.pct)}</span>
+          ) : prize.pct > 0 ? (
             <>
               <span className="text-3xl font-black text-white">{t.discount(prize.pct)}</span>
               <span className="mt-1 text-xs uppercase tracking-wider text-white/70">
@@ -187,6 +213,11 @@ function ScratchCard({ prize, t }: { prize: Prize; t: Copy }) {
             </>
           ) : (
             <span className="px-4 text-xl font-black text-white/90">{t.noluck}</span>
+          )}
+          {prize.pct >= 80 && (
+            <span className="mt-2 text-[11px] uppercase tracking-wider text-white/80">
+              {t.yourCode}: <strong className="text-white">{prize.code}</strong>
+            </span>
           )}
         </div>
         <canvas
@@ -403,7 +434,7 @@ function PenaltyGame({ t }: { t: Copy }) {
         )}
         {phase === 'goal' && prize && (
           <div className="flex flex-col items-center gap-3">
-            <ScratchCard prize={prize} t={t} />
+            <ScratchCard prize={prize} t={t} muted={muted} />
             <button onClick={reset} className="text-xs font-medium text-[#A8A29E] underline hover:text-white">
               {t.playAgain}
             </button>
