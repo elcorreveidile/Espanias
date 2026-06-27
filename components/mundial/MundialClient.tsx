@@ -550,15 +550,7 @@ function PenaltyGame({ t }: { t: Copy }) {
   )
 
   const alreadyWonNode = (
-    <div className="flex flex-col items-center gap-2 text-center">
-      <p className="text-sm font-bold text-white">{t.alreadyWon}</p>
-      <Link
-        href="/contacto"
-        className="rounded-lg bg-[#FFC400] px-5 py-2.5 text-sm font-bold text-[#1C1917] transition-colors hover:bg-[#e0ad00]"
-      >
-        {t.claim}
-      </Link>
-    </div>
+    <p className="max-w-[280px] text-center text-sm font-bold text-white">{t.alreadyWon}</p>
   )
 
   const moving = phase !== 'aim'
@@ -656,9 +648,7 @@ function PenaltyGame({ t }: { t: Copy }) {
           (prize ? (
             <div className="flex flex-col items-center gap-3">
               <ScratchCard prize={prize} t={t} muted={muted} />
-              {wonPrize ? (
-                alreadyWonNode
-              ) : canPlay ? (
+              {wonPrize ? null : canPlay ? (
                 <button onClick={reset} className="text-xs font-medium text-[#A8A29E] underline hover:text-white">
                   {t.playAgain}
                 </button>
