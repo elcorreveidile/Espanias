@@ -1,44 +1,100 @@
 'use client'
 
-import Link from 'next/link'
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { useLanguage } from '@/context/LanguageContext'
 
-// Banner del Reto Mundial para la portada (visible sin abrir el menú).
+// Mini-penalti interactivo para la portada: al chutar, lleva a /mundial.
+type Dir = 'left' | 'center' | 'right'
+const DIRS: Dir[] = ['left', 'center', 'right']
+const POS: Record<Dir, string> = { left: '22%', center: '50%', right: '78%' }
+
 export default function MundialBanner() {
   const { lang } = useLanguage()
-  const title = lang === 'es' ? 'Reto Mundial 2026' : 'World Cup 2026'
-  const desc =
+  const router = useRouter()
+  const [shot, setShot] = useState<Dir | null>(null)
+  const [keeper, setKeeper] = useState<Dir>('center')
+
+  const shoot = (d: Dir) => {
+    if (shot) return
+    setShot(d)
+    setKeeper(DIRS[Math.floor(Math.random() * 3)])
+    window.setTimeout(() => router.push('/mundial'), 850)
+  }
+
+  const t =
     lang === 'es'
-      ? '· Marca tu penalti y gana hasta una WEB GRATIS'
-      : '· Score your penalty and win up to a FREE website'
-  const cta = lang === 'es' ? 'Jugar' : 'Play'
+      ? {
+          title: 'Reto Mundial 2026',
+          desc: 'Marca tu penalti y gana hasta una WEB GRATIS',
+          hint: 'Pulsa la portería para chutar',
+          going: '¡Vamos! 🚀',
+        }
+      : {
+          title: 'World Cup 2026 Challenge',
+          desc: 'Score your penalty and win up to a FREE website',
+          hint: 'Tap the goal to shoot',
+          going: "Let's go! 🚀",
+        }
+
+  const moving = shot !== null
+  const ballLeft = moving ? POS[shot] : '50%'
+  const ballBottom = moving ? '72px' : '6px'
+  const keeperLeft = moving ? POS[keeper] : '50%'
 
   return (
-    <div className="mb-8 flex justify-center">
-      <Link
-        href="/mundial"
-        className="group inline-flex max-w-full items-center gap-2.5 rounded-full border border-[#BF2638]/30 bg-white/85 px-3 py-2 text-sm shadow-sm backdrop-blur transition hover:border-[#BF2638] hover:shadow-md dark:bg-white/10"
-      >
-        <span className="relative flex h-2.5 w-2.5 shrink-0">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#BF2638] opacity-75" />
-          <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#BF2638]" />
-        </span>
-        <span className="text-base leading-none">🇪🇸</span>
-        <span className="font-bold text-[#1C1917] dark:text-[#F5F5F4]">{title}</span>
-        <span className="hidden text-[#78716C] sm:inline dark:text-[#A8A29E]">{desc}</span>
-        <span className="flex shrink-0 items-center gap-1 rounded-full bg-gradient-to-r from-[#BF2638] to-[#6D28D9] px-3 py-1 text-xs font-bold text-white">
-          {cta}
-          <svg
-            className="h-3 w-3 transition-transform duration-300 group-hover:translate-x-0.5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2.2}
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-          </svg>
-        </span>
-      </Link>
+    <div className="mx-auto mb-10 w-full max-w-md overflow-hidden rounded-3xl border-2 border-[#FFC400]/40 bg-gradient-to-b from-[#13233b] to-[#0c1626] p-5 text-white shadow-xl">
+      <div className="mb-1 flex items-center justify-center gap-2">
+        <span className="text-lg leading-none">🇪🇸</span>
+        <span className="text-sm font-black uppercase tracking-wider text-[#FFC400]">{t.title}</span>
+      </div>
+      <p className="mb-4 text-center text-sm font-bold">{t.desc}</p>
+
+      {/* Mini portería */}
+      <div className="relative mx-auto h-[130px] w-full max-w-[290px] select-none">
+        {/* césped */}
+        <div className="absolute bottom-0 h-8 w-full rounded-b-lg bg-[#2f7d4f]" />
+        {/* marco + red */}
+        <div
+          className="absolute left-1/2 top-1 h-[96px] w-[260px] -translate-x-1/2 rounded-t-md border-x-4 border-t-4 border-white/90"
+          style={{
+            backgroundImage:
+              'linear-gradient(rgba(255,255,255,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.12) 1px, transparent 1px)',
+            backgroundSize: '16px 16px',
+          }}
+        />
+        {/* zonas de tiro */}
+        {!moving &&
+          DIRS.map((d) => (
+            <button
+              key={d}
+              onClick={() => shoot(d)}
+              aria-label={`Chutar ${d}`}
+              className="absolute top-1 h-[96px] w-[84px] rounded-md transition-colors hover:bg-[#FFC400]/20"
+              style={{ left: POS[d], transform: 'translateX(-50%)' }}
+            >
+              <span className="text-xl opacity-40">🎯</span>
+            </button>
+          ))}
+        {/* portero */}
+        <div
+          className="absolute top-[28px] text-3xl transition-all duration-700 ease-out"
+          style={{ left: keeperLeft, transform: `translateX(-50%) ${moving ? 'scale(1.1)' : ''}` }}
+        >
+          🧤
+        </div>
+        {/* balón */}
+        <div
+          className="absolute text-2xl transition-all duration-[850ms] ease-out"
+          style={{ left: ballLeft, bottom: ballBottom, transform: 'translateX(-50%)' }}
+        >
+          ⚽
+        </div>
+      </div>
+
+      <p className="mt-3 text-center text-xs font-semibold text-white/80">
+        {moving ? t.going : `👆 ${t.hint}`}
+      </p>
     </div>
   )
 }
