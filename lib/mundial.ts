@@ -25,8 +25,8 @@ export interface EspMatch {
 export const ESPANA_PATH: EspMatch[] = [
   { faseEs: 'Fase de grupos · J1', faseEn: 'Group stage · MD1', rival: 'Cabo Verde', fechaEs: '—', fechaEn: '—', estado: 'empate', marcador: '0–0' },
   { faseEs: 'Fase de grupos · J2', faseEn: 'Group stage · MD2', rival: 'Arabia Saudí', fechaEs: '—', fechaEn: '—', estado: 'ganado', marcador: '4–0' },
-  { faseEs: 'Fase de grupos · J3', faseEn: 'Group stage · MD3', rival: 'Uruguay', fechaEs: '26 jun', fechaEn: 'Jun 26', estado: 'proximo' },
-  { faseEs: 'Dieciseisavos', faseEn: 'Round of 32', rival: '', fechaEs: '—', fechaEn: '—', estado: 'proximo' },
+  { faseEs: 'Fase de grupos · J3', faseEn: 'Group stage · MD3', rival: 'Uruguay', fechaEs: '26 jun', fechaEn: 'Jun 26', estado: 'ganado', marcador: '1–0' },
+  { faseEs: 'Dieciseisavos', faseEn: 'Round of 32', rival: '', fechaEs: '2 jul', fechaEn: 'Jul 2', estado: 'proximo' },
   { faseEs: 'Octavos', faseEn: 'Round of 16', rival: '', fechaEs: '—', fechaEn: '—', estado: 'proximo' },
   { faseEs: 'Cuartos', faseEn: 'Quarter-final', rival: '', fechaEs: '—', fechaEn: '—', estado: 'proximo' },
   { faseEs: 'Semifinal', faseEn: 'Semi-final', rival: '', fechaEs: '—', fechaEn: '—', estado: 'proximo' },
@@ -51,9 +51,11 @@ export interface GroupRow {
 }
 
 // Clasificación del Grupo H (manual). Actualiza los puntos tras cada jornada.
+// Clasificación FINAL del Grupo H (tras J3): España 1.ª, Cabo Verde 2.ª;
+// Uruguay eliminado, Arabia fuera.
 export const GROUP_H: GroupRow[] = [
-  { team: 'España', flag: '🇪🇸', pts: 4, es: true },
+  { team: 'España', flag: '🇪🇸', pts: 7, es: true },
+  { team: 'Cabo Verde', flag: '🇨🇻', pts: 3, es: false },
   { team: 'Uruguay', flag: '🇺🇾', pts: 2, es: false },
-  { team: 'Cabo Verde', flag: '🇨🇻', pts: 2, es: false },
-  { team: 'Arabia Saudí', flag: '🇸🇦', pts: 1, es: false },
+  { team: 'Arabia Saudí', flag: '🇸🇦', pts: 2, es: false },
 ]

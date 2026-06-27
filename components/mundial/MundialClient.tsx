@@ -6,6 +6,7 @@ import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import { useLanguage } from '@/context/LanguageContext'
 import { ESPANA_PATH, GROUP_H, retoEstado, type EspMatch, type GroupRow, type MatchStatus } from '@/lib/mundial'
+import { sendContact } from '@/app/actions/contact'
 
 type Dir = 'left' | 'center' | 'right'
 type Phase = 'aim' | 'shoot' | 'goal' | 'saved'
@@ -94,6 +95,13 @@ const copy = {
     claim: 'Conseguir mi cupón',
     claimNote: 'Escríbenos con tu código y te lo aplicamos en tu web.',
     playAgain: 'Jugar otra vez',
+    attempts: 'Intentos',
+    outOfTries: 'Se acabaron tus 3 tiros',
+    gateNote: 'Déjanos tu email y sigues jugando (y entras en el reto).',
+    gatePlaceholder: 'tu@email.com',
+    gateBtn: 'Seguir jugando',
+    gateSending: 'Enviando…',
+    gateInvalid: 'Escribe un email válido.',
     ctaTitle: '¿Te apuntas al reto?',
     ctaText:
       'Mándanos «MUNDIAL» y tu email por contacto. Tu descuento sube solo con cada victoria de España.',
@@ -141,6 +149,13 @@ const copy = {
     claim: 'Claim my coupon',
     claimNote: 'Message us with your code and we’ll apply it to your website.',
     playAgain: 'Play again',
+    attempts: 'Tries',
+    outOfTries: 'You’ve used your 3 shots',
+    gateNote: 'Leave your email to keep playing (and join the challenge).',
+    gatePlaceholder: 'you@email.com',
+    gateBtn: 'Keep playing',
+    gateSending: 'Sending…',
+    gateInvalid: 'Enter a valid email.',
     ctaTitle: 'Join the challenge?',
     ctaText:
       'Send us “MUNDIAL” and your email via contact. Your discount grows on its own with every Spain win.',
@@ -288,6 +303,34 @@ function PenaltyGame({ t }: { t: Copy }) {
   const [muted, setMuted] = useState(false)
   const acRef = useRef<AudioContext | null>(null)
 
+  // Límite de 3 tiros; al agotarlos, hay que dejar el email para seguir jugando.
+  const [attempts, setAttempts] = useState(3)
+  const [registered, setRegistered] = useState(false)
+  const [gateEmail, setGateEmail] = useState('')
+  const [gateBusy, setGateBusy] = useState(false)
+  const [gateErr, setGateErr] = useState('')
+
+  useEffect(() => {
+    try {
+      const a = window.localStorage.getItem('espanias_mundial_attempts')
+      const r = window.localStorage.getItem('espanias_mundial_registered')
+      if (a !== null) setAttempts(Math.max(0, parseInt(a, 10) || 0))
+      if (r === '1') setRegistered(true)
+    } catch {
+      /* no-op */
+    }
+  }, [])
+
+  const persistAttempts = (n: number) => {
+    setAttempts(n)
+    try { window.localStorage.setItem('espanias_mundial_attempts', String(n)) } catch { /* no-op */ }
+  }
+  const persistRegistered = (b: boolean) => {
+    setRegistered(b)
+    try { window.localStorage.setItem('espanias_mundial_registered', b ? '1' : '0') } catch { /* no-op */ }
+  }
+  const canPlay = registered || attempts > 0
+
   // Audio sintetizado (Web Audio API): sin archivos, se crea en el primer chut.
   const ac = (): AudioContext | null => {
     if (typeof window === 'undefined') return null
@@ -336,7 +379,8 @@ function PenaltyGame({ t }: { t: Copy }) {
   }
 
   const shoot = (dir: Dir) => {
-    if (phase !== 'aim') return
+    if (phase !== 'aim' || !canPlay) return
+    if (!registered) persistAttempts(Math.max(0, attempts - 1))
     // 1 de cada 3 es gol. Colocamos al portero para que la animación cuadre:
     // parada → se lanza a tu zona; gol → se lanza a otra.
     const isGoal = Math.random() < 1 / 3
@@ -372,6 +416,49 @@ function PenaltyGame({ t }: { t: Copy }) {
     setPrize(null)
   }
 
+  const submitGate = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (gateBusy) return
+    const email = gateEmail.trim()
+    if (!email || !email.includes('@')) {
+      setGateErr(t.gateInvalid)
+      return
+    }
+    setGateBusy(true)
+    setGateErr('')
+    try {
+      await sendContact('Reto Mundial · penalti', email, 'Lead del juego del Mundial: quiere seguir jugando al penalti.')
+    } catch {
+      /* envío best-effort: no bloqueamos el juego si el email falla */
+    }
+    persistRegistered(true)
+    setGateBusy(false)
+    reset()
+  }
+
+  const gateJsx = (
+    <form onSubmit={submitGate} className="flex w-full max-w-[300px] flex-col items-center gap-2 text-center">
+      <p className="text-sm font-bold text-white">{t.outOfTries}</p>
+      <p className="text-xs text-white/70">{t.gateNote}</p>
+      <input
+        type="email"
+        required
+        value={gateEmail}
+        onChange={(e) => setGateEmail(e.target.value)}
+        placeholder={t.gatePlaceholder}
+        className="w-full rounded-lg border border-white/20 bg-white/10 px-3 py-2 text-sm text-white placeholder-white/40 focus:border-[#FFC400] focus:outline-none"
+      />
+      <button
+        type="submit"
+        disabled={gateBusy}
+        className="w-full rounded-lg bg-[#FFC400] px-4 py-2.5 text-sm font-bold text-[#1C1917] transition-colors hover:bg-[#e0ad00] disabled:opacity-60"
+      >
+        {gateBusy ? t.gateSending : t.gateBtn}
+      </button>
+      {gateErr && <p className="text-xs text-red-300">{gateErr}</p>}
+    </form>
+  )
+
   const moving = phase !== 'aim'
   const ballLeft = moving ? POS[shot] : '50%'
   const ballBottom = moving ? '116px' : '8px'
@@ -379,8 +466,11 @@ function PenaltyGame({ t }: { t: Copy }) {
 
   return (
     <div className="flex flex-col items-center">
-      {/* Sonido / vibración */}
-      <div className="mb-1 flex w-full max-w-[360px] justify-end">
+      {/* Intentos + sonido/vibración */}
+      <div className="mb-1 flex w-full max-w-[360px] items-center justify-between">
+        <span className="text-xs font-semibold text-white/60">
+          {registered ? `${t.attempts}: ∞` : `${t.attempts}: ${attempts}/3`}
+        </span>
         <button
           onClick={() => setMuted((m) => !m)}
           aria-label={muted ? 'Activar sonido' : 'Silenciar'}
@@ -403,7 +493,7 @@ function PenaltyGame({ t }: { t: Copy }) {
           }}
         />
         {/* zonas de tiro */}
-        {phase === 'aim' &&
+        {phase === 'aim' && canPlay &&
           DIRS.map((d) => (
             <button
               key={d}
@@ -444,22 +534,29 @@ function PenaltyGame({ t }: { t: Copy }) {
 
       {/* estado bajo la portería */}
       <div className="mt-4 flex min-h-[180px] flex-col items-center justify-start">
-        {phase === 'aim' && <p className="text-sm text-[#A8A29E]">{t.aimHint}</p>}
+        {phase === 'aim' && (canPlay ? <p className="text-sm text-[#A8A29E]">{t.aimHint}</p> : gateJsx)}
         {phase === 'shoot' && <p className="text-sm text-[#A8A29E]">…</p>}
-        {phase === 'saved' && (
-          <button
-            onClick={reset}
-            className="rounded-lg border border-white/25 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-white/10"
-          >
-            {t.retry}
-          </button>
-        )}
+        {phase === 'saved' &&
+          (canPlay ? (
+            <button
+              onClick={reset}
+              className="rounded-lg border border-white/25 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+            >
+              {t.retry}
+            </button>
+          ) : (
+            gateJsx
+          ))}
         {phase === 'goal' && prize && (
           <div className="flex flex-col items-center gap-3">
             <ScratchCard prize={prize} t={t} muted={muted} />
-            <button onClick={reset} className="text-xs font-medium text-[#A8A29E] underline hover:text-white">
-              {t.playAgain}
-            </button>
+            {canPlay ? (
+              <button onClick={reset} className="text-xs font-medium text-[#A8A29E] underline hover:text-white">
+                {t.playAgain}
+              </button>
+            ) : (
+              gateJsx
+            )}
           </div>
         )}
       </div>
