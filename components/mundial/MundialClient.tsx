@@ -10,20 +10,19 @@ import { sendContact } from '@/app/actions/contact'
 
 type Dir = 'left' | 'center' | 'right'
 type Phase = 'aim' | 'shoot' | 'goal' | 'saved'
-interface Prize { pct: number; code: string }
+interface Prize { pct: number; code: string; sig: string }
+
+// URL de canje en por2duros con el cupón firmado.
+function claimUrl(p: Prize): string {
+  const q = new URLSearchParams({ code: p.code, pct: String(p.pct), sig: p.sig })
+  return `https://www.por2duros.com/mundial?${q.toString()}`
+}
 
 const DIRS: Dir[] = ['left', 'center', 'right']
 const POS: Record<Dir, string> = { left: '24%', center: '50%', right: '76%' }
 
 const STATUS_EMOJI: Record<MatchStatus, string> = { ganado: '✅', empate: '🟰', perdido: '❌', proximo: '🔜', eliminado: '🚫' }
 const STATUS_COLOR: Record<MatchStatus, string> = { ganado: 'text-emerald-600', empate: 'text-stone-500', perdido: 'text-red-600', proximo: 'text-amber-600', eliminado: 'text-stone-500' }
-
-function pickPrize(): Prize {
-  const r = Math.random() * 100
-  const pct = r < 2 ? 100 : r < 8 ? 80 : r < 28 ? 20 : r < 55 ? 15 : r < 82 ? 10 : 0
-  const code = 'MUNDIAL-' + Math.random().toString(36).slice(2, 6).toUpperCase()
-  return { pct, code }
-}
 
 const copy = {
   es: {
@@ -317,7 +316,15 @@ function ScratchCard({ prize, t, muted }: { prize: Prize; t: Copy; muted: boolea
         <p className="max-w-[300px] text-center text-xs text-[#A8A29E]">{t.scratchInstr}</p>
       ) : prize.pct > 0 ? (
         rSent ? (
-          <p className="text-sm font-bold text-emerald-700 dark:text-emerald-400">{t.receiveSent}</p>
+          <div className="flex flex-col items-center gap-2">
+            <p className="text-sm font-bold text-emerald-700 dark:text-emerald-400">{t.receiveSent}</p>
+            <a
+              href={claimUrl(prize)}
+              className="rounded-lg bg-[#FFC400] px-5 py-2.5 text-sm font-bold text-[#1C1917] transition-colors hover:bg-[#e0ad00]"
+            >
+              {t.claim}
+            </a>
+          </div>
         ) : (
           <form onSubmit={receive} className="flex w-full max-w-[300px] flex-col items-center gap-2 text-center">
             <p className="text-xs text-[#A8A29E]">{t.receiveTitle}</p>
@@ -397,14 +404,14 @@ function PenaltyGame({ t }: { t: Copy }) {
     try { window.localStorage.setItem('espanias_mundial_email', em) } catch { /* no-op */ }
   }
 
-  // Reserva (en servidor) una de las webs gratis del tope global. true = concedida.
-  const reserveFreeWeb = async (): Promise<boolean> => {
+  // Pide al servidor el premio firmado (decide %, aplica el tope global y firma).
+  const fetchPrize = async (): Promise<Prize> => {
     try {
-      const res = await fetch('/api/mundial-freeweb', { method: 'POST' })
-      const data = (await res.json()) as { granted?: boolean }
-      return Boolean(data.granted)
+      const res = await fetch('/api/mundial-prize', { method: 'POST' })
+      const data = (await res.json()) as { pct?: number; code?: string; sig?: string }
+      return { pct: typeof data.pct === 'number' ? data.pct : 0, code: data.code || '', sig: data.sig || '' }
     } catch {
-      return false
+      return { pct: 0, code: '', sig: '' }
     }
   }
 
@@ -479,8 +486,7 @@ function PenaltyGame({ t }: { t: Copy }) {
         vibrate([40, 40, 90])
         // Resolvemos el premio; la web gratis se reserva contra el tope global.
         void (async () => {
-          const p = pickPrize()
-          if (p.pct === 100 && !(await reserveFreeWeb())) p.pct = 80
+          const p = await fetchPrize()
           if (p.pct > 0) persistWon(true) // un cupón por persona
           setPrize(p)
         })()
