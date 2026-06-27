@@ -102,6 +102,16 @@ const copy = {
     gateBtn: 'Seguir jugando',
     gateSending: 'Enviando…',
     gateInvalid: 'Escribe un email válido.',
+    porraTitle: 'La Porra de Espanias',
+    porraSub: 'Acierta el resultado del próximo partido de España y gana una web gratis.',
+    nextMatchLabel: 'Próximo partido de España',
+    vsTbd: 'Rival por confirmar',
+    porraEmailPlaceholder: 'tu@email.com',
+    porraSubmit: 'Enviar pronóstico',
+    porraSending: 'Enviando…',
+    porraDone: '¡Pronóstico registrado! Mucha suerte 🍀',
+    porraInvalid: 'Pon el resultado y un email válido.',
+    porraRules: 'Hasta el pitido inicial. Gana quien acierte el resultado exacto (o el más cercano). Un pronóstico por persona.',
     ctaTitle: '¿Te apuntas al reto?',
     ctaText:
       'Mándanos «MUNDIAL» y tu email por contacto. Tu descuento sube solo con cada victoria de España.',
@@ -156,6 +166,16 @@ const copy = {
     gateBtn: 'Keep playing',
     gateSending: 'Sending…',
     gateInvalid: 'Enter a valid email.',
+    porraTitle: 'The Espanias Pool',
+    porraSub: 'Predict the result of Spain’s next match and win a free website.',
+    nextMatchLabel: 'Spain’s next match',
+    vsTbd: 'Opponent TBD',
+    porraEmailPlaceholder: 'you@email.com',
+    porraSubmit: 'Submit prediction',
+    porraSending: 'Sending…',
+    porraDone: 'Prediction saved! Good luck 🍀',
+    porraInvalid: 'Enter the score and a valid email.',
+    porraRules: 'Until kick-off. The exact result (or closest) wins. One prediction per person.',
     ctaTitle: 'Join the challenge?',
     ctaText:
       'Send us “MUNDIAL” and your email via contact. Your discount grows on its own with every Spain win.',
@@ -564,6 +584,86 @@ function PenaltyGame({ t }: { t: Copy }) {
   )
 }
 
+function PorraForm({ t, rival }: { t: Copy; rival: string }) {
+  const [es, setEs] = useState('')
+  const [ri, setRi] = useState('')
+  const [email, setEmail] = useState('')
+  const [busy, setBusy] = useState(false)
+  const [ok, setOk] = useState(false)
+  const [err, setErr] = useState('')
+
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (busy) return
+    if (!email.includes('@') || es === '' || ri === '') {
+      setErr(t.porraInvalid)
+      return
+    }
+    setBusy(true)
+    setErr('')
+    try {
+      await sendContact(
+        'Porra Mundial',
+        email,
+        `Pronóstico del próximo partido de España: España ${es}-${ri} ${rival || 'rival'}.`
+      )
+      setOk(true)
+    } catch {
+      setErr(t.porraInvalid)
+    }
+    setBusy(false)
+  }
+
+  if (ok) {
+    return <p className="text-center text-sm font-bold text-emerald-700 dark:text-emerald-400">{t.porraDone}</p>
+  }
+
+  const scoreCls =
+    'w-14 rounded-lg border border-stone-300 bg-white px-2 py-2 text-center text-lg font-black text-[#1C1917] focus:border-[#BF2638] focus:outline-none dark:border-white/15 dark:bg-white/10 dark:text-white'
+
+  return (
+    <form onSubmit={submit} className="mx-auto flex max-w-sm flex-col items-center gap-3">
+      <div className="flex items-center justify-center gap-2">
+        <span className="text-xl">🇪🇸</span>
+        <input
+          inputMode="numeric"
+          value={es}
+          onChange={(e) => setEs(e.target.value.replace(/\D/g, '').slice(0, 2))}
+          className={scoreCls}
+          aria-label="España"
+        />
+        <span className="font-black text-[#78716C]">-</span>
+        <input
+          inputMode="numeric"
+          value={ri}
+          onChange={(e) => setRi(e.target.value.replace(/\D/g, '').slice(0, 2))}
+          className={scoreCls}
+          aria-label={rival || t.vsTbd}
+        />
+        <span className="max-w-[120px] truncate text-sm font-semibold text-[#1C1917] dark:text-white">
+          {rival || t.vsTbd}
+        </span>
+      </div>
+      <input
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder={t.porraEmailPlaceholder}
+        className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm text-[#1C1917] focus:border-[#BF2638] focus:outline-none dark:border-white/15 dark:bg-white/10 dark:text-white"
+      />
+      <button
+        type="submit"
+        disabled={busy}
+        className="w-full rounded-lg bg-[#BF2638] px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#a01f2e] disabled:opacity-60"
+      >
+        {busy ? t.porraSending : t.porraSubmit}
+      </button>
+      {err && <p className="text-xs text-red-500">{err}</p>}
+      <p className="text-center text-[11px] text-[#78716C] dark:text-[#A8A29E]">{t.porraRules}</p>
+    </form>
+  )
+}
+
 export default function MundialClient({
   path = ESPANA_PATH,
   group = GROUP_H,
@@ -574,6 +674,7 @@ export default function MundialClient({
   const { lang } = useLanguage()
   const t = copy[lang]
   const reto = retoEstado(path)
+  const next = path.find((m) => m.estado === 'proximo')
 
   return (
     <>
@@ -609,6 +710,28 @@ export default function MundialClient({
           <p className="mb-12 rounded-xl bg-[#FFC400]/15 px-5 py-4 text-center text-sm font-medium text-[#1C1917] dark:text-[#F5F5F4]">
             {t.victoria}
           </p>
+
+          {/* Próximo partido + Porra */}
+          {next && (
+            <div className="mb-12 rounded-3xl border-2 border-[#BF2638]/30 bg-[#BF2638]/[0.04] p-6 sm:p-8">
+              <div className="mb-5 text-center">
+                <span className="text-xs font-bold uppercase tracking-wider text-[#BF2638]">
+                  {t.nextMatchLabel}
+                </span>
+                <div className="mt-1 text-xl font-black text-[#1C1917] md:text-2xl dark:text-[#F5F5F4]">
+                  🇪🇸 España <span className="text-[#78716C]">vs</span> {next.rival || t.vsTbd}
+                </div>
+                <div className="text-sm text-[#78716C] dark:text-[#A8A29E]">
+                  {lang === 'es' ? next.faseEs : next.faseEn} · {lang === 'es' ? next.fechaEs : next.fechaEn}
+                </div>
+              </div>
+              <h2 className="mb-1 text-center text-2xl font-black text-[#1C1917] md:text-3xl dark:text-[#F5F5F4]">
+                {t.porraTitle}
+              </h2>
+              <p className="mb-6 text-center text-sm text-[#78716C] dark:text-[#A8A29E]">{t.porraSub}</p>
+              <PorraForm t={t} rival={next.rival} />
+            </div>
+          )}
 
           {/* Juego */}
           <div className="mb-12 overflow-hidden rounded-3xl bg-gradient-to-b from-[#13233b] to-[#0c1626] p-8 text-white shadow-xl">
