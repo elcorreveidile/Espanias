@@ -315,37 +315,39 @@ function ScratchCard({ prize, t, muted }: { prize: Prize; t: Copy; muted: boolea
       {!revealed ? (
         <p className="max-w-[300px] text-center text-xs text-[#A8A29E]">{t.scratchInstr}</p>
       ) : prize.pct > 0 ? (
-        rSent ? (
-          <div className="flex flex-col items-center gap-2">
-            <p className="text-sm font-bold text-emerald-700 dark:text-emerald-400">{t.receiveSent}</p>
-            <a
-              href={claimUrl(prize)}
-              className="rounded-lg bg-[#FFC400] px-5 py-2.5 text-sm font-bold text-[#1C1917] transition-colors hover:bg-[#e0ad00]"
-            >
-              {t.claim}
-            </a>
-          </div>
-        ) : (
-          <form onSubmit={receive} className="flex w-full max-w-[300px] flex-col items-center gap-2 text-center">
-            <p className="text-xs text-[#A8A29E]">{t.receiveTitle}</p>
-            <input
-              type="email"
-              required
-              value={rEmail}
-              onChange={(e) => setREmail(e.target.value)}
-              placeholder={t.gatePlaceholder}
-              className="w-full rounded-lg border border-white/20 bg-white/10 px-3 py-2 text-sm text-white placeholder-white/40 focus:border-[#FFC400] focus:outline-none"
-            />
-            <button
-              type="submit"
-              disabled={rBusy}
-              className="w-full rounded-lg bg-[#FFC400] px-4 py-2.5 text-sm font-bold text-[#1C1917] transition-colors hover:bg-[#e0ad00] disabled:opacity-60"
-            >
-              {rBusy ? t.receiveSending : t.receiveBtn}
-            </button>
-            {rErr && <p className="text-xs text-red-300">{rErr}</p>}
-          </form>
-        )
+        <div className="flex w-full max-w-[300px] flex-col items-center gap-3 text-center">
+          <a
+            href={claimUrl(prize)}
+            className="w-full rounded-lg bg-[#FFC400] px-5 py-3 text-sm font-black text-[#1C1917] transition-colors hover:bg-[#e0ad00]"
+          >
+            {t.claim} →
+          </a>
+          {rSent ? (
+            <p className="text-xs font-bold text-emerald-400">{t.receiveSent}</p>
+          ) : (
+            <form onSubmit={receive} className="flex w-full flex-col items-center gap-2">
+              <p className="text-[11px] text-[#A8A29E]">{t.receiveTitle}</p>
+              <div className="flex w-full gap-2">
+                <input
+                  type="email"
+                  required
+                  value={rEmail}
+                  onChange={(e) => setREmail(e.target.value)}
+                  placeholder={t.gatePlaceholder}
+                  className="min-w-0 flex-1 rounded-lg border border-white/20 bg-white/10 px-3 py-2 text-sm text-white placeholder-white/40 focus:border-[#FFC400] focus:outline-none"
+                />
+                <button
+                  type="submit"
+                  disabled={rBusy}
+                  className="shrink-0 rounded-lg border border-white/25 px-3 py-2 text-xs font-semibold text-white transition-colors hover:bg-white/10 disabled:opacity-60"
+                >
+                  {rBusy ? '…' : t.receiveBtn}
+                </button>
+              </div>
+              {rErr && <p className="text-xs text-red-300">{rErr}</p>}
+            </form>
+          )}
+        </div>
       ) : (
         <p className="max-w-[300px] text-center text-xs text-[#A8A29E]">{t.ctaText}</p>
       )}
@@ -368,6 +370,7 @@ function PenaltyGame({ t }: { t: Copy }) {
   const [gateBusy, setGateBusy] = useState(false)
   const [gateErr, setGateErr] = useState('')
   const [wonPrize, setWonPrize] = useState(false)
+  const [wonCoupon, setWonCoupon] = useState<Prize | null>(null)
 
   useEffect(() => {
     try {
@@ -379,6 +382,8 @@ function PenaltyGame({ t }: { t: Copy }) {
       if (r === '1') setRegistered(true)
       if (w === '1') setWonPrize(true)
       if (em) setPlayerEmail(em)
+      const c = window.localStorage.getItem('espanias_mundial_prize')
+      if (c) setWonCoupon(JSON.parse(c) as Prize)
     } catch {
       /* no-op */
     }
@@ -395,6 +400,10 @@ function PenaltyGame({ t }: { t: Copy }) {
   const persistWon = (b: boolean) => {
     setWonPrize(b)
     try { window.localStorage.setItem('espanias_mundial_won', b ? '1' : '0') } catch { /* no-op */ }
+  }
+  const persistCoupon = (p: Prize) => {
+    setWonCoupon(p)
+    try { window.localStorage.setItem('espanias_mundial_prize', JSON.stringify(p)) } catch { /* no-op */ }
   }
   // Un premio por persona: si ya ganó un cupón, no puede seguir tirando.
   const canPlay = !wonPrize && (registered || attempts > 0)
@@ -487,7 +496,10 @@ function PenaltyGame({ t }: { t: Copy }) {
         // Resolvemos el premio; la web gratis se reserva contra el tope global.
         void (async () => {
           const p = await fetchPrize()
-          if (p.pct > 0) persistWon(true) // un cupón por persona
+          if (p.pct > 0) {
+            persistWon(true) // un cupón por persona
+            persistCoupon(p) // se guarda para poder reclamarlo aunque recargue
+          }
           setPrize(p)
         })()
       } else {
@@ -550,7 +562,17 @@ function PenaltyGame({ t }: { t: Copy }) {
   )
 
   const alreadyWonNode = (
-    <p className="max-w-[280px] text-center text-sm font-bold text-white">{t.alreadyWon}</p>
+    <div className="flex flex-col items-center gap-2 text-center">
+      <p className="max-w-[280px] text-sm font-bold text-white">{t.alreadyWon}</p>
+      {wonCoupon && wonCoupon.pct > 0 && (
+        <a
+          href={claimUrl(wonCoupon)}
+          className="rounded-lg bg-[#FFC400] px-5 py-2.5 text-sm font-black text-[#1C1917] transition-colors hover:bg-[#e0ad00]"
+        >
+          {t.claim} →
+        </a>
+      )}
+    </div>
   )
 
   const moving = phase !== 'aim'
