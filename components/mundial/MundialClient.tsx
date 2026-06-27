@@ -102,6 +102,7 @@ const copy = {
     gateBtn: 'Seguir jugando',
     gateSending: 'Enviando…',
     gateInvalid: 'Escribe un email válido.',
+    alreadyWon: 'Ya tienes tu cupón 🎟️ (uno por persona)',
     porraTitle: 'La Porra de Espanias',
     porraSub: 'Acierta el resultado del próximo partido de España y gana una web gratis.',
     nextMatchLabel: 'Próximo partido de España',
@@ -166,6 +167,7 @@ const copy = {
     gateBtn: 'Keep playing',
     gateSending: 'Sending…',
     gateInvalid: 'Enter a valid email.',
+    alreadyWon: 'You already have your coupon 🎟️ (one per person)',
     porraTitle: 'The Espanias Pool',
     porraSub: 'Predict the result of Spain’s next match and win a free website.',
     nextMatchLabel: 'Spain’s next match',
@@ -329,13 +331,16 @@ function PenaltyGame({ t }: { t: Copy }) {
   const [gateEmail, setGateEmail] = useState('')
   const [gateBusy, setGateBusy] = useState(false)
   const [gateErr, setGateErr] = useState('')
+  const [wonPrize, setWonPrize] = useState(false)
 
   useEffect(() => {
     try {
       const a = window.localStorage.getItem('espanias_mundial_attempts')
       const r = window.localStorage.getItem('espanias_mundial_registered')
+      const w = window.localStorage.getItem('espanias_mundial_won')
       if (a !== null) setAttempts(Math.max(0, parseInt(a, 10) || 0))
       if (r === '1') setRegistered(true)
+      if (w === '1') setWonPrize(true)
     } catch {
       /* no-op */
     }
@@ -349,7 +354,12 @@ function PenaltyGame({ t }: { t: Copy }) {
     setRegistered(b)
     try { window.localStorage.setItem('espanias_mundial_registered', b ? '1' : '0') } catch { /* no-op */ }
   }
-  const canPlay = registered || attempts > 0
+  const persistWon = (b: boolean) => {
+    setWonPrize(b)
+    try { window.localStorage.setItem('espanias_mundial_won', b ? '1' : '0') } catch { /* no-op */ }
+  }
+  // Un premio por persona: si ya ganó un cupón, no puede seguir tirando.
+  const canPlay = !wonPrize && (registered || attempts > 0)
 
   // Audio sintetizado (Web Audio API): sin archivos, se crea en el primer chut.
   const ac = (): AudioContext | null => {
@@ -417,7 +427,9 @@ function PenaltyGame({ t }: { t: Copy }) {
     vibrate(20)
     window.setTimeout(() => {
       if (isGoal) {
-        setPrize(pickPrize())
+        const p = pickPrize()
+        if (p.pct > 0) persistWon(true) // un cupón por persona
+        setPrize(p)
         setPhase('goal')
         sGoal()
         vibrate([40, 40, 90])
@@ -477,6 +489,18 @@ function PenaltyGame({ t }: { t: Copy }) {
       </button>
       {gateErr && <p className="text-xs text-red-300">{gateErr}</p>}
     </form>
+  )
+
+  const alreadyWonNode = (
+    <div className="flex flex-col items-center gap-2 text-center">
+      <p className="text-sm font-bold text-white">{t.alreadyWon}</p>
+      <Link
+        href="/contacto"
+        className="rounded-lg bg-[#FFC400] px-5 py-2.5 text-sm font-bold text-[#1C1917] transition-colors hover:bg-[#e0ad00]"
+      >
+        {t.claim}
+      </Link>
+    </div>
   )
 
   const moving = phase !== 'aim'
@@ -554,7 +578,8 @@ function PenaltyGame({ t }: { t: Copy }) {
 
       {/* estado bajo la portería */}
       <div className="mt-4 flex min-h-[180px] flex-col items-center justify-start">
-        {phase === 'aim' && (canPlay ? <p className="text-sm text-[#A8A29E]">{t.aimHint}</p> : gateJsx)}
+        {phase === 'aim' &&
+          (canPlay ? <p className="text-sm text-[#A8A29E]">{t.aimHint}</p> : wonPrize ? alreadyWonNode : gateJsx)}
         {phase === 'shoot' && <p className="text-sm text-[#A8A29E]">…</p>}
         {phase === 'saved' &&
           (canPlay ? (
@@ -564,6 +589,8 @@ function PenaltyGame({ t }: { t: Copy }) {
             >
               {t.retry}
             </button>
+          ) : wonPrize ? (
+            alreadyWonNode
           ) : (
             gateJsx
           ))}
@@ -574,6 +601,8 @@ function PenaltyGame({ t }: { t: Copy }) {
               <button onClick={reset} className="text-xs font-medium text-[#A8A29E] underline hover:text-white">
                 {t.playAgain}
               </button>
+            ) : wonPrize ? (
+              alreadyWonNode
             ) : (
               gateJsx
             )}
