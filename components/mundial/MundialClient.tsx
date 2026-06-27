@@ -197,15 +197,16 @@ function ClaimBox({ coupon, t, initialEmail }: { coupon: Prize; t: Copy; initial
     }
     setBusy(true)
     setErr('')
-    // Guarda el lead en BD y avisa por email (best-effort, en paralelo).
-    await Promise.allSettled([
-      sendContact('Cupón Mundial', em, `Cupón del juego del Mundial: ${coupon.code} (${coupon.pct}% de descuento).`),
-      fetch('/api/mundial-lead', {
+    // Guarda el lead en BD y manda el email de ganador (best-effort).
+    try {
+      await fetch('/api/mundial-lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: em, code: coupon.code, pct: coupon.pct }),
-      }),
-    ])
+        body: JSON.stringify({ email: em, code: coupon.code, pct: coupon.pct, sig: coupon.sig }),
+      })
+    } catch {
+      /* no bloquea el canje */
+    }
     try { window.localStorage.setItem('espanias_mundial_email', em) } catch { /* no-op */ }
     window.location.href = claimUrl(coupon, em)
   }
