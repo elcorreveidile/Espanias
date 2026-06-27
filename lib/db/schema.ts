@@ -118,4 +118,14 @@ export const mundialLeads = pgTable("mundial_leads", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
+// Porra del Mundial: pronósticos por partido (un pronóstico por email y partido).
+export const mundialPorra = pgTable("mundial_porra", {
+  id: serial("id").primaryKey(),
+  email: varchar("email", { length: 255 }).notNull(),
+  partido: varchar("partido", { length: 80 }).notNull(),
+  golesEs: integer("goles_es").notNull(),
+  golesRival: integer("goles_rival").notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
 export type Project = typeof projects.$inferSelect;

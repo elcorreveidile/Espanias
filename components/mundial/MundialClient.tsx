@@ -678,7 +678,7 @@ function PenaltyGame({ t }: { t: Copy }) {
   )
 }
 
-function PorraForm({ t, rival }: { t: Copy; rival: string }) {
+function PorraForm({ t, rival, partido }: { t: Copy; rival: string; partido: string }) {
   const [es, setEs] = useState('')
   const [ri, setRi] = useState('')
   const [email, setEmail] = useState('')
@@ -696,11 +696,12 @@ function PorraForm({ t, rival }: { t: Copy; rival: string }) {
     setBusy(true)
     setErr('')
     try {
-      await sendContact(
-        'Porra Mundial',
-        email,
-        `Pronóstico del próximo partido de España: España ${es}-${ri} ${rival || 'rival'}.`
-      )
+      const res = await fetch('/api/mundial-porra', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email.trim().toLowerCase(), es: Number(es), ri: Number(ri), partido }),
+      })
+      if (!res.ok) throw new Error('bad')
       setOk(true)
     } catch {
       setErr(t.porraInvalid)
@@ -823,7 +824,7 @@ export default function MundialClient({
                 {t.porraTitle}
               </h2>
               <p className="mb-6 text-center text-sm text-[#78716C] dark:text-[#A8A29E]">{t.porraSub}</p>
-              <PorraForm t={t} rival={next.rival} />
+              <PorraForm t={t} rival={next.rival} partido={next.faseEs} />
             </div>
           )}
 

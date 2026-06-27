@@ -104,6 +104,14 @@ export function ensureMundialTable(): Promise<void> {
         pct integer,
         created_at timestamp DEFAULT now()
       )`);
+      await db.execute(sql`CREATE TABLE IF NOT EXISTS mundial_porra (
+        id serial PRIMARY KEY,
+        email varchar(255) NOT NULL,
+        partido varchar(80) NOT NULL,
+        goles_es integer NOT NULL,
+        goles_rival integer NOT NULL,
+        created_at timestamp DEFAULT now()
+      )`);
     })().catch((err) => {
       mundialReady = null;
       throw err;
