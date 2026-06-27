@@ -119,12 +119,14 @@ export const mundialLeads = pgTable("mundial_leads", {
 });
 
 // Porra del Mundial: pronósticos por partido (un pronóstico por email y partido).
+// `desempate` = minuto del primer gol (criterio de desempate entre acertantes).
 export const mundialPorra = pgTable("mundial_porra", {
   id: serial("id").primaryKey(),
   email: varchar("email", { length: 255 }).notNull(),
   partido: varchar("partido", { length: 80 }).notNull(),
   golesEs: integer("goles_es").notNull(),
   golesRival: integer("goles_rival").notNull(),
+  desempate: integer("desempate"),
   createdAt: timestamp("created_at").defaultNow(),
 });
 

@@ -110,8 +110,10 @@ export function ensureMundialTable(): Promise<void> {
         partido varchar(80) NOT NULL,
         goles_es integer NOT NULL,
         goles_rival integer NOT NULL,
+        desempate integer,
         created_at timestamp DEFAULT now()
       )`);
+      await db.execute(sql`ALTER TABLE mundial_porra ADD COLUMN IF NOT EXISTS desempate integer`);
     })().catch((err) => {
       mundialReady = null;
       throw err;

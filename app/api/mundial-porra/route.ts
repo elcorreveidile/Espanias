@@ -20,12 +20,20 @@ export async function POST(req: NextRequest) {
   let partido = 'Próximo partido'
   let es = NaN
   let ri = NaN
+  let desempate = NaN
   try {
-    const b = (await req.json()) as { email?: unknown; partido?: unknown; es?: unknown; ri?: unknown }
+    const b = (await req.json()) as {
+      email?: unknown
+      partido?: unknown
+      es?: unknown
+      ri?: unknown
+      desempate?: unknown
+    }
     email = String(b.email ?? '').trim().toLowerCase()
     partido = String(b.partido ?? 'Próximo partido').slice(0, 80)
     es = Number(b.es)
     ri = Number(b.ri)
+    desempate = Number(b.desempate)
   } catch {
     /* body inválido */
   }
@@ -33,12 +41,14 @@ export async function POST(req: NextRequest) {
     !email.includes('@') ||
     !Number.isInteger(es) ||
     !Number.isInteger(ri) ||
-    es < 0 || ri < 0 || es > 30 || ri > 30
+    !Number.isInteger(desempate) ||
+    es < 0 || ri < 0 || es > 30 || ri > 30 ||
+    desempate < 0 || desempate > 130
   ) {
     return NextResponse.json({ error: 'datos' }, { status: 400 })
   }
   try {
-    await upsertPorra(email, partido, es, ri)
+    await upsertPorra(email, partido, es, ri, desempate)
   } catch (e) {
     return NextResponse.json({ ok: false, error: e instanceof Error ? e.message : 'db' }, { status: 500 })
   }
@@ -69,22 +79,32 @@ export async function GET(req: NextRequest) {
   if (!rows.length) {
     return NextResponse.json({ result, winner: null, note: 'sin pronósticos' })
   }
-  const exact = rows.filter((r) => r.golesEs === re && r.golesRival === rr)
+  // Minuto real del primer gol (desempate). Opcional pero recomendado.
+  const dm = Number(p.get('desempate'))
   const dist = (r: (typeof rows)[number]) => Math.abs(r.golesEs - re) + Math.abs(r.golesRival - rr)
-  // Acierto exacto → el más antiguo; si no, el más cercano (y entre cercanos, el más antiguo).
+  const tb = (r: (typeof rows)[number]) =>
+    Number.isFinite(dm) && r.desempate != null ? Math.abs(r.desempate - dm) : Infinity
+  const earliest = (a: (typeof rows)[number], b: (typeof rows)[number]) =>
+    (a.createdAt?.getTime() ?? 0) - (b.createdAt?.getTime() ?? 0)
+
+  const exact = rows.filter((r) => r.golesEs === re && r.golesRival === rr)
+  // Acierto exacto → desempate (minuto del 1er gol) → el más antiguo.
+  // Si nadie acierta → el más cercano en marcador → desempate → el más antiguo.
   const winner = exact.length
-    ? exact[0]
-    : rows.slice().sort((a, b) => dist(a) - dist(b) || (a.createdAt?.getTime() ?? 0) - (b.createdAt?.getTime() ?? 0))[0]
+    ? exact.slice().sort((a, b) => tb(a) - tb(b) || earliest(a, b))[0]
+    : rows.slice().sort((a, b) => dist(a) - dist(b) || tb(a) - tb(b) || earliest(a, b))[0]
 
   const code = 'PORRA-' + Math.random().toString(36).slice(2, 6).toUpperCase()
   const q = new URLSearchParams({ code, pct: '100', sig: sign(code, 100), email: winner.email })
   return NextResponse.json({
     result,
-    exacto: exact.length > 0,
+    desempateUsado: Number.isFinite(dm) ? dm : null,
+    aciertosExactos: exact.length,
     totalPronosticos: rows.length,
     winner: {
       email: winner.email,
       prediccion: `${winner.golesEs}-${winner.golesRival}`,
+      desempate: winner.desempate,
       fecha: winner.createdAt,
     },
     premioUrl: `https://www.por2duros.com/mundial?${q.toString()}`,

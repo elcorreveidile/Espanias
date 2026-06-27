@@ -89,11 +89,12 @@ const copy = {
     nextMatchLabel: 'Próximo partido de España',
     vsTbd: 'Rival por confirmar',
     porraEmailPlaceholder: 'tu@email.com',
+    porraTiebreak: 'Desempate · minuto del primer gol del partido',
     porraSubmit: 'Enviar pronóstico',
     porraSending: 'Enviando…',
     porraDone: '¡Pronóstico registrado! Mucha suerte 🍀',
-    porraInvalid: 'Pon el resultado y un email válido.',
-    porraRules: 'Hasta el pitido inicial. Gana quien acierte el resultado exacto (o el más cercano). Un pronóstico por persona.',
+    porraInvalid: 'Pon el resultado, el minuto y un email válido.',
+    porraRules: 'Hasta el pitido inicial. Gana quien acierte el resultado exacto; si empatan, el minuto del primer gol más cercano. Un pronóstico por persona.',
     ctaTitle: '¿Te apuntas al reto?',
     ctaText:
       'Mándanos «MUNDIAL» y tu email por contacto. Tu descuento sube solo con cada victoria de España.',
@@ -164,11 +165,12 @@ const copy = {
     nextMatchLabel: 'Spain’s next match',
     vsTbd: 'Opponent TBD',
     porraEmailPlaceholder: 'you@email.com',
+    porraTiebreak: 'Tiebreaker · minute of the match’s first goal',
     porraSubmit: 'Submit prediction',
     porraSending: 'Sending…',
     porraDone: 'Prediction saved! Good luck 🍀',
-    porraInvalid: 'Enter the score and a valid email.',
-    porraRules: 'Until kick-off. The exact result (or closest) wins. One prediction per person.',
+    porraInvalid: 'Enter the score, the minute and a valid email.',
+    porraRules: 'Until kick-off. The exact result wins; ties broken by the closest first-goal minute. One prediction per person.',
     ctaTitle: 'Join the challenge?',
     ctaText:
       'Send us “MUNDIAL” and your email via contact. Your discount grows on its own with every Spain win.',
@@ -681,6 +683,7 @@ function PenaltyGame({ t }: { t: Copy }) {
 function PorraForm({ t, rival, partido }: { t: Copy; rival: string; partido: string }) {
   const [es, setEs] = useState('')
   const [ri, setRi] = useState('')
+  const [tb, setTb] = useState('')
   const [email, setEmail] = useState('')
   const [busy, setBusy] = useState(false)
   const [ok, setOk] = useState(false)
@@ -689,7 +692,7 @@ function PorraForm({ t, rival, partido }: { t: Copy; rival: string; partido: str
   const submit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (busy) return
-    if (!email.includes('@') || es === '' || ri === '') {
+    if (!email.includes('@') || es === '' || ri === '' || tb === '') {
       setErr(t.porraInvalid)
       return
     }
@@ -699,7 +702,7 @@ function PorraForm({ t, rival, partido }: { t: Copy; rival: string; partido: str
       const res = await fetch('/api/mundial-porra', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email.trim().toLowerCase(), es: Number(es), ri: Number(ri), partido }),
+        body: JSON.stringify({ email: email.trim().toLowerCase(), es: Number(es), ri: Number(ri), desempate: Number(tb), partido }),
       })
       if (!res.ok) throw new Error('bad')
       setOk(true)
@@ -738,6 +741,19 @@ function PorraForm({ t, rival, partido }: { t: Copy; rival: string; partido: str
         <span className="max-w-[120px] truncate text-sm font-semibold text-[#1C1917] dark:text-white">
           {rival || t.vsTbd}
         </span>
+      </div>
+      <div className="w-full">
+        <label className="mb-1 block text-center text-[11px] font-medium text-[#78716C] dark:text-[#A8A29E]">
+          {t.porraTiebreak}
+        </label>
+        <input
+          inputMode="numeric"
+          value={tb}
+          onChange={(e) => setTb(e.target.value.replace(/\D/g, '').slice(0, 3))}
+          placeholder="42"
+          aria-label={t.porraTiebreak}
+          className="w-full rounded-lg border border-stone-300 px-3 py-2 text-center text-sm text-[#1C1917] focus:border-[#BF2638] focus:outline-none dark:border-white/15 dark:bg-white/10 dark:text-white"
+        />
       </div>
       <input
         type="email"
