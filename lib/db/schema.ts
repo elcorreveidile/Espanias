@@ -126,8 +126,8 @@ export const mundialPorra = pgTable("mundial_porra", {
   partido: varchar("partido", { length: 80 }).notNull(),
   golesEs: integer("goles_es").notNull(),
   golesRival: integer("goles_rival").notNull(),
-  desempate: integer("desempate"), // minuto del primer gol
-  desempateAdd: integer("desempate_add"), // añadido/descuento (+X)
+  desempate: integer("desempate"), // minuto del primer gol dentro de la parte
+  desempateFase: integer("desempate_fase"), // 1=1ª parte, 2=2ª parte, 3=prórroga
   createdAt: timestamp("created_at").defaultNow(),
 });
 
