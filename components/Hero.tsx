@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useLanguage } from '@/context/LanguageContext'
 import { translations } from '@/lib/translations'
+import MundialBanner from '@/components/MundialBanner'
 
 export default function Hero() {
   const { lang } = useLanguage()
@@ -31,6 +32,9 @@ export default function Hero() {
       </div>
 
       <div className="relative max-w-5xl w-full mx-auto text-center">
+        {/* Banner del Reto Mundial */}
+        <MundialBanner />
+
         {/* Small formula label */}
         <p className="text-xs uppercase tracking-[0.4em] text-[#78716C] mb-10 font-medium">
           {t.formula}
