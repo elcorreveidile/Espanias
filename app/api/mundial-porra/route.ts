@@ -15,6 +15,45 @@ function sign(code: string, pct: number): string {
   return createHmac('sha256', secret).update(`${code}.${pct}`).digest('hex')
 }
 
+// Email al ganador con el enlace de su web gratis. Devuelve si se envió.
+async function sendWinnerEmail(to: string, premioUrl: string): Promise<boolean> {
+  const apiKey = process.env.RESEND_API_KEY
+  if (!apiKey) return false
+  try {
+    const res = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        from: 'Espanias <hola@espanias.com>',
+        to,
+        subject: '🏆 ¡Has ganado la Porra del Mundial de Espanias!',
+        html: `<!DOCTYPE html><html lang="es"><body style="margin:0;background:#F9F7F4;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;padding:40px 20px;">
+  <table width="100%" cellpadding="0" cellspacing="0"><tr><td align="center">
+    <table width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;">
+      <tr><td style="background:#1C1917;border-radius:14px 14px 0 0;padding:28px 36px;">
+        <div style="height:3px;background:linear-gradient(90deg,#C60B1E,#FFC400,#C60B1E);border-radius:2px;margin-bottom:18px;"></div>
+        <p style="margin:0;font-size:24px;font-weight:900;color:#FFC400;">🏆 ¡Has ganado la Porra!</p>
+        <p style="margin:8px 0 0;font-size:13px;color:#A8A29E;">Reto Mundial · Espanias</p>
+      </td></tr>
+      <tr><td style="background:#ffffff;padding:32px 36px;">
+        <p style="margin:0 0 18px;font-size:16px;line-height:1.6;color:#1C1917;">Tu pronóstico fue el ganador. Como premio, <strong>te llevas una WEB GRATIS</strong> con Por 2 Duros.</p>
+        <a href="${premioUrl}" style="display:inline-block;background:#FFC400;color:#1C1917;font-size:15px;font-weight:800;text-decoration:none;padding:14px 30px;border-radius:10px;">Conseguir mi web gratis →</a>
+        <p style="margin:22px 0 0;font-size:12px;color:#78716C;">Si el botón no funciona, copia este enlace:<br><span style="color:#6D28D9;word-break:break-all;">${premioUrl}</span></p>
+      </td></tr>
+      <tr><td style="background:#F9F7F4;border-radius:0 0 14px 14px;padding:18px 36px;border:1px solid #E7E5E4;border-top:none;text-align:center;">
+        <p style="margin:0;font-size:12px;color:#78716C;">Enviado desde <a href="https://espanias.com" style="color:#BF2638;text-decoration:none;font-weight:600;">espanias.com</a></p>
+      </td></tr>
+    </table>
+  </td></tr></table>
+</body></html>`,
+      }),
+    })
+    return res.ok
+  } catch {
+    return false
+  }
+}
+
 export async function POST(req: NextRequest) {
   let email = ''
   let partido = 'Próximo partido'
@@ -96,6 +135,9 @@ export async function GET(req: NextRequest) {
 
   const code = 'PORRA-' + Math.random().toString(36).slice(2, 6).toUpperCase()
   const q = new URLSearchParams({ code, pct: '100', sig: sign(code, 100), email: winner.email })
+  const premioUrl = `https://www.por2duros.com/mundial?${q.toString()}`
+  // Solo envía el email al ganador si se pide explícitamente con &send=1.
+  const emailEnviado = p.get('send') === '1' ? await sendWinnerEmail(winner.email, premioUrl) : false
   return NextResponse.json({
     result,
     desempateUsado: Number.isFinite(dm) ? dm : null,
@@ -107,6 +149,7 @@ export async function GET(req: NextRequest) {
       desempate: winner.desempate,
       fecha: winner.createdAt,
     },
-    premioUrl: `https://www.por2duros.com/mundial?${q.toString()}`,
+    premioUrl,
+    emailEnviado,
   })
 }

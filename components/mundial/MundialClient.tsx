@@ -90,6 +90,7 @@ const copy = {
     vsTbd: 'Rival por confirmar',
     porraEmailPlaceholder: 'tu@email.com',
     porraTiebreak: 'Desempate · minuto del primer gol del partido',
+    porraTiebreakHelp: 'Si varios aciertan el resultado, gana quien más se acerque a este minuto.',
     porraSubmit: 'Enviar pronóstico',
     porraSending: 'Enviando…',
     porraDone: '¡Pronóstico registrado! Mucha suerte 🍀',
@@ -166,6 +167,7 @@ const copy = {
     vsTbd: 'Opponent TBD',
     porraEmailPlaceholder: 'you@email.com',
     porraTiebreak: 'Tiebreaker · minute of the match’s first goal',
+    porraTiebreakHelp: 'If several get the score right, the closest to this minute wins.',
     porraSubmit: 'Submit prediction',
     porraSending: 'Sending…',
     porraDone: 'Prediction saved! Good luck 🍀',
@@ -754,6 +756,7 @@ function PorraForm({ t, rival, partido }: { t: Copy; rival: string; partido: str
           aria-label={t.porraTiebreak}
           className="w-full rounded-lg border border-stone-300 px-3 py-2 text-center text-sm text-[#1C1917] focus:border-[#BF2638] focus:outline-none dark:border-white/15 dark:bg-white/10 dark:text-white"
         />
+        <p className="mt-1 text-center text-[10px] leading-snug text-[#A8A29E]">{t.porraTiebreakHelp}</p>
       </div>
       <input
         type="email"
