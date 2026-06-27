@@ -81,6 +81,7 @@ const copy = {
     receiveBtn: 'Recibir mi cupón',
     receiveSending: 'Enviando…',
     receiveSent: '¡Te lo enviamos! 📩',
+    claimEmailTitle: 'Escribe tu email para conseguir tu cupón',
     preparing: 'Preparando tu premio…',
     porraTitle: 'La Porra de Espanias',
     porraSub: 'Acierta el resultado del próximo partido de España y gana una web gratis.',
@@ -155,6 +156,7 @@ const copy = {
     receiveBtn: 'Send me my coupon',
     receiveSending: 'Sending…',
     receiveSent: 'Sent! 📩',
+    claimEmailTitle: 'Enter your email to get your coupon',
     preparing: 'Preparing your prize…',
     porraTitle: 'The Espanias Pool',
     porraSub: 'Predict the result of Spain’s next match and win a free website.',
@@ -177,38 +179,59 @@ const copy = {
 
 type Copy = typeof copy.es
 
-function ScratchCard({ prize, t, muted }: { prize: Prize; t: Copy; muted: boolean }) {
+// Canje del cupón: el email es OBLIGATORIO. Al enviar, registra el lead y
+// redirige a por2duros con el cupón firmado.
+function ClaimBox({ coupon, t, initialEmail }: { coupon: Prize; t: Copy; initialEmail: string }) {
+  const [email, setEmail] = useState(initialEmail)
+  const [busy, setBusy] = useState(false)
+  const [err, setErr] = useState('')
+
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (busy) return
+    const em = email.trim().toLowerCase()
+    if (!em.includes('@')) {
+      setErr(t.gateInvalid)
+      return
+    }
+    setBusy(true)
+    setErr('')
+    try {
+      await sendContact('Cupón Mundial', em, `Cupón del juego del Mundial: ${coupon.code} (${coupon.pct}% de descuento).`)
+    } catch {
+      /* lead best-effort; el canje continúa igual */
+    }
+    try { window.localStorage.setItem('espanias_mundial_email', em) } catch { /* no-op */ }
+    window.location.href = claimUrl(coupon)
+  }
+
+  return (
+    <form onSubmit={submit} className="flex w-full max-w-[300px] flex-col items-center gap-2 text-center">
+      <p className="text-xs font-bold text-[#FFC400]">{t.claimEmailTitle}</p>
+      <input
+        type="email"
+        required
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder={t.gatePlaceholder}
+        className="w-full rounded-lg border border-white/20 bg-white/10 px-3 py-2 text-sm text-white placeholder-white/40 focus:border-[#FFC400] focus:outline-none"
+      />
+      <button
+        type="submit"
+        disabled={busy}
+        className="w-full rounded-lg bg-[#FFC400] px-5 py-3 text-sm font-black text-[#1C1917] transition-colors hover:bg-[#e0ad00] disabled:opacity-60"
+      >
+        {busy ? t.receiveSending : `${t.claim} →`}
+      </button>
+      {err && <p className="text-xs text-red-300">{err}</p>}
+    </form>
+  )
+}
+
+function ScratchCard({ prize, t, muted, email }: { prize: Prize; t: Copy; muted: boolean; email: string }) {
   const ref = useRef<HTMLCanvasElement | null>(null)
   const drawing = useRef(false)
   const [revealed, setRevealed] = useState(false)
-  const [rEmail, setREmail] = useState('')
-  const [rBusy, setRBusy] = useState(false)
-  const [rSent, setRSent] = useState(false)
-  const [rErr, setRErr] = useState('')
-
-  const receive = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (rBusy) return
-    const em = rEmail.trim().toLowerCase()
-    if (!em.includes('@')) {
-      setRErr(t.gateInvalid)
-      return
-    }
-    setRBusy(true)
-    setRErr('')
-    try {
-      await sendContact(
-        'Cupón Mundial',
-        em,
-        `Cupón del juego del Mundial: ${prize.code} (${prize.pct}% de descuento). Quiere recibirlo.`
-      )
-      try { window.localStorage.setItem('espanias_mundial_email', em) } catch { /* no-op */ }
-      setRSent(true)
-    } catch {
-      setRErr(t.gateInvalid)
-    }
-    setRBusy(false)
-  }
 
   // Vibración de celebración al destapar un premio gordo (80% o web gratis).
   useEffect(() => {
@@ -315,39 +338,7 @@ function ScratchCard({ prize, t, muted }: { prize: Prize; t: Copy; muted: boolea
       {!revealed ? (
         <p className="max-w-[300px] text-center text-xs text-[#A8A29E]">{t.scratchInstr}</p>
       ) : prize.pct > 0 ? (
-        <div className="flex w-full max-w-[300px] flex-col items-center gap-3 text-center">
-          <a
-            href={claimUrl(prize)}
-            className="w-full rounded-lg bg-[#FFC400] px-5 py-3 text-sm font-black text-[#1C1917] transition-colors hover:bg-[#e0ad00]"
-          >
-            {t.claim} →
-          </a>
-          {rSent ? (
-            <p className="text-xs font-bold text-emerald-400">{t.receiveSent}</p>
-          ) : (
-            <form onSubmit={receive} className="flex w-full flex-col items-center gap-2">
-              <p className="text-[11px] text-[#A8A29E]">{t.receiveTitle}</p>
-              <div className="flex w-full gap-2">
-                <input
-                  type="email"
-                  required
-                  value={rEmail}
-                  onChange={(e) => setREmail(e.target.value)}
-                  placeholder={t.gatePlaceholder}
-                  className="min-w-0 flex-1 rounded-lg border border-white/20 bg-white/10 px-3 py-2 text-sm text-white placeholder-white/40 focus:border-[#FFC400] focus:outline-none"
-                />
-                <button
-                  type="submit"
-                  disabled={rBusy}
-                  className="shrink-0 rounded-lg border border-white/25 px-3 py-2 text-xs font-semibold text-white transition-colors hover:bg-white/10 disabled:opacity-60"
-                >
-                  {rBusy ? '…' : t.receiveBtn}
-                </button>
-              </div>
-              {rErr && <p className="text-xs text-red-300">{rErr}</p>}
-            </form>
-          )}
-        </div>
+        <ClaimBox coupon={prize} t={t} initialEmail={email} />
       ) : (
         <p className="max-w-[300px] text-center text-xs text-[#A8A29E]">{t.ctaText}</p>
       )}
@@ -562,15 +553,10 @@ function PenaltyGame({ t }: { t: Copy }) {
   )
 
   const alreadyWonNode = (
-    <div className="flex flex-col items-center gap-2 text-center">
+    <div className="flex flex-col items-center gap-3 text-center">
       <p className="max-w-[280px] text-sm font-bold text-white">{t.alreadyWon}</p>
       {wonCoupon && wonCoupon.pct > 0 && (
-        <a
-          href={claimUrl(wonCoupon)}
-          className="rounded-lg bg-[#FFC400] px-5 py-2.5 text-sm font-black text-[#1C1917] transition-colors hover:bg-[#e0ad00]"
-        >
-          {t.claim} →
-        </a>
+        <ClaimBox coupon={wonCoupon} t={t} initialEmail={playerEmail} />
       )}
     </div>
   )
@@ -669,7 +655,7 @@ function PenaltyGame({ t }: { t: Copy }) {
         {phase === 'goal' &&
           (prize ? (
             <div className="flex flex-col items-center gap-3">
-              <ScratchCard prize={prize} t={t} muted={muted} />
+              <ScratchCard prize={prize} t={t} muted={muted} email={playerEmail} />
               {wonPrize ? null : canPlay ? (
                 <button onClick={reset} className="text-xs font-medium text-[#A8A29E] underline hover:text-white">
                   {t.playAgain}
