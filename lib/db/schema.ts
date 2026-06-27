@@ -109,4 +109,13 @@ export const mundialCupones = pgTable("mundial_cupones", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
+// Leads del juego del Mundial: email de quien canjea su cupón (uno por email).
+export const mundialLeads = pgTable("mundial_leads", {
+  id: serial("id").primaryKey(),
+  email: varchar("email", { length: 255 }).unique().notNull(),
+  code: varchar("code", { length: 40 }),
+  pct: integer("pct"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
 export type Project = typeof projects.$inferSelect;

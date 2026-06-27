@@ -89,19 +89,25 @@ let mundialReady: Promise<void> | null = null;
 
 export function ensureMundialTable(): Promise<void> {
   if (!mundialReady) {
-    mundialReady = db
-      .execute(sql`CREATE TABLE IF NOT EXISTS mundial_cupones (
+    mundialReady = (async () => {
+      await db.execute(sql`CREATE TABLE IF NOT EXISTS mundial_cupones (
         id serial PRIMARY KEY,
         email varchar(255) UNIQUE NOT NULL,
         code varchar(40) NOT NULL,
         pct integer NOT NULL,
         created_at timestamp DEFAULT now()
-      )`)
-      .then(() => undefined)
-      .catch((err) => {
-        mundialReady = null;
-        throw err;
-      });
+      )`);
+      await db.execute(sql`CREATE TABLE IF NOT EXISTS mundial_leads (
+        id serial PRIMARY KEY,
+        email varchar(255) UNIQUE NOT NULL,
+        code varchar(40),
+        pct integer,
+        created_at timestamp DEFAULT now()
+      )`);
+    })().catch((err) => {
+      mundialReady = null;
+      throw err;
+    });
   }
   return mundialReady;
 }
