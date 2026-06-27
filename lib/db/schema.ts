@@ -100,4 +100,13 @@ export const magicTokens = pgTable("magic_tokens", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
+// Cupones del juego del Mundial: un registro por email (candado real anti-abuso).
+export const mundialCupones = pgTable("mundial_cupones", {
+  id: serial("id").primaryKey(),
+  email: varchar("email", { length: 255 }).unique().notNull(),
+  code: varchar("code", { length: 40 }).notNull(),
+  pct: integer("pct").notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
 export type Project = typeof projects.$inferSelect;

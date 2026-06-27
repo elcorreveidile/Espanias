@@ -84,6 +84,28 @@ export function ensurePostsTable(): Promise<void> {
   return postsReady;
 }
 
+// Tabla de cupones del Mundial (idempotente): un cupón por email.
+let mundialReady: Promise<void> | null = null;
+
+export function ensureMundialTable(): Promise<void> {
+  if (!mundialReady) {
+    mundialReady = db
+      .execute(sql`CREATE TABLE IF NOT EXISTS mundial_cupones (
+        id serial PRIMARY KEY,
+        email varchar(255) UNIQUE NOT NULL,
+        code varchar(40) NOT NULL,
+        pct integer NOT NULL,
+        created_at timestamp DEFAULT now()
+      )`)
+      .then(() => undefined)
+      .catch((err) => {
+        mundialReady = null;
+        throw err;
+      });
+  }
+  return mundialReady;
+}
+
 async function run_posts(): Promise<void> {
   await db.execute(sql`CREATE TABLE IF NOT EXISTS posts (
     id serial PRIMARY KEY,
