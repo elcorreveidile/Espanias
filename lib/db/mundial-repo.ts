@@ -54,7 +54,8 @@ export async function upsertPorra(
   partido: string,
   golesEs: number,
   golesRival: number,
-  desempate: number
+  desempate: number,
+  desempateAdd: number
 ): Promise<void> {
   await ensureMundialTable()
   const existing = await db
@@ -65,10 +66,10 @@ export async function upsertPorra(
   if (existing.length) {
     await db
       .update(mundialPorra)
-      .set({ golesEs, golesRival, desempate, createdAt: new Date() })
+      .set({ golesEs, golesRival, desempate, desempateAdd, createdAt: new Date() })
       .where(eq(mundialPorra.id, existing[0].id))
   } else {
-    await db.insert(mundialPorra).values({ email, partido, golesEs, golesRival, desempate })
+    await db.insert(mundialPorra).values({ email, partido, golesEs, golesRival, desempate, desempateAdd })
   }
 }
 

@@ -89,8 +89,10 @@ const copy = {
     nextMatchLabel: 'Próximo partido de España',
     vsTbd: 'Rival por confirmar',
     porraEmailPlaceholder: 'tu@email.com',
-    porraTiebreak: 'Desempate · minuto del primer gol del partido',
-    porraTiebreakHelp: 'Si varios aciertan el resultado, gana quien más se acerque a este minuto.',
+    porraTiebreak: 'Desempate · minuto del primer gol (con descuento)',
+    porraTiebreakHelp: 'Si varios aciertan el resultado, gana quien más se acerque a este momento (ej. 45+2 = minuto 45, añadido 2).',
+    porraAdded: 'añadido',
+    porraHalf: (m: number): string => (m <= 0 ? '' : m <= 45 ? '1ª parte' : m <= 90 ? '2ª parte' : 'prórroga'),
     porraSubmit: 'Enviar pronóstico',
     porraSending: 'Enviando…',
     porraDone: '¡Pronóstico registrado! Mucha suerte 🍀',
@@ -166,8 +168,10 @@ const copy = {
     nextMatchLabel: 'Spain’s next match',
     vsTbd: 'Opponent TBD',
     porraEmailPlaceholder: 'you@email.com',
-    porraTiebreak: 'Tiebreaker · minute of the match’s first goal',
-    porraTiebreakHelp: 'If several get the score right, the closest to this minute wins.',
+    porraTiebreak: 'Tiebreaker · minute of the first goal (with added time)',
+    porraTiebreakHelp: 'If several get the score right, the closest to this moment wins (e.g. 45+2 = minute 45, added 2).',
+    porraAdded: 'added',
+    porraHalf: (m: number): string => (m <= 0 ? '' : m <= 45 ? '1st half' : m <= 90 ? '2nd half' : 'extra time'),
     porraSubmit: 'Submit prediction',
     porraSending: 'Sending…',
     porraDone: 'Prediction saved! Good luck 🍀',
@@ -686,6 +690,7 @@ function PorraForm({ t, rival, partido }: { t: Copy; rival: string; partido: str
   const [es, setEs] = useState('')
   const [ri, setRi] = useState('')
   const [tb, setTb] = useState('')
+  const [add, setAdd] = useState('')
   const [email, setEmail] = useState('')
   const [busy, setBusy] = useState(false)
   const [ok, setOk] = useState(false)
@@ -704,7 +709,7 @@ function PorraForm({ t, rival, partido }: { t: Copy; rival: string; partido: str
       const res = await fetch('/api/mundial-porra', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email.trim().toLowerCase(), es: Number(es), ri: Number(ri), desempate: Number(tb), partido }),
+        body: JSON.stringify({ email: email.trim().toLowerCase(), es: Number(es), ri: Number(ri), desempate: Number(tb), desempateAdd: Number(add) || 0, partido }),
       })
       if (!res.ok) throw new Error('bad')
       setOk(true)
@@ -748,14 +753,28 @@ function PorraForm({ t, rival, partido }: { t: Copy; rival: string; partido: str
         <label className="mb-1 block text-center text-[11px] font-medium text-[#78716C] dark:text-[#A8A29E]">
           {t.porraTiebreak}
         </label>
-        <input
-          inputMode="numeric"
-          value={tb}
-          onChange={(e) => setTb(e.target.value.replace(/\D/g, '').slice(0, 3))}
-          placeholder="42"
-          aria-label={t.porraTiebreak}
-          className="w-full rounded-lg border border-stone-300 px-3 py-2 text-center text-sm text-[#1C1917] focus:border-[#BF2638] focus:outline-none dark:border-white/15 dark:bg-white/10 dark:text-white"
-        />
+        <div className="flex items-center justify-center gap-1.5">
+          <input
+            inputMode="numeric"
+            value={tb}
+            onChange={(e) => setTb(e.target.value.replace(/\D/g, '').slice(0, 3))}
+            placeholder="42"
+            aria-label={t.porraTiebreak}
+            className="w-16 rounded-lg border border-stone-300 px-2 py-2 text-center text-sm font-bold text-[#1C1917] focus:border-[#BF2638] focus:outline-none dark:border-white/15 dark:bg-white/10 dark:text-white"
+          />
+          <span className="font-black text-[#78716C]">+</span>
+          <input
+            inputMode="numeric"
+            value={add}
+            onChange={(e) => setAdd(e.target.value.replace(/\D/g, '').slice(0, 2))}
+            placeholder="0"
+            aria-label={t.porraAdded}
+            className="w-12 rounded-lg border border-stone-300 px-2 py-2 text-center text-sm text-[#1C1917] focus:border-[#BF2638] focus:outline-none dark:border-white/15 dark:bg-white/10 dark:text-white"
+          />
+          {tb !== '' && (
+            <span className="text-xs font-semibold text-[#BF2638]">{t.porraHalf(Number(tb))}</span>
+          )}
+        </div>
         <p className="mt-1 text-center text-[10px] leading-snug text-[#A8A29E]">{t.porraTiebreakHelp}</p>
       </div>
       <input

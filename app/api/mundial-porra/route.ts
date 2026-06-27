@@ -60,6 +60,7 @@ export async function POST(req: NextRequest) {
   let es = NaN
   let ri = NaN
   let desempate = NaN
+  let desempateAdd = 0
   try {
     const b = (await req.json()) as {
       email?: unknown
@@ -67,12 +68,14 @@ export async function POST(req: NextRequest) {
       es?: unknown
       ri?: unknown
       desempate?: unknown
+      desempateAdd?: unknown
     }
     email = String(b.email ?? '').trim().toLowerCase()
     partido = String(b.partido ?? 'Próximo partido').slice(0, 80)
     es = Number(b.es)
     ri = Number(b.ri)
     desempate = Number(b.desempate)
+    desempateAdd = Number(b.desempateAdd) || 0
   } catch {
     /* body inválido */
   }
@@ -81,13 +84,15 @@ export async function POST(req: NextRequest) {
     !Number.isInteger(es) ||
     !Number.isInteger(ri) ||
     !Number.isInteger(desempate) ||
+    !Number.isInteger(desempateAdd) ||
     es < 0 || ri < 0 || es > 30 || ri > 30 ||
-    desempate < 0 || desempate > 130
+    desempate < 0 || desempate > 130 ||
+    desempateAdd < 0 || desempateAdd > 20
   ) {
     return NextResponse.json({ error: 'datos' }, { status: 400 })
   }
   try {
-    await upsertPorra(email, partido, es, ri, desempate)
+    await upsertPorra(email, partido, es, ri, desempate, desempateAdd)
   } catch (e) {
     return NextResponse.json({ ok: false, error: e instanceof Error ? e.message : 'db' }, { status: 500 })
   }
@@ -118,11 +123,14 @@ export async function GET(req: NextRequest) {
   if (!rows.length) {
     return NextResponse.json({ result, winner: null, note: 'sin pronósticos' })
   }
-  // Minuto real del primer gol (desempate). Opcional pero recomendado.
+  // Momento real del primer gol (desempate): minuto + añadido. Opcional.
   const dm = Number(p.get('desempate'))
+  const dadd = Number(p.get('add')) || 0
+  const actualMoment = Number.isFinite(dm) ? dm * 100 + dadd : NaN
+  const moment = (r: (typeof rows)[number]) => (r.desempate ?? 0) * 100 + (r.desempateAdd ?? 0)
   const dist = (r: (typeof rows)[number]) => Math.abs(r.golesEs - re) + Math.abs(r.golesRival - rr)
   const tb = (r: (typeof rows)[number]) =>
-    Number.isFinite(dm) && r.desempate != null ? Math.abs(r.desempate - dm) : Infinity
+    Number.isFinite(actualMoment) && r.desempate != null ? Math.abs(moment(r) - actualMoment) : Infinity
   const earliest = (a: (typeof rows)[number], b: (typeof rows)[number]) =>
     (a.createdAt?.getTime() ?? 0) - (b.createdAt?.getTime() ?? 0)
 
@@ -146,7 +154,7 @@ export async function GET(req: NextRequest) {
     winner: {
       email: winner.email,
       prediccion: `${winner.golesEs}-${winner.golesRival}`,
-      desempate: winner.desempate,
+      minutoPrimerGol: winner.desempateAdd ? `${winner.desempate}+${winner.desempateAdd}` : winner.desempate,
       fecha: winner.createdAt,
     },
     premioUrl,
