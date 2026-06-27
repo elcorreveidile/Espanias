@@ -18,22 +18,10 @@ const POS: Record<Dir, string> = { left: '24%', center: '50%', right: '76%' }
 const STATUS_EMOJI: Record<MatchStatus, string> = { ganado: '✅', empate: '🟰', perdido: '❌', proximo: '🔜', eliminado: '🚫' }
 const STATUS_COLOR: Record<MatchStatus, string> = { ganado: 'text-emerald-600', empate: 'text-stone-500', perdido: 'text-red-600', proximo: 'text-amber-600', eliminado: 'text-stone-500' }
 
-const FREEWEB_KEY = 'espanias_mundial_freeweb'
-
 function pickPrize(): Prize {
   const r = Math.random() * 100
-  let pct = r < 2 ? 100 : r < 8 ? 80 : r < 28 ? 20 : r < 55 ? 15 : r < 82 ? 10 : 0
-  // La web gratis solo una vez por navegador (candado de UX; el de verdad,
-  // por email en BD, lo activaremos al rediseñar la entrega del premio).
-  try {
-    if (pct === 100 && typeof window !== 'undefined' && window.localStorage.getItem(FREEWEB_KEY)) pct = 80
-  } catch {
-    /* no-op */
-  }
+  const pct = r < 2 ? 100 : r < 8 ? 80 : r < 28 ? 20 : r < 55 ? 15 : r < 82 ? 10 : 0
   const code = 'MUNDIAL-' + Math.random().toString(36).slice(2, 6).toUpperCase()
-  if (pct === 100) {
-    try { window.localStorage.setItem(FREEWEB_KEY, code) } catch { /* no-op */ }
-  }
   return { pct, code }
 }
 
@@ -94,6 +82,7 @@ const copy = {
     receiveBtn: 'Recibir mi cupón',
     receiveSending: 'Enviando…',
     receiveSent: '¡Te lo enviamos! 📩',
+    preparing: 'Preparando tu premio…',
     porraTitle: 'La Porra de Espanias',
     porraSub: 'Acierta el resultado del próximo partido de España y gana una web gratis.',
     nextMatchLabel: 'Próximo partido de España',
@@ -167,6 +156,7 @@ const copy = {
     receiveBtn: 'Send me my coupon',
     receiveSending: 'Sending…',
     receiveSent: 'Sent! 📩',
+    preparing: 'Preparing your prize…',
     porraTitle: 'The Espanias Pool',
     porraSub: 'Predict the result of Spain’s next match and win a free website.',
     nextMatchLabel: 'Spain’s next match',
@@ -407,6 +397,17 @@ function PenaltyGame({ t }: { t: Copy }) {
     try { window.localStorage.setItem('espanias_mundial_email', em) } catch { /* no-op */ }
   }
 
+  // Reserva (en servidor) una de las webs gratis del tope global. true = concedida.
+  const reserveFreeWeb = async (): Promise<boolean> => {
+    try {
+      const res = await fetch('/api/mundial-freeweb', { method: 'POST' })
+      const data = (await res.json()) as { granted?: boolean }
+      return Boolean(data.granted)
+    } catch {
+      return false
+    }
+  }
+
   // Audio sintetizado (Web Audio API): sin archivos, se crea en el primer chut.
   const ac = (): AudioContext | null => {
     if (typeof window === 'undefined') return null
@@ -473,12 +474,16 @@ function PenaltyGame({ t }: { t: Copy }) {
     vibrate(20)
     window.setTimeout(() => {
       if (isGoal) {
-        const p = pickPrize()
-        if (p.pct > 0) persistWon(true) // un cupón por persona
-        setPrize(p)
         setPhase('goal')
         sGoal()
         vibrate([40, 40, 90])
+        // Resolvemos el premio; la web gratis se reserva contra el tope global.
+        void (async () => {
+          const p = pickPrize()
+          if (p.pct === 100 && !(await reserveFreeWeb())) p.pct = 80
+          if (p.pct > 0) persistWon(true) // un cupón por persona
+          setPrize(p)
+        })()
       } else {
         setPhase('saved')
         sSave()
@@ -641,20 +646,23 @@ function PenaltyGame({ t }: { t: Copy }) {
           ) : (
             gateJsx
           ))}
-        {phase === 'goal' && prize && (
-          <div className="flex flex-col items-center gap-3">
-            <ScratchCard prize={prize} t={t} muted={muted} />
-            {wonPrize ? (
-              alreadyWonNode
-            ) : canPlay ? (
-              <button onClick={reset} className="text-xs font-medium text-[#A8A29E] underline hover:text-white">
-                {t.playAgain}
-              </button>
-            ) : (
-              gateJsx
-            )}
-          </div>
-        )}
+        {phase === 'goal' &&
+          (prize ? (
+            <div className="flex flex-col items-center gap-3">
+              <ScratchCard prize={prize} t={t} muted={muted} />
+              {wonPrize ? (
+                alreadyWonNode
+              ) : canPlay ? (
+                <button onClick={reset} className="text-xs font-medium text-[#A8A29E] underline hover:text-white">
+                  {t.playAgain}
+                </button>
+              ) : (
+                gateJsx
+              )}
+            </div>
+          ) : (
+            <p className="text-sm text-white/80">{t.preparing}</p>
+          ))}
       </div>
     </div>
   )
