@@ -934,12 +934,12 @@ export default function MundialClient({
             {/* Apuntarse */}
             <div className="text-center">
               <p className="mx-auto mb-4 max-w-md text-sm text-[#78716C] dark:text-[#A8A29E]">{t.signupNote}</p>
-              <Link
-                href="/contacto"
+              <a
+                href="https://www.por2duros.com/reto-mundial"
                 className="inline-block rounded-lg bg-[#BF2638] px-6 py-3 font-semibold text-white transition-colors hover:bg-[#a01f2e]"
               >
                 {t.signupBtn}
-              </Link>
+              </a>
             </div>
           </div>
         </div>
