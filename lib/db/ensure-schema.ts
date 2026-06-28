@@ -63,6 +63,7 @@ export function ensureProjectColumns(): Promise<void> {
     projectCols = (async () => {
       await db.execute(sql`ALTER TABLE projects ADD COLUMN IF NOT EXISTS imagen_url text`);
       await db.execute(sql`ALTER TABLE projects ADD COLUMN IF NOT EXISTS categories text`);
+      await db.execute(sql`ALTER TABLE projects ADD COLUMN IF NOT EXISTS ecr_barrio varchar(16)`);
     })().catch((err) => {
       projectCols = null;
       throw err;

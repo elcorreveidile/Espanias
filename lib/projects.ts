@@ -16,6 +16,8 @@ export interface Project {
   demo?: string
   sector?: string
   image?: string
+  /** Código del barrio de Economía Circular al que está adherido (p. ej. "ECR"). */
+  ecrBarrio?: string
 }
 
 /** Conjunto único de categorías de una ficha (principal + adicionales). */

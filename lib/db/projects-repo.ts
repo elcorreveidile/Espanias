@@ -32,6 +32,7 @@ export interface ProjectUpdate {
   estado?: string
   sector?: string | null
   claim?: string | null
+  ecrBarrio?: string | null
   descripcionEs?: string | null
   descripcionEn?: string | null
   url?: string | null

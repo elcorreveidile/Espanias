@@ -37,6 +37,7 @@ function mapRow(row: DbRow): Project {
   const sector = str(row.sector)
   const image = str(row.imagenUrl)
   const claim = str(row.claim)
+  const ecrBarrio = str(row.ecrBarrio)
 
   // Categorías adicionales: columna `categories` (lista separada por comas).
   // Se filtran las válidas y se excluye la principal para no duplicar.
@@ -60,6 +61,7 @@ function mapRow(row: DbRow): Project {
     status,
     sector: sector || undefined,
     image: image || undefined,
+    ecrBarrio: ecrBarrio || undefined,
   }
 }
 

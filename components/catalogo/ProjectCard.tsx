@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { categoryColors, projectCategories, type Project } from '@/lib/projects'
 import type { Lang } from '@/lib/translations'
 import { categoryLabels, statusLabels, statusColors } from '@/lib/catalogo-labels'
+import SelloECR from '@/components/marca/SelloECR'
 
 interface Props {
   project: Project
@@ -71,6 +72,12 @@ export default function ProjectCard({ project, lang }: Props) {
                 <path d="M12 1.5l1.7 6.8 6.8 1.7-6.8 1.7L12 22.5l-1.7-6.8L3.5 10l6.8-1.7z" />
               </svg>
             </>
+          )}
+          {/* Sello ECR si el negocio está adherido a la Economía Circular */}
+          {project.ecrBarrio && (
+            <div className="absolute right-2 top-2 rounded-full bg-white/90 p-0.5 shadow-sm backdrop-blur-sm" title={`Economía Circular ${project.ecrBarrio}`}>
+              <SelloECR barrio={project.ecrBarrio} size={36} />
+            </div>
           )}
           {/* Etiquetas de categoría (una por categoría) */}
           <div className="absolute bottom-2.5 left-3 flex flex-wrap gap-1.5">

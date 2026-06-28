@@ -7,6 +7,7 @@ import { getCatalogProjects, getCatalogProject } from '@/lib/catalog-data'
 import { categoryLabels, statusLabels } from '@/lib/catalogo-labels'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
+import SelloECR, { barrioNombre } from '@/components/marca/SelloECR'
 
 // Lee de la BD en cada petición (con fallback estático).
 export const dynamic = 'force-dynamic'
@@ -98,6 +99,17 @@ export default async function ProjectDetailPage({ params }: Props) {
               <p className="mb-4 text-xl font-semibold text-[#6D28D9] dark:text-[#A78BFA]">{project.claim}</p>
             )}
             <p className="text-xl leading-relaxed text-[#78716C] dark:text-[#A8A29E]">{project.description.es}</p>
+            {project.ecrBarrio && (
+              <Link
+                href="/ecr"
+                className="mt-5 inline-flex items-center gap-3 rounded-xl border border-stone-200 bg-white px-4 py-2.5 transition-colors hover:border-stone-300 dark:border-white/10 dark:bg-white/5"
+              >
+                <SelloECR barrio={project.ecrBarrio} size={40} />
+                <span className="text-sm font-semibold text-[#1C1917] dark:text-[#F5F5F4]">
+                  Negocio adherido a la Economía Circular {barrioNombre(project.ecrBarrio)}
+                </span>
+              </Link>
+            )}
           </div>
 
           {/* Captura del proyecto (si existe) */}

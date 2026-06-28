@@ -9,6 +9,9 @@ export const projects = pgTable("projects", {
   category: varchar("category", { length: 50 }),
   // Lista completa de categorías separadas por comas (multi-categoría).
   categories: text("categories"),
+  // Economía Circular: código del barrio adherido (p. ej. "ECR", "ECZ").
+  // Nullable: si está vacío, el proyecto no forma parte de la red ECR.
+  ecrBarrio: varchar("ecr_barrio", { length: 16 }),
   descripcionEs: text("descripcion_es"),
   descripcionEn: text("descripcion_en"),
   url: text("url"),
