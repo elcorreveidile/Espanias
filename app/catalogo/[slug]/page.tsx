@@ -160,7 +160,7 @@ export default async function ProjectDetailPage({ params }: Props) {
                     href={project.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block rounded-lg border border-stone-300 px-4 py-2.5 text-center font-semibold text-[#1C1917] transition-colors hover:border-stone-400 hover:bg-stone-50 dark:border-white/20 dark:text-[#F5F5F4] dark:hover:bg-white/5"
+                    className="block rounded-lg bg-gradient-to-r from-[#6D28D9] to-[#BF2638] px-4 py-2.5 text-center font-semibold text-white shadow-sm transition-all hover:shadow-md hover:brightness-110"
                   >
                     Visitar sitio · {cleanUrl(project.url)}
                   </a>
