@@ -1,9 +1,10 @@
-// Sello "Economía Circular" — versión propia de Espanias.
+// Sello "Economía Circular" — reproducción del sello oficial (repo Papaupa).
 //
-// NOTA: el sello oficial se diseña en el repo de Papaupa (components/marca/).
-// Cuando llegue su SVG/componente definitivo, sustituye este archivo por él.
-// Hasta entonces, este sello es funcional y on-brand, y acepta el código de
-// barrio para mostrarlo (ECR = Realejo, ECZ = Zaidín…).
+// Diseño: doble anillo, texto curvo "ECONOMÍA CIRCULAR" (arriba) y el nombre
+// del barrio (abajo), la moneda QPQ centrada arriba, el código en serif al
+// centro y dos puntos a los lados. Color verde de marca (#2f6b4f) con variante
+// mono (pasa color="#1C1917"). API alineada con el componente de Papaupa:
+// props `codigo`, `barrio`, `color`.
 
 const BARRIO_NOMBRE: Record<string, string> = {
   ECR: 'Realejo',
@@ -16,15 +17,30 @@ export function barrioNombre(codigo: string): string {
 
 interface Props {
   /** Código del barrio (p. ej. "ECR"). */
+  codigo?: string
+  /** Nombre del barrio; si se omite, se deriva del código (ECR → Realejo). */
   barrio?: string
+  /** Color del sello (por defecto verde de marca). Mono negro: "#1C1917". */
+  color?: string
   /** Tamaño en px (cuadrado). */
   size?: number
   className?: string
 }
 
-export default function SelloECR({ barrio = 'ECR', size = 96, className }: Props) {
-  const nombre = barrioNombre(barrio).toUpperCase()
-  const topText = `· ECONOMÍA CIRCULAR · ${nombre} `
+const R = 38 // radio del texto curvo
+
+export default function SelloECR({
+  codigo = 'ECR',
+  barrio,
+  color = '#2f6b4f',
+  size = 96,
+  className,
+}: Props) {
+  const nombre = (barrio ?? barrioNombre(codigo)).toUpperCase()
+  // Ids deterministas (server/cliente coinciden). Geometría idéntica entre
+  // sellos del mismo tamaño → un id duplicado resuelve al mismo arco (inocuo).
+  const idTop = `ecr-top-${codigo}-${size}`
+  const idBot = `ecr-bot-${codigo}-${size}`
 
   return (
     <svg
@@ -33,53 +49,75 @@ export default function SelloECR({ barrio = 'ECR', size = 96, className }: Props
       viewBox="0 0 100 100"
       className={className}
       role="img"
-      aria-label={`Sello Economía Circular ${barrioNombre(barrio)}`}
+      aria-label={`Sello Economía Circular ${barrio ?? barrioNombre(codigo)}`}
     >
       <defs>
-        {/* Arco superior para el texto curvo (de izquierda a derecha por arriba). */}
-        <path id={`sello-top-${barrio}`} d="M 50,50 m -39,0 a 39,39 0 1 1 78,0" fill="none" />
+        {/* Semicircunferencia superior (texto recto hacia arriba). */}
+        <path id={idTop} d={`M ${50 - R},50 a ${R},${R} 0 1 1 ${2 * R},0`} fill="none" />
+        {/* Semicircunferencia inferior invertida (texto recto hacia abajo). */}
+        <path id={idBot} d={`M ${50 + R},50 a ${R},${R} 0 1 1 ${-2 * R},0`} fill="none" />
       </defs>
 
-      {/* Anillos del cuño */}
-      <circle cx="50" cy="50" r="48" fill="none" stroke="#1C1917" strokeWidth="1.5" />
-      <circle cx="50" cy="50" r="44" fill="none" stroke="#1C1917" strokeWidth="0.8" />
+      {/* Doble anillo del cuño */}
+      <circle cx="50" cy="50" r="48" fill="none" stroke={color} strokeWidth="1.3" />
+      <circle cx="50" cy="50" r="44" fill="none" stroke={color} strokeWidth="0.7" />
 
       {/* Texto curvo superior */}
       <text
-        fontSize="8.2"
-        fontWeight="700"
-        letterSpacing="0.6"
-        fill="#1C1917"
-        style={{ fontFamily: 'system-ui, sans-serif' }}
+        fontSize="7.2"
+        fontWeight="600"
+        letterSpacing="1.4"
+        fill={color}
+        style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}
       >
-        <textPath href={`#sello-top-${barrio}`} startOffset="50%" textAnchor="middle">
-          {topText}
+        <textPath href={`#${idTop}`} startOffset="50%" textAnchor="middle">
+          ECONOMÍA CIRCULAR
         </textPath>
       </text>
 
-      {/* Motivo central: flechas en círculo (reciclaje / circulación) */}
-      <g transform="translate(50,46)" stroke="#BF2638" strokeWidth="3" fill="none" strokeLinecap="round">
-        <path d="M -9,-3 A 9.5,9.5 0 0 1 7,-6" />
-        <path d="M 9,3 A 9.5,9.5 0 0 1 -7,6" />
-      </g>
-      {/* Puntas de flecha */}
-      <g fill="#BF2638">
-        <path d="M 56,38 l 3.4,1.2 l -2.2,2.8 z" />
-        <path d="M 44,54 l -3.4,-1.2 l 2.2,-2.8 z" />
-      </g>
+      {/* Texto curvo inferior (nombre del barrio) */}
+      <text
+        fontSize="7.2"
+        fontWeight="600"
+        letterSpacing="2.4"
+        fill={color}
+        style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}
+      >
+        <textPath href={`#${idBot}`} startOffset="50%" textAnchor="middle">
+          {nombre}
+        </textPath>
+      </text>
 
-      {/* Código del barrio */}
+      {/* Puntos separadores laterales */}
+      <circle cx="13.5" cy="50" r="1.4" fill={color} />
+      <circle cx="86.5" cy="50" r="1.4" fill={color} />
+
+      {/* Moneda QPQ centrada arriba */}
+      <circle cx="50" cy="33" r="9" fill="none" stroke={color} strokeWidth="1.2" />
       <text
         x="50"
-        y="68"
-        fontSize="11"
-        fontWeight="900"
-        letterSpacing="1"
+        y="35.4"
+        fontSize="5.6"
+        fontWeight="700"
+        letterSpacing="0.2"
         textAnchor="middle"
-        fill="#1C1917"
-        style={{ fontFamily: 'system-ui, sans-serif' }}
+        fill={color}
+        style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}
       >
-        {barrio}
+        QPQ
+      </text>
+
+      {/* Código del barrio en serif */}
+      <text
+        x="50"
+        y="64"
+        fontSize="30"
+        fontWeight="700"
+        textAnchor="middle"
+        fill={color}
+        style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}
+      >
+        {codigo}
       </text>
     </svg>
   )

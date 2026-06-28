@@ -76,7 +76,7 @@ export default function ProjectCard({ project, lang }: Props) {
           {/* Sello ECR si el negocio está adherido a la Economía Circular */}
           {project.ecrBarrio && (
             <div className="absolute right-2 top-2 rounded-full bg-white/90 p-0.5 shadow-sm backdrop-blur-sm" title={`Economía Circular ${project.ecrBarrio}`}>
-              <SelloECR barrio={project.ecrBarrio} size={36} />
+              <SelloECR codigo={project.ecrBarrio} size={36} />
             </div>
           )}
           {/* Etiquetas de categoría (una por categoría) */}

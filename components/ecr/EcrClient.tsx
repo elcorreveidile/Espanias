@@ -82,7 +82,7 @@ export default function EcrClient({ adheridos }: { adheridos: Project[] }) {
       {/* Hero */}
       <header className="mb-16 text-center">
         <div className="mb-6 flex justify-center">
-          <SelloECR barrio="ECR" size={108} className="dark:rounded-full dark:bg-white/90 dark:p-1" />
+          <SelloECR codigo="ECR" size={108} className="dark:rounded-full dark:bg-white/90 dark:p-1" />
         </div>
         <p className="mb-3 text-sm font-bold uppercase tracking-widest text-[#BF2638]">{t.eyebrow}</p>
         <h1 className="mx-auto max-w-3xl whitespace-pre-line text-3xl font-black leading-tight text-[#1C1917] md:text-5xl dark:text-[#F5F5F4]">
@@ -119,7 +119,9 @@ export default function EcrClient({ adheridos }: { adheridos: Project[] }) {
       {/* ¿Qué es el QPQ? */}
       <section className="mb-20 grid items-center gap-8 rounded-3xl bg-[#1C1917] p-8 md:grid-cols-[auto,1fr] md:p-12">
         <div className="flex justify-center">
-          <SimboloQPQ size={120} />
+          <div className="rounded-full bg-white p-4 shadow-sm">
+            <SimboloQPQ size={104} />
+          </div>
         </div>
         <div>
           <h2 className="text-2xl font-black text-white md:text-3xl">{t.qpqTitle}</h2>
@@ -134,7 +136,7 @@ export default function EcrClient({ adheridos }: { adheridos: Project[] }) {
           <p className="mt-4 text-lg leading-relaxed text-[#78716C] dark:text-[#A8A29E]">{t.selloBody}</p>
         </div>
         <div className="flex justify-center md:order-first">
-          <SelloECR barrio="ECR" size={140} className="dark:rounded-full dark:bg-white/90 dark:p-2" />
+          <SelloECR codigo="ECR" size={140} className="dark:rounded-full dark:bg-white/90 dark:p-2" />
         </div>
       </section>
 
@@ -151,7 +153,7 @@ export default function EcrClient({ adheridos }: { adheridos: Project[] }) {
           barrios.map((b) => (
             <div key={b} className="mt-8">
               <div className="mb-4 flex items-center gap-3">
-                <SelloECR barrio={b} size={40} className="dark:rounded-full dark:bg-white/90" />
+                <SelloECR codigo={b} size={40} className="dark:rounded-full dark:bg-white/90" />
                 <h3 className="text-lg font-black text-[#1C1917] dark:text-[#F5F5F4]">
                   {t.dirTitle} · {barrioNombre(b)}
                 </h3>

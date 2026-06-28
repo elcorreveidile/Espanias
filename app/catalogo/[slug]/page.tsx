@@ -104,7 +104,7 @@ export default async function ProjectDetailPage({ params }: Props) {
                 href="/ecr"
                 className="mt-5 inline-flex items-center gap-3 rounded-xl border border-stone-200 bg-white px-4 py-2.5 transition-colors hover:border-stone-300 dark:border-white/10 dark:bg-white/5"
               >
-                <SelloECR barrio={project.ecrBarrio} size={40} />
+                <SelloECR codigo={project.ecrBarrio} size={40} />
                 <span className="text-sm font-semibold text-[#1C1917] dark:text-[#F5F5F4]">
                   Negocio adherido a la Economía Circular {barrioNombre(project.ecrBarrio)}
                 </span>
