@@ -303,13 +303,13 @@ const EDITS: Array<{ slug: string; data: ProjectUpdate }> = [
     },
   },
   {
-    // Corrige la errata "Papaua" → "Papaupa" en la descripción ES.
     slug: "papaupa",
     data: {
+      claim: "Cocina colombiano-mediterránea, casera y sin prisa.",
       descripcionEs:
-        "Conoce Papaupa, uno de los restaurantes más populares del Realejo.",
+        "En el corazón del Realejo (Granada), Paco y Margarita —él andaluz, ella colombiana— cocinan como en casa: comida casera que une Colombia y el Mediterráneo, respetando los tiempos naturales y la calidad del producto. Arepas, ceviches, patacones, ensaladas frescas y pescados, en un local retro y acogedor donde sentirse en familia. Con terraza, take away, opciones veg y sin gluten, y carta de alérgenos.",
       descripcionEn:
-        "Visit Papaupa, one of Realejo's most popular restaurants.",
+        "In the heart of Granada's Realejo, Paco and Margarita —he Andalusian, she Colombian— cook like at home: homemade food that brings Colombia and the Mediterranean together, respecting natural cooking times and quality produce. Arepas, ceviches, patacones, fresh salads and fish, in a cosy retro spot where you feel like family. With a terrace, take away, veg and gluten-free options, and an allergens menu.",
     },
   },
 ];
