@@ -2,6 +2,11 @@
 
 [🇪🇸 Español](./README.md) · 🇬🇧 English
 
+[![Next.js](https://img.shields.io/badge/Next.js-15-000000?logo=next.js&logoColor=white)](https://nextjs.org)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![Deployed on Vercel](https://img.shields.io/badge/Vercel-deployed-000000?logo=vercel&logoColor=white)](https://vercel.com)
+
 **Espanias** ([espanias.com](https://espanias.com)) is the portfolio and web-app catalogue of the agency **Por 2 Duros**. It's a living, bilingual (ES/EN) showcase of real projects —from local-business websites to SaaS and custom apps— with its own management dashboard, a blog, and marketing campaigns such as the *Reto Mundial 2026*.
 
 > "Spain is, literally, in our name." (*España* → *Espanias*.)
