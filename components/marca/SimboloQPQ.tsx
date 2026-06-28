@@ -1,8 +1,8 @@
-// Símbolo de la moneda QPQ ("kupeku") — coherente con el sello oficial ECR.
+// Símbolo de la moneda QPQ — reproducción del símbolo oficial (repo Papaupa).
 //
-// NOTA: si Papaupa entrega un `simbolo-qpq.svg` definitivo distinto, sustituye
-// este archivo. Mantiene la familia visual del sello: verde de marca, doble
-// anillo y flechas de circulación.
+// Diseño: anillo formado por dos flechas de circulación (puntas arriba y
+// abajo) con "QPQ" en sans-serif al centro. Verde de marca (#2f6b4f) con
+// variante mono (color="#1C1917"). El SVG/PNG oficial está en public/marca.
 
 interface Props {
   /** Color (por defecto verde de marca). Mono negro: "#1C1917". */
@@ -22,30 +22,21 @@ export default function SimboloQPQ({ color = '#2f6b4f', size = 64, className }: 
       role="img"
       aria-label="Símbolo de la moneda QPQ"
     >
-      {/* Moneda: doble anillo */}
-      <circle cx="50" cy="50" r="46" fill="none" stroke={color} strokeWidth="2.4" />
-      <circle cx="50" cy="50" r="40" fill="none" stroke={color} strokeWidth="1.2" />
-
-      {/* Flechas de circulación */}
-      <g transform="translate(50,50)" stroke={color} strokeWidth="2.6" fill="none" strokeLinecap="round">
-        <path d="M -22,-7 A 23,23 0 0 1 18,-15" />
-        <path d="M 22,7 A 23,23 0 0 1 -18,15" />
-      </g>
-      <g fill={color}>
-        <path d="M 16,-19 l 4,1.4 l -2.6,3.3 z" transform="translate(50,50)" />
-        <path d="M -16,19 l -4,-1.4 l 2.6,-3.3 z" transform="translate(50,50)" />
-      </g>
+      {/* Anillo de circulación: dos arcos con punta de flecha */}
+      <path d="M 75.71,19.36 A 40,40 0 0 1 43.05,89.39" fill="none" stroke={color} strokeWidth="7" />
+      <path d="M 24.29,80.64 A 40,40 0 0 1 56.95,10.61" fill="none" stroke={color} strokeWidth="7" />
+      <polygon points="37.64,88.44 49.17,86.41 47.78,94.29" fill={color} />
+      <polygon points="62.36,11.56 50.83,13.59 52.22,5.71" fill={color} />
 
       {/* Texto QPQ */}
       <text
         x="50"
-        y="59"
-        fontSize="25"
+        y="60"
+        fontSize="30"
         fontWeight="700"
-        letterSpacing="0.3"
         textAnchor="middle"
         fill={color}
-        style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}
+        style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}
       >
         QPQ
       </text>
