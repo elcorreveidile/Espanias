@@ -1,11 +1,11 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useLanguage } from '@/context/LanguageContext'
 import type { Project } from '@/lib/projects'
 import ProjectCard from '@/components/catalogo/ProjectCard'
 import SelloECR, { barrioNombre } from '@/components/marca/SelloECR'
-import SimboloQPQ from '@/components/marca/SimboloQPQ'
 
 interface PayMethod {
   icon: string
@@ -120,7 +120,7 @@ export default function EcrClient({ adheridos }: { adheridos: Project[] }) {
       <section className="mb-20 grid items-center gap-8 rounded-3xl bg-[#1C1917] p-8 md:grid-cols-[auto,1fr] md:p-12">
         <div className="flex justify-center">
           <div className="rounded-full bg-white p-4 shadow-sm">
-            <SimboloQPQ size={104} />
+            <Image src="/marca/simbolo-qpq.png" alt="Símbolo de la moneda QPQ" width={104} height={104} />
           </div>
         </div>
         <div>

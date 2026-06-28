@@ -68,6 +68,12 @@ export default function Nav() {
           >
             {lang === 'es' ? '🇪🇸 Mundial 2026' : '🇪🇸 World Cup 2026'}
           </Link>
+          <Link
+            href="/ecr"
+            className="text-sm font-bold text-[#2f6b4f] transition-colors hover:text-[#1C1917] dark:text-[#7FB89B] dark:hover:text-white"
+          >
+            ♻️ ECR
+          </Link>
           <button
             onClick={toggle}
             className={`text-sm font-semibold px-3 py-1 rounded-full border border-[#E7E5E4] text-[#78716C] hover:border-[#BF2638] hover:text-[#BF2638] transition-all ${
@@ -130,6 +136,9 @@ export default function Nav() {
           </Link>
           <Link href="/mundial" onClick={close} className="text-sm font-bold text-[#BF2638]">
             {lang === 'es' ? '🇪🇸 Mundial 2026' : '🇪🇸 World Cup 2026'}
+          </Link>
+          <Link href="/ecr" onClick={close} className="text-sm font-bold text-[#2f6b4f] dark:text-[#7FB89B]">
+            ♻️ ECR
           </Link>
           <div className="flex items-center gap-4 pt-1">
             <button
