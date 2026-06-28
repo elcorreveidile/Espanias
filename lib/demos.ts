@@ -31,6 +31,7 @@ export const demoSites: DemoSite[] = [
   { subdomain: 'dentista', name: 'Dentista de Barrio', catalogSlug: 'clinica-dental', status: 'pending' },
   { subdomain: 'barberia', name: 'Filo Barber Studio', catalogSlug: 'barberia', status: 'pending' },
   { subdomain: 'bardeeric', name: 'El Bar de Eric', catalogSlug: 'bar-de-eric', status: 'pending' },
+  { subdomain: 'papaupa', name: 'Papaupa', catalogSlug: 'papaupa', status: 'pending' },
 ]
 
 export function getDemo(subdomain: string): DemoSite | undefined {

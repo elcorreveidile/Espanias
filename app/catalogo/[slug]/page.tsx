@@ -91,9 +91,12 @@ export default async function ProjectDetailPage({ params }: Props) {
                 {statusLabels.es[project.status]}
               </span>
             </div>
-            <h1 className="mb-5 text-4xl font-black leading-tight text-[#1C1917] md:text-5xl dark:text-[#F5F5F4]">
+            <h1 className="mb-3 text-4xl font-black leading-tight text-[#1C1917] md:text-5xl dark:text-[#F5F5F4]">
               {project.name}
             </h1>
+            {project.claim && (
+              <p className="mb-4 text-xl font-semibold text-[#6D28D9] dark:text-[#A78BFA]">{project.claim}</p>
+            )}
             <p className="text-xl leading-relaxed text-[#78716C] dark:text-[#A8A29E]">{project.description.es}</p>
           </div>
 

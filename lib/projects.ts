@@ -5,6 +5,8 @@ export interface Project {
   name: string
   slug: string
   url: string
+  /** Eslogan corto que se muestra como titular bajo el nombre en la ficha. */
+  claim?: string
   description: { es: string; en: string }
   category: Category
   // Categorías adicionales (multi-categoría). `category` es la principal

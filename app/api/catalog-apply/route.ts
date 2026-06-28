@@ -305,6 +305,7 @@ const EDITS: Array<{ slug: string; data: ProjectUpdate }> = [
   {
     slug: "papaupa",
     data: {
+      url: "https://papaupa.espanias.com",
       claim: "Cocina colombiano-mediterránea, casera y sin prisa.",
       descripcionEs:
         "En el corazón del Realejo (Granada), Paco y Margarita —él andaluz, ella colombiana— cocinan como en casa: comida casera que une Colombia y el Mediterráneo, respetando los tiempos naturales y la calidad del producto. Arepas, ceviches, patacones, ensaladas frescas y pescados, en un local retro y acogedor donde sentirse en familia. Con terraza, take away, opciones veg y sin gluten, y carta de alérgenos.",
