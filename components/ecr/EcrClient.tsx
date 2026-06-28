@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link'
 import Image from 'next/image'
 import { useLanguage } from '@/context/LanguageContext'
 import type { Project } from '@/lib/projects'
@@ -174,12 +173,14 @@ export default function EcrClient({ adheridos }: { adheridos: Project[] }) {
       <section className="rounded-3xl bg-gradient-to-br from-[#6D28D9] to-[#BF2638] p-10 text-center text-white md:p-14">
         <h2 className="text-2xl font-black md:text-3xl">{t.ctaTitle}</h2>
         <p className="mx-auto mt-3 max-w-xl text-lg text-white/90">{t.ctaBody}</p>
-        <Link
-          href="/contacto"
+        <a
+          href="https://www.por2duros.com/ecr"
+          target="_blank"
+          rel="noopener noreferrer"
           className="mt-6 inline-block rounded-lg bg-white px-7 py-3 font-bold text-[#1C1917] transition-colors hover:bg-stone-100"
         >
           {t.ctaBtn}
-        </Link>
+        </a>
       </section>
     </div>
   )
