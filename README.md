@@ -1,5 +1,7 @@
 # Espanias
 
+🇪🇸 Español · [🇬🇧 English](./README.en.md)
+
 **Espanias** ([espanias.com](https://espanias.com)) es el portfolio y catálogo de aplicaciones web de la agencia **Por 2 Duros**. Es un escaparate vivo y bilingüe (ES/EN) de proyectos reales —desde webs de negocio local hasta SaaS y apps a medida— con un panel de gestión propio, blog, y campañas de marketing como el *Reto Mundial 2026*.
 
 > «España está, literalmente, en nuestro nombre.»
