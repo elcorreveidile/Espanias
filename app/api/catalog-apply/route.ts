@@ -302,6 +302,16 @@ const EDITS: Array<{ slug: string; data: ProjectUpdate }> = [
         "Website for painter Borja Satrústegui: artwork gallery with status (available/reserved/sold), artist bio and exhibition info. Buy paintings directly by card via Stripe (each piece switches to “sold” automatically via webhook) and an admin panel to manage works, orders and sales.",
     },
   },
+  {
+    // Corrige la errata "Papaua" → "Papaupa" en la descripción ES.
+    slug: "papaupa",
+    data: {
+      descripcionEs:
+        "Conoce Papaupa, uno de los restaurantes más populares del Realejo.",
+      descripcionEn:
+        "Visit Papaupa, one of Realejo's most popular restaurants.",
+    },
+  },
 ];
 
 export async function GET(req: NextRequest) {
