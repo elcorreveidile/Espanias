@@ -42,15 +42,13 @@ export async function createMagicToken(email: string): Promise<string> {
 /** Valida y consume (borra) el token. Devuelve el email si es válido. */
 export async function consumeMagicToken(token: string): Promise<string | null> {
   await ensureSchema()
-  const rows = await db
-    .select()
-    .from(magicTokens)
+  // Borrado atómico con RETURNING: consume el token en una sola operación, de
+  // modo que dos peticiones simultáneas no puedan usar el mismo token dos veces.
+  const deleted = await db
+    .delete(magicTokens)
     .where(and(eq(magicTokens.token, token), gt(magicTokens.expiresAt, new Date())))
-    .limit(1)
-  const row = rows[0]
-  if (!row) return null
-  await db.delete(magicTokens).where(eq(magicTokens.id, row.id))
-  return row.email
+    .returning({ email: magicTokens.email })
+  return deleted[0]?.email ?? null
 }
 
 /** Envía el enlace mágico por email vía Resend. */

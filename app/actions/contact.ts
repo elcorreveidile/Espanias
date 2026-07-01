@@ -1,5 +1,7 @@
 'use server'
 
+import { escapeHtml } from '@/lib/html'
+
 export type ContactResult = { ok: true } | { ok: false; error: string }
 
 export async function sendContact(
@@ -28,6 +30,12 @@ export async function sendContact(
     return { ok: false, error: 'Servicio de email no configurado.' }
   }
 
+  // Escapamos todo dato de usuario antes de incrustarlo en el HTML del correo.
+  const safeName = escapeHtml(name.trim())
+  const safeEmail = escapeHtml(email.trim())
+  const mailtoEmail = encodeURIComponent(email.trim())
+  const safeMessage = escapeHtml(message).replace(/\n/g, '<br>')
+
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: {
@@ -38,7 +46,7 @@ export async function sendContact(
       from: 'Espanias <hola@espanias.com>',
       to: 'makicarapp@gmail.com',
       reply_to: email,
-      subject: `[Espanias] Nuevo mensaje de ${name}`,
+      subject: `[Espanias] Nuevo mensaje de ${safeName}`,
       html: `<!DOCTYPE html>
 <html lang="es">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
@@ -63,7 +71,7 @@ export async function sendContact(
           <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
             <tr><td style="border-left:3px solid #BF2638;padding-left:14px;">
               <p style="margin:0 0 3px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:#78716C;">Nombre</p>
-              <p style="margin:0;font-size:18px;font-weight:700;color:#1C1917;">${name}</p>
+              <p style="margin:0;font-size:18px;font-weight:700;color:#1C1917;">${safeName}</p>
             </td></tr>
           </table>
 
@@ -71,7 +79,7 @@ export async function sendContact(
           <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
             <tr><td style="border-left:3px solid #6D28D9;padding-left:14px;">
               <p style="margin:0 0 3px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:#78716C;">Email</p>
-              <a href="mailto:${email}" style="font-size:16px;color:#6D28D9;text-decoration:none;font-weight:600;">${email}</a>
+              <a href="mailto:${mailtoEmail}" style="font-size:16px;color:#6D28D9;text-decoration:none;font-weight:600;">${safeEmail}</a>
             </td></tr>
           </table>
 
@@ -82,15 +90,15 @@ export async function sendContact(
           <table width="100%" cellpadding="0" cellspacing="0">
             <tr><td>
               <p style="margin:0 0 12px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:#78716C;">Mensaje</p>
-              <p style="margin:0;font-size:15px;line-height:1.75;color:#1C1917;">${message.replace(/\n/g, '<br>')}</p>
+              <p style="margin:0;font-size:15px;line-height:1.75;color:#1C1917;">${safeMessage}</p>
             </td></tr>
           </table>
 
           <!-- Reply CTA -->
           <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:32px;">
             <tr><td>
-              <a href="mailto:${email}" style="display:inline-block;background:#BF2638;color:#ffffff;font-size:13px;font-weight:700;text-decoration:none;padding:12px 28px;border-radius:100px;">
-                Responder a ${name}
+              <a href="mailto:${mailtoEmail}" style="display:inline-block;background:#BF2638;color:#ffffff;font-size:13px;font-weight:700;text-decoration:none;padding:12px 28px;border-radius:100px;">
+                Responder a ${safeName}
               </a>
             </td></tr>
           </table>

@@ -6,6 +6,7 @@ import { LanguageProvider } from '@/context/LanguageContext'
 import { ThemeProvider } from '@/components/ThemeProvider'
 import SiteBackground from '@/components/SiteBackground'
 import ScrollToTop from '@/components/ScrollToTop'
+import { safeJsonLd } from '@/lib/html'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -102,7 +103,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="font-[family-name:var(--font-inter)]">
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(orgJsonLd) }}
         />
         <ThemeProvider>
           <SiteBackground />

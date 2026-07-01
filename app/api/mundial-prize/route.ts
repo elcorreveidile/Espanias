@@ -1,6 +1,7 @@
-import { NextResponse } from 'next/server'
-import { createHmac } from 'crypto'
+import { NextRequest, NextResponse } from 'next/server'
 import { countFreeWebs, createCupon } from '@/lib/db/mundial-repo'
+import { signCoupon } from '@/lib/coupon'
+import { clientIp, rateLimit } from '@/lib/rate-limit'
 
 // Decide el premio en SERVIDOR y lo FIRMA (HMAC) para el canje seguro en
 // por2duros.com/mundial. El cliente no puede falsificar el %: la firma lo impide.
@@ -12,12 +13,10 @@ function pickPct(): number {
   return r < 2 ? 100 : r < 8 ? 80 : r < 28 ? 20 : r < 55 ? 15 : r < 82 ? 10 : 0
 }
 
-function sign(code: string, pct: number): string {
-  const secret = process.env.MUNDIAL_COUPON_SECRET || 'espanias-mundial-dev-secret'
-  return createHmac('sha256', secret).update(`${code}.${pct}`).digest('hex')
-}
-
-export async function POST() {
+export async function POST(req: NextRequest) {
+  if (!rateLimit(clientIp(req), 20).ok) {
+    return NextResponse.json({ error: 'rate' }, { status: 429 })
+  }
   const code = 'MUNDIAL-' + Math.random().toString(36).slice(2, 6).toUpperCase()
   let pct = pickPct()
 
@@ -39,5 +38,10 @@ export async function POST() {
     }
   }
 
-  return NextResponse.json({ pct, code, sig: sign(code, pct) })
+  try {
+    return NextResponse.json({ pct, code, sig: signCoupon(code, pct) })
+  } catch {
+    // MUNDIAL_COUPON_SECRET no configurado → no emitimos cupón sin firmar.
+    return NextResponse.json({ error: 'config' }, { status: 500 })
+  }
 }

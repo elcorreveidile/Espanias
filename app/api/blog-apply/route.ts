@@ -5,12 +5,11 @@ import {
   updatePost,
   type PostInput,
 } from "@/lib/db/posts-repo";
+import { checkAdminToken } from "@/lib/admin-token";
 
 // Endpoint TEMPORAL: publica (upsert) el artículo del Mundial en la BD.
 // Abrir una vez con ?token=... tras el deploy. Borrar después.
 export const dynamic = "force-dynamic";
-
-const TOKEN = "espanias-blog-2026";
 
 const CONTENIDO_ES = `## Esta madrugada arranca el reto: que España nos haga la web más barata (o gratis)
 
@@ -118,7 +117,7 @@ const POST: PostInput = {
 };
 
 export async function GET(req: NextRequest) {
-  if (req.nextUrl.searchParams.get("token") !== TOKEN) {
+  if (!checkAdminToken(req)) {
     return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   }
   try {

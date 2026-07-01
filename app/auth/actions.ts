@@ -1,15 +1,14 @@
 'use server'
 
-import { headers, cookies } from 'next/headers'
+import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { getAllowedUser, createMagicToken, sendMagicLink } from '@/lib/auth/magic'
 import { SESSION_COOKIE } from '@/lib/auth/session'
 
-async function baseUrl(): Promise<string> {
-  const h = await headers()
-  const host = h.get('x-forwarded-host') || h.get('host') || 'www.espanias.com'
-  const proto = h.get('x-forwarded-proto') || 'https'
-  return `${proto}://${host}`
+// URL base FIJA (no se lee de cabeceras de la petición): así un atacante no
+// puede envenenar el enlace mágico con un Host falso y robar el token.
+function baseUrl(): string {
+  return (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.espanias.com').replace(/\/+$/, '')
 }
 
 export async function requestMagicLink(formData: FormData): Promise<void> {
@@ -24,7 +23,7 @@ export async function requestMagicLink(formData: FormData): Promise<void> {
     const user = await getAllowedUser(email)
     if (user) {
       const token = await createMagicToken(email)
-      const url = `${await baseUrl()}/auth/callback?token=${token}`
+      const url = `${baseUrl()}/auth/callback?token=${token}`
       await sendMagicLink(email, url)
     }
   } catch (err) {

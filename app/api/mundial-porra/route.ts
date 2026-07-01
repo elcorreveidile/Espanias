@@ -1,19 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createHmac } from 'crypto'
 import { upsertPorra, listPorra } from '@/lib/db/mundial-repo'
+import { checkAdminToken } from '@/lib/admin-token'
+import { signCoupon } from '@/lib/coupon'
+import { clientIp, rateLimit } from '@/lib/rate-limit'
 
 // Porra del Mundial.
 // POST {email, es, ri, partido}                 -> guarda el pronóstico (uno por email y partido)
 // GET  ?token=...                               -> exporta todos los pronósticos
 // GET  ?token=...&result=2-1[&partido=...]      -> calcula el ganador + URL del premio (web gratis)
 export const dynamic = 'force-dynamic'
-
-const TOKEN = 'espanias-porra-2026'
-
-function sign(code: string, pct: number): string {
-  const secret = process.env.MUNDIAL_COUPON_SECRET || 'espanias-mundial-dev-secret'
-  return createHmac('sha256', secret).update(`${code}.${pct}`).digest('hex')
-}
 
 // Email al ganador con el enlace de su web gratis. Devuelve si se envió.
 async function sendWinnerEmail(to: string, premioUrl: string): Promise<boolean> {
@@ -55,6 +50,9 @@ async function sendWinnerEmail(to: string, premioUrl: string): Promise<boolean> 
 }
 
 export async function POST(req: NextRequest) {
+  if (!rateLimit(clientIp(req), 20).ok) {
+    return NextResponse.json({ error: 'rate' }, { status: 429 })
+  }
   let email = ''
   let partido = 'Próximo partido'
   let es = NaN
@@ -101,7 +99,7 @@ export async function POST(req: NextRequest) {
 
 export async function GET(req: NextRequest) {
   const p = req.nextUrl.searchParams
-  if (p.get('token') !== TOKEN) {
+  if (!checkAdminToken(req)) {
     return NextResponse.json({ error: 'unauthorized' }, { status: 401 })
   }
   const partido = p.get('partido') || undefined
@@ -143,7 +141,7 @@ export async function GET(req: NextRequest) {
     : rows.slice().sort((a, b) => dist(a) - dist(b) || tb(a) - tb(b) || earliest(a, b))[0]
 
   const code = 'PORRA-' + Math.random().toString(36).slice(2, 6).toUpperCase()
-  const q = new URLSearchParams({ code, pct: '100', sig: sign(code, 100), email: winner.email })
+  const q = new URLSearchParams({ code, pct: '100', sig: signCoupon(code, 100), email: winner.email })
   const premioUrl = `https://www.por2duros.com/mundial?${q.toString()}`
   // Solo envía el email al ganador si se pide explícitamente con &send=1.
   const emailEnviado = p.get('send') === '1' ? await sendWinnerEmail(winner.email, premioUrl) : false

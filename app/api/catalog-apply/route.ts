@@ -5,14 +5,13 @@ import {
   slugExists,
   type ProjectUpdate,
 } from "@/lib/db/projects-repo";
+import { checkAdminToken } from "@/lib/admin-token";
 
 // Endpoint TEMPORAL: aplica a la BD de producción las ediciones del catálogo
 // que vamos acordando en la revisión 1×1. Idempotente (UPSERT por slug:
 // crea la ficha si no existe y luego la actualiza).
 // Se irá ampliando; borrar al terminar la revisión.
 export const dynamic = "force-dynamic";
-
-const TOKEN = "espanias-catalogo-2026";
 
 const EDITS: Array<{ slug: string; data: ProjectUpdate }> = [
   {
@@ -319,7 +318,7 @@ const EDITS: Array<{ slug: string; data: ProjectUpdate }> = [
 ];
 
 export async function GET(req: NextRequest) {
-  if (req.nextUrl.searchParams.get("token") !== TOKEN) {
+  if (!checkAdminToken(req)) {
     return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   }
   const applied: string[] = [];

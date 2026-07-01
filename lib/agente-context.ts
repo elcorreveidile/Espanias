@@ -66,7 +66,7 @@ export function buildContext(ctx: AgenteContext) {
       contenido: l.contenido,
     })),
     arquitectura: architectures[p.slug] ?? null,
-    notas_internas: p.notasInternas,
+    // `notas_internas` es de uso interno y NO se expone en este endpoint público.
   }
 }
 
@@ -121,7 +121,7 @@ export function buildMarkdown(ctx: AgenteContext): string {
 
   if (p.repositorioUrl) lines.push('', `## Repositorio`, p.repositorioUrl)
   if (p.demoUrl) lines.push('', `## Demo`, p.demoUrl)
-  if (p.notasInternas) lines.push('', `## Notas internas`, p.notasInternas)
+  // `notas_internas` es interno: no se incluye en la exportación pública.
 
   lines.push('', '---', '', '*Generado desde espanias.com*')
   return lines.filter((l) => l !== null).join('\n')

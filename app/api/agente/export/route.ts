@@ -25,10 +25,12 @@ export async function GET(req: NextRequest) {
   }
 
   const md = buildMarkdown(ctx)
+  // Sanea el slug para la cabecera (evita inyección en Content-Disposition).
+  const safeSlug = slug.replace(/[^a-z0-9-]/gi, '').slice(0, 60) || 'proyecto'
   return new NextResponse(md, {
     headers: {
       'Content-Type': 'text/markdown; charset=utf-8',
-      'Content-Disposition': `attachment; filename="${slug}.md"`,
+      'Content-Disposition': `attachment; filename="${safeSlug}.md"`,
     },
   })
 }

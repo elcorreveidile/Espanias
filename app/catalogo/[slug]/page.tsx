@@ -8,6 +8,7 @@ import { categoryLabels, statusLabels } from '@/lib/catalogo-labels'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import SelloECR, { barrioNombre } from '@/components/marca/SelloECR'
+import { safeJsonLd } from '@/lib/html'
 
 // Lee de la BD en cada petición (con fallback estático).
 export const dynamic = 'force-dynamic'
@@ -64,7 +65,7 @@ export default async function ProjectDetailPage({ params }: Props) {
       <Nav />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
       />
       <main className="min-h-screen px-6 py-28 md:py-32">
         <div className="mx-auto max-w-4xl">

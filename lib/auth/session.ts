@@ -32,7 +32,7 @@ export async function verifySessionToken(
 ): Promise<SessionData | null> {
   if (!token) return null
   try {
-    const { payload } = await jwtVerify(token, secret())
+    const { payload } = await jwtVerify(token, secret(), { algorithms: ['HS256'] })
     if (typeof payload.email !== 'string' || typeof payload.rol !== 'string') {
       return null
     }
