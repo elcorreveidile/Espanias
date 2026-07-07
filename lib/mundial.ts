@@ -27,8 +27,8 @@ export const ESPANA_PATH: EspMatch[] = [
   { faseEs: 'Fase de grupos · J2', faseEn: 'Group stage · MD2', rival: 'Arabia Saudí', fechaEs: '—', fechaEn: '—', estado: 'ganado', marcador: '4–0' },
   { faseEs: 'Fase de grupos · J3', faseEn: 'Group stage · MD3', rival: 'Uruguay', fechaEs: '26 jun', fechaEn: 'Jun 26', estado: 'ganado', marcador: '1–0' },
   { faseEs: 'Dieciseisavos', faseEn: 'Round of 32', rival: 'Austria', fechaEs: '2 jul', fechaEn: 'Jul 2', estado: 'ganado', marcador: '3–0' },
-  { faseEs: 'Octavos', faseEn: 'Round of 16', rival: '', fechaEs: '—', fechaEn: '—', estado: 'proximo' },
-  { faseEs: 'Cuartos', faseEn: 'Quarter-final', rival: '', fechaEs: '—', fechaEn: '—', estado: 'proximo' },
+  { faseEs: 'Octavos', faseEn: 'Round of 16', rival: 'Portugal', fechaEs: '6 jul', fechaEn: 'Jul 6', estado: 'ganado', marcador: '1–0' },
+  { faseEs: 'Cuartos', faseEn: 'Quarter-final', rival: 'Bélgica', fechaEs: '10 jul', fechaEn: 'Jul 10', estado: 'proximo' },
   { faseEs: 'Semifinal', faseEn: 'Semi-final', rival: '', fechaEs: '—', fechaEn: '—', estado: 'proximo' },
   { faseEs: 'FINAL', faseEn: 'FINAL', rival: '', fechaEs: '—', fechaEn: '—', estado: 'proximo', esFinal: true },
 ]
