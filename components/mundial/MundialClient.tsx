@@ -857,9 +857,8 @@ export default function MundialClient({
                 <div className="text-xs font-bold uppercase tracking-wider text-stone-300">{t.discountNow}</div>
                 <div className="my-1 text-6xl font-black text-[#FFC400] md:text-7xl">{reto.pct}%</div>
                 {next && (
-                  <p className="mx-auto mt-2 max-w-md text-sm font-semibold text-[#FFC400]">
-                    {t.retoHowTitle} · 🇪🇸 España vs {next.rival || t.vsTbd} ·{' '}
-                    {lang === 'es' ? next.fechaEs : next.fechaEn}
+                  <p className="mx-auto mt-2 max-w-md text-sm font-semibold text-stone-300">
+                    🇪🇸 España vs {next.rival || t.vsTbd} · {lang === 'es' ? next.fechaEs : next.fechaEn}
                   </p>
                 )}
               </>
@@ -871,6 +870,30 @@ export default function MundialClient({
               {t.signupBtn}
             </a>
           </div>
+
+          {/* Cómo funciona + última oportunidad (destacado, al principio) */}
+          {!reto.champion && (
+            <div className="mb-10 rounded-2xl border-2 border-[#FFC400]/70 bg-[#FFC400]/10 p-5 sm:p-6">
+              <h2 className="mb-3 text-center text-xl font-black text-[#1C1917] md:text-2xl dark:text-[#F5F5F4]">
+                {t.retoHowTitle}
+              </h2>
+              <p className="mb-4 text-sm leading-relaxed text-[#57534E] dark:text-[#D6D3D1]">
+                {t.retoHowSignup(reto.pct)}
+              </p>
+              <p className="mb-2 text-sm font-bold text-[#1C1917] dark:text-[#F5F5F4]">{t.retoHowChoose}</p>
+              <div className="mb-4 grid gap-3 sm:grid-cols-2">
+                <div className="rounded-xl border border-emerald-300 bg-emerald-50 p-3 dark:border-emerald-500/30 dark:bg-emerald-500/10">
+                  <span className="text-lg">✅</span>
+                  <p className="mt-1 text-sm leading-relaxed text-[#1C1917] dark:text-[#F5F5F4]">{t.retoHowSafe(reto.pct)}</p>
+                </div>
+                <div className="rounded-xl border border-red-300 bg-red-50 p-3 dark:border-red-500/30 dark:bg-red-500/10">
+                  <span className="text-lg">🎲</span>
+                  <p className="mt-1 text-sm leading-relaxed text-[#1C1917] dark:text-[#F5F5F4]">{t.retoHowRisk}</p>
+                </div>
+              </div>
+              <p className="text-center text-sm font-bold text-[#BF2638]">{t.retoHowLast}</p>
+            </div>
+          )}
 
           {/* Escalera de descuento */}
           <div className="mb-10 grid grid-cols-1 gap-4 sm:grid-cols-3">
@@ -1014,30 +1037,6 @@ export default function MundialClient({
                 ))}
               </div>
             </div>
-
-            {/* Cómo funciona + última oportunidad */}
-            {!reto.champion && (
-              <div className="mb-8 rounded-2xl border-2 border-[#FFC400]/70 bg-[#FFC400]/10 p-5 sm:p-6">
-                <h3 className="mb-3 text-center text-lg font-black text-[#1C1917] md:text-xl dark:text-[#F5F5F4]">
-                  {t.retoHowTitle}
-                </h3>
-                <p className="mb-4 text-sm leading-relaxed text-[#57534E] dark:text-[#D6D3D1]">
-                  {t.retoHowSignup(reto.pct)}
-                </p>
-                <p className="mb-2 text-sm font-bold text-[#1C1917] dark:text-[#F5F5F4]">{t.retoHowChoose}</p>
-                <div className="mb-4 grid gap-3 sm:grid-cols-2">
-                  <div className="rounded-xl border border-emerald-300 bg-emerald-50 p-3 dark:border-emerald-500/30 dark:bg-emerald-500/10">
-                    <span className="text-lg">✅</span>
-                    <p className="mt-1 text-sm leading-relaxed text-[#1C1917] dark:text-[#F5F5F4]">{t.retoHowSafe(reto.pct)}</p>
-                  </div>
-                  <div className="rounded-xl border border-red-300 bg-red-50 p-3 dark:border-red-500/30 dark:bg-red-500/10">
-                    <span className="text-lg">🎲</span>
-                    <p className="mt-1 text-sm leading-relaxed text-[#1C1917] dark:text-[#F5F5F4]">{t.retoHowRisk}</p>
-                  </div>
-                </div>
-                <p className="text-center text-sm font-bold text-[#BF2638]">{t.retoHowLast}</p>
-              </div>
-            )}
 
             {/* Apuntarse */}
             <div className="text-center">
