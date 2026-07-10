@@ -48,6 +48,16 @@ const copy = {
     pts: 'pts',
     signupNote: 'Apúntate ahora: tu descuento crece solo con cada victoria de España.',
     signupBtn: 'Apuntarme al reto',
+    retoHowTitle: '⚠️ Última oportunidad antes de la semifinal',
+    retoHowSignup: (p: number): string =>
+      `Para llevarte el descuento hay que apuntarse. Ahora mismo, quien se apunte se lleva ya un ${p}%.`,
+    retoHowChoose: 'Una vez apuntado, tú eliges:',
+    retoHowSafe: (p: number): string =>
+      `Asegúratelo: te construimos tu web con el ${p}% de descuento, sin riesgo.`,
+    retoHowRisk:
+      'Arriésgate al siguiente partido: si España gana, tu descuento sube (y si es campeona, tu web es GRATIS). Si España pierde, te quedas sin descuento (0%).',
+    retoHowLast:
+      'Apúntate antes de que empiece la semifinal: una vez se juegue, ya no podrás sumarte para aprovechar el resultado. Es la última oportunidad.',
     victoria:
       'Y brindamos por la Victoria: la de la Roja y la de Cervezas Victoria, la malagueña que patrocina a la selección. Nuestro estudio también es de Málaga. 🍺',
     gameTitle: 'Marca el penalti y rasca tu premio',
@@ -128,6 +138,16 @@ const copy = {
     pts: 'pts',
     signupNote: 'Sign up now: your discount grows on its own with every Spain win.',
     signupBtn: 'Join the challenge',
+    retoHowTitle: '⚠️ Last chance before the semifinal',
+    retoHowSignup: (p: number): string =>
+      `To claim the discount you must sign up. Right now, anyone who signs up already gets ${p}%.`,
+    retoHowChoose: 'Once signed up, you choose:',
+    retoHowSafe: (p: number): string =>
+      `Lock it in: we build your website with ${p}% off, no risk.`,
+    retoHowRisk:
+      'Risk it on the next match: if Spain wins, your discount goes up (and if they’re champions, your website is FREE). If Spain loses, you’re left with no discount (0%).',
+    retoHowLast:
+      'Sign up before the semifinal kicks off: once it’s played, you can no longer join to take advantage of the result. This is the last chance.',
     victoria:
       'And we toast to Victoria: La Roja’s win and Cervezas Victoria, the Málaga brewery sponsoring the national team. Our studio is from Málaga too. 🍺',
     gameTitle: 'Score the penalty and scratch your prize',
@@ -970,6 +990,30 @@ export default function MundialClient({
                 ))}
               </div>
             </div>
+
+            {/* Cómo funciona + última oportunidad */}
+            {!reto.champion && (
+              <div className="mb-8 rounded-2xl border-2 border-[#FFC400]/70 bg-[#FFC400]/10 p-5 sm:p-6">
+                <h3 className="mb-3 text-center text-lg font-black text-[#1C1917] md:text-xl dark:text-[#F5F5F4]">
+                  {t.retoHowTitle}
+                </h3>
+                <p className="mb-4 text-sm leading-relaxed text-[#57534E] dark:text-[#D6D3D1]">
+                  {t.retoHowSignup(reto.pct)}
+                </p>
+                <p className="mb-2 text-sm font-bold text-[#1C1917] dark:text-[#F5F5F4]">{t.retoHowChoose}</p>
+                <div className="mb-4 grid gap-3 sm:grid-cols-2">
+                  <div className="rounded-xl border border-emerald-300 bg-emerald-50 p-3 dark:border-emerald-500/30 dark:bg-emerald-500/10">
+                    <span className="text-lg">✅</span>
+                    <p className="mt-1 text-sm leading-relaxed text-[#1C1917] dark:text-[#F5F5F4]">{t.retoHowSafe(reto.pct)}</p>
+                  </div>
+                  <div className="rounded-xl border border-red-300 bg-red-50 p-3 dark:border-red-500/30 dark:bg-red-500/10">
+                    <span className="text-lg">🎲</span>
+                    <p className="mt-1 text-sm leading-relaxed text-[#1C1917] dark:text-[#F5F5F4]">{t.retoHowRisk}</p>
+                  </div>
+                </div>
+                <p className="text-center text-sm font-bold text-[#BF2638]">{t.retoHowLast}</p>
+              </div>
+            )}
 
             {/* Apuntarse */}
             <div className="text-center">
