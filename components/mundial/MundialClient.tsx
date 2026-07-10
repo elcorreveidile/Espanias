@@ -848,6 +848,30 @@ export default function MundialClient({
             </p>
           </div>
 
+          {/* Banner del reto: descuento actual + CTA (primero que ve quien llega desde la campaña) */}
+          <div className="mb-10 rounded-3xl border-2 border-[#FFC400]/70 bg-gradient-to-b from-[#1C1917] to-[#0c1626] p-6 text-center text-white sm:p-8">
+            {reto.champion ? (
+              <div className="text-3xl font-black text-[#FFC400]">{t.champBanner}</div>
+            ) : (
+              <>
+                <div className="text-xs font-bold uppercase tracking-wider text-stone-300">{t.discountNow}</div>
+                <div className="my-1 text-6xl font-black text-[#FFC400] md:text-7xl">{reto.pct}%</div>
+                {next && (
+                  <p className="mx-auto mt-2 max-w-md text-sm font-semibold text-[#FFC400]">
+                    {t.retoHowTitle} · 🇪🇸 España vs {next.rival || t.vsTbd} ·{' '}
+                    {lang === 'es' ? next.fechaEs : next.fechaEn}
+                  </p>
+                )}
+              </>
+            )}
+            <a
+              href="https://www.por2duros.com/reto-mundial"
+              className="mt-5 inline-block rounded-lg bg-[#BF2638] px-7 py-3 font-bold text-white transition-colors hover:bg-[#a01f2e]"
+            >
+              {t.signupBtn}
+            </a>
+          </div>
+
           {/* Escalera de descuento */}
           <div className="mb-10 grid grid-cols-1 gap-4 sm:grid-cols-3">
             {t.ladder.map((row, i) => (
