@@ -48,7 +48,7 @@ const copy = {
     pts: 'pts',
     signupNote: 'Apúntate ahora: tu descuento crece solo con cada victoria de España.',
     signupBtn: 'Apuntarme al reto',
-    retoHowTitle: '⚠️ Última oportunidad antes de la semifinal',
+    retoHowTitle: '⚠️ Última oportunidad antes de la final',
     retoHowSignup: (p: number): string =>
       `Para llevarte el descuento hay que apuntarse. Ahora mismo, quien se apunte se lleva ya un ${p}%.`,
     retoHowChoose: 'Una vez apuntado, tú eliges:',
@@ -57,7 +57,7 @@ const copy = {
     retoHowRisk:
       'Arriésgate al siguiente partido: si España gana, tu descuento sube (y si es campeona, tu web es GRATIS). Si España pierde, te quedas sin descuento (0%).',
     retoHowLast:
-      'Apúntate antes de que empiece la semifinal: una vez se juegue, ya no podrás sumarte para aprovechar el resultado. Es la última oportunidad.',
+      'Apúntate antes de que empiece la final: es el último partido, así que es tu última oportunidad. Una vez se juegue, ya no podrás sumarte para aprovechar el resultado.',
     victoria:
       'Y brindamos por la Victoria: la de la Roja y la de Cervezas Victoria, la malagueña que patrocina a la selección. Nuestro estudio también es de Málaga. 🍺',
     gameTitle: 'Marca el penalti y rasca tu premio',
@@ -138,7 +138,7 @@ const copy = {
     pts: 'pts',
     signupNote: 'Sign up now: your discount grows on its own with every Spain win.',
     signupBtn: 'Join the challenge',
-    retoHowTitle: '⚠️ Last chance before the semifinal',
+    retoHowTitle: '⚠️ Last chance before the final',
     retoHowSignup: (p: number): string =>
       `To claim the discount you must sign up. Right now, anyone who signs up already gets ${p}%.`,
     retoHowChoose: 'Once signed up, you choose:',
@@ -147,7 +147,7 @@ const copy = {
     retoHowRisk:
       'Risk it on the next match: if Spain wins, your discount goes up (and if they’re champions, your website is FREE). If Spain loses, you’re left with no discount (0%).',
     retoHowLast:
-      'Sign up before the semifinal kicks off: once it’s played, you can no longer join to take advantage of the result. This is the last chance.',
+      'Sign up before the final kicks off: it’s the last match, so this is your final chance. Once it’s played, you can no longer join to take advantage of the result.',
     victoria:
       'And we toast to Victoria: La Roja’s win and Cervezas Victoria, the Málaga brewery sponsoring the national team. Our studio is from Málaga too. 🍺',
     gameTitle: 'Score the penalty and scratch your prize',
