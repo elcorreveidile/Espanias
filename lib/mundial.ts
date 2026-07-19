@@ -30,7 +30,7 @@ export const ESPANA_PATH: EspMatch[] = [
   { faseEs: 'Octavos', faseEn: 'Round of 16', rival: 'Portugal', fechaEs: '6 jul', fechaEn: 'Jul 6', estado: 'ganado', marcador: '1–0' },
   { faseEs: 'Cuartos', faseEn: 'Quarter-final', rival: 'Bélgica', fechaEs: '10 jul', fechaEn: 'Jul 10', estado: 'ganado', marcador: '2–1' },
   { faseEs: 'Semifinal', faseEn: 'Semi-final', rival: 'Francia', fechaEs: '14 jul', fechaEn: 'Jul 14', estado: 'ganado', marcador: '2–0' },
-  { faseEs: 'FINAL', faseEn: 'FINAL', rival: '', fechaEs: '19 jul', fechaEn: 'Jul 19', estado: 'proximo', esFinal: true },
+  { faseEs: 'FINAL', faseEn: 'FINAL', rival: 'Argentina', fechaEs: '19 jul', fechaEn: 'Jul 19', estado: 'ganado', marcador: '1–0', esFinal: true },
 ]
 
 export const WIN_DISCOUNT = 15
