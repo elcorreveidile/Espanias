@@ -63,12 +63,6 @@ export default function Nav() {
             </Link>
           ))}
           <Link
-            href="/mundial"
-            className="text-sm font-bold text-[#BF2638] transition-colors hover:text-[#1C1917] dark:hover:text-white"
-          >
-            {lang === 'es' ? '🇪🇸 Mundial 2026' : '🇪🇸 World Cup 2026'}
-          </Link>
-          <Link
             href="/ecr"
             className="text-sm font-bold text-[#2f6b4f] transition-colors hover:text-[#1C1917] dark:text-[#7FB89B] dark:hover:text-white"
           >
@@ -133,9 +127,6 @@ export default function Nav() {
           </Link>
           <Link href="/contacto" onClick={close} className="text-sm text-[#78716C] dark:text-[#A8A29E]">
             {t.contact}
-          </Link>
-          <Link href="/mundial" onClick={close} className="text-sm font-bold text-[#BF2638]">
-            {lang === 'es' ? '🇪🇸 Mundial 2026' : '🇪🇸 World Cup 2026'}
           </Link>
           <Link href="/ecr" onClick={close} className="text-sm font-bold text-[#2f6b4f] dark:text-[#7FB89B]">
             ♻️ ECR
