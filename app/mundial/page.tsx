@@ -1,26 +1,20 @@
 import type { Metadata } from 'next'
 import MundialClient from '@/components/mundial/MundialClient'
-import { getMundialData } from '@/lib/mundial-live'
-
-// Revalida los datos del Mundial (en vivo si hay API; si no, manuales).
-export const revalidate = 1800
 
 export const metadata: Metadata = {
-  title: 'Mundial 2026 · El reto de Espanias',
+  title: 'Mundial 2026 · España campeona',
   description:
-    'Cuanto más gana España, menos cuesta tu web. Marca el penalti, rasca tu cupón y apúntate. Si España es campeona del Mundo, tu web es gratis.',
+    'El Reto Mundial de Espanias ha terminado. España, campeona del mundo 2026. Se entregaron 7 webs completas gratis.',
   alternates: { canonical: 'https://www.espanias.com/mundial' },
   openGraph: {
-    title: 'Mundial 2026 · El reto de Espanias',
+    title: 'Mundial 2026 · España campeona | Espanias',
     description:
-      'Cuanto más gana España, menos cuesta tu web. Marca el penalti y rasca tu cupón.',
+      'El reto ha terminado: España campeona del mundo y 7 webs completas gratis entregadas.',
     url: 'https://www.espanias.com/mundial',
-    images: ['/blog/espana-uruguay-mundial.webp'],
     type: 'website',
   },
 }
 
-export default async function MundialPage() {
-  const { path, group } = await getMundialData()
-  return <MundialClient path={path} group={group} />
+export default function MundialPage() {
+  return <MundialClient />
 }
