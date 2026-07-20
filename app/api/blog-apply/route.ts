@@ -11,7 +11,9 @@ import { checkAdminToken } from "@/lib/admin-token";
 // Abrir una vez con ?token=... tras el deploy. Borrar después.
 export const dynamic = "force-dynamic";
 
-const CONTENIDO_ES = `## Esta madrugada arranca el reto: que España nos haga la web más barata (o gratis)
+const CONTENIDO_ES = `> **🏆 Actualización — El Mundial ha terminado. ¡España, campeona del mundo 2026!** El reto se cerró con **7 negocios que se llevaron su web completa GRATIS**. Gracias a todos los que os apuntasteis y lo vivisteis con nosotros. Abajo dejamos el artículo original con el que arrancó la promoción.
+
+## Esta madrugada arranca el reto: que España nos haga la web más barata (o gratis)
 
 A las **02:00 de la madrugada del viernes** (hora peninsular), España se juega el Mundial 2026 contra Uruguay en Guadalajara. De madrugada, con los bares y las calles a reventar pese a la hora: **ambientazo asegurado**. Y nosotros nos sumamos con un reto que pone a la Roja a jugar… **por tu web**.
 
@@ -56,7 +58,9 @@ Así que esta madrugada brindamos doble: por la **Victoria** que abarata tu web 
 
 *Bases rápidas: promoción válida durante el Mundial 2026. Descuento acumulable por cada victoria de España hasta el 100% (web gratis únicamente si España se proclama campeona). Aplicable a una web a medida (landing / one-page); detalles finales acordados con cada participante. Una participación por persona.*`;
 
-const CONTENIDO_EN = `## Tonight the challenge kicks off: let Spain make your website cheaper (or free)
+const CONTENIDO_EN = `> **🏆 Update — The World Cup is over. Spain are world champions 2026!** The challenge closed with **7 businesses that got their complete website FREE**. Thanks to everyone who signed up and lived it with us. Below is the original article that kicked off the promotion.
+
+## Tonight the challenge kicks off: let Spain make your website cheaper (or free)
 
 At **2:00 a.m. on Friday** (Spanish peninsular time), Spain face Uruguay at the 2026 World Cup in Guadalajara. In the middle of the night, with bars and streets packed despite the hour: **an unbeatable atmosphere**. And we're joining the party with a challenge that puts *La Roja* to play… **for your website**.
 
