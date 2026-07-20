@@ -1,6 +1,7 @@
 'use server'
 
 import { escapeHtml } from '@/lib/html'
+import { sendEmail, emailConfigured } from '@/lib/email'
 
 export type ContactResult = { ok: true } | { ok: false; error: string }
 
@@ -20,8 +21,7 @@ export async function sendContact(
     return { ok: false, error: 'Todos los campos son obligatorios.' }
   }
 
-  const apiKey = process.env.RESEND_API_KEY
-  if (!apiKey) {
+  if (!emailConfigured()) {
     // Dev fallback: log and pretend success so the form UX is testable locally
     if (process.env.NODE_ENV === 'development') {
       console.log('[Espanias contact]', { name, email, message })
@@ -36,18 +36,7 @@ export async function sendContact(
   const mailtoEmail = encodeURIComponent(email.trim())
   const safeMessage = escapeHtml(message).replace(/\n/g, '<br>')
 
-  const res = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      from: 'Espanias <hola@espanias.com>',
-      to: 'makicarapp@gmail.com',
-      reply_to: email,
-      subject: `[Espanias] Nuevo mensaje de ${safeName}`,
-      html: `<!DOCTYPE html>
+  const html = `<!DOCTYPE html>
 <html lang="es">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
 <body style="margin:0;padding:0;background:#F9F7F4;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
@@ -116,16 +105,19 @@ export async function sendContact(
     </td></tr>
   </table>
 </body>
-</html>`,
-    }),
-  })
+</html>`
 
-  if (!res.ok) {
-    const body = await res.json().catch(() => ({}))
-    console.error('[Espanias contact] Resend error:', res.status, JSON.stringify(body))
-    const msg = (body as { message?: string }).message ?? JSON.stringify(body)
-    return { ok: false, error: `Error ${res.status}: ${msg}` }
+  try {
+    await sendEmail({
+      to: 'makicarapp@gmail.com',
+      from: 'Espanias <hola@espanias.com>',
+      replyTo: email,
+      subject: `[Espanias] Nuevo mensaje de ${safeName}`,
+      html,
+    })
+    return { ok: true }
+  } catch (e) {
+    console.error('[Espanias contact] envío falló:', e)
+    return { ok: false, error: 'No se pudo enviar el mensaje. Inténtalo de nuevo.' }
   }
-
-  return { ok: true }
 }

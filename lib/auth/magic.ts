@@ -53,15 +53,11 @@ export async function consumeMagicToken(token: string): Promise<string | null> {
 
 /** Envía el enlace mágico por email vía Resend. */
 export async function sendMagicLink(email: string, url: string): Promise<void> {
-  const { Resend } = await import('resend')
-  const apiKey = process.env.RESEND_API_KEY
-  if (!apiKey) throw new Error('RESEND_API_KEY no está configurado')
+  const { sendEmail } = await import('@/lib/email')
   const from = process.env.EMAIL_FROM || 'Espanias <noreply@espanias.com>'
-  const resend = new Resend(apiKey)
-
-  const { error } = await resend.emails.send({
-    from,
+  await sendEmail({
     to: email,
+    from,
     subject: 'Tu enlace de acceso a Espanias',
     html: `
       <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto; padding: 24px;">
@@ -74,10 +70,4 @@ export async function sendMagicLink(email: string, url: string): Promise<void> {
       </div>
     `,
   })
-
-  if (error) {
-    throw new Error(
-      `Resend rechazó el envío: ${error.message ?? JSON.stringify(error)}`
-    )
-  }
 }
